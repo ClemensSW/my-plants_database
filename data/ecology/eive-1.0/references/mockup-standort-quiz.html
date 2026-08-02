@@ -1,0 +1,711 @@
+<title>EIVE — Standort-Quiz & Handbuch</title>
+<style>
+:root{
+  --ground:#E4E6DE;--panel:#F3F4EF;--sunk:#D8DBD0;--ink:#24271F;--muted:#6E7366;
+  --rule:#CDD0C4;--moss:#5E7355;--moss-soft:#DDE4D7;
+  --shadow:0 1px 2px rgba(30,36,24,.06),0 12px 32px rgba(30,36,24,.10);
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  /* App-Tokens 1:1 aus myplants-app/src/theme/colors.ts */
+  --scr:#F6F6F6;--white:#fff;--alt:#EDEDED;--green:#4CAF50;--greenDk:#45A049;
+  --eyeGreen:#2E7D32;--lip:#337836;--wrongB:#D3C2AC;--wrongF:#E9E0D6;
+  --title:#2D2D2B;--sub:#6C7376;--cap:#999999;--grey:#D9D9D9;
+}
+@media(prefers-color-scheme:dark){:root{--ground:#171A15;--panel:#22261D;--sunk:#12140F;
+  --ink:#DEE1D5;--muted:#8E9384;--rule:#333829;--moss:#95AF88;--moss-soft:#2A3324;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{--ground:#171A15;--panel:#22261D;--sunk:#12140F;--ink:#DEE1D5;
+  --muted:#8E9384;--rule:#333829;--moss:#95AF88;--moss-soft:#2A3324;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.45)}
+:root[data-theme="light"]{--ground:#E4E6DE;--panel:#F3F4EF;--sunk:#D8DBD0;--ink:#24271F;
+  --muted:#6E7366;--rule:#CDD0C4;--moss:#5E7355;--moss-soft:#DDE4D7;
+  --shadow:0 1px 2px rgba(30,36,24,.06),0 12px 32px rgba(30,36,24,.10)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.masthead{max-width:1200px;margin:0 auto;padding:34px 20px 10px}
+.masthead h1{margin:0;font-size:clamp(21px,3.2vw,29px);line-height:1.15;letter-spacing:-.02em;
+  font-weight:650;text-wrap:balance}
+.masthead p{margin:9px 0 0;max-width:68ch;color:var(--muted);font-size:14.5px}
+.stamp{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--moss);margin-bottom:9px}
+.bar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--ground) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);margin-top:22px}
+.bar-in{max-width:1200px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px 22px;
+  align-items:center}
+.grp{display:flex;align-items:center;gap:7px;min-width:0}
+.grp>span{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap}
+.seg{display:flex;background:var(--sunk);border-radius:9px;padding:2px;gap:2px}
+.seg button{border:0;background:none;color:var(--muted);font:inherit;font-size:12.5px;
+  padding:5px 11px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);font-weight:600;
+  box-shadow:0 1px 2px rgba(0,0,0,.10)}
+.seg button:focus-visible{outline:2px solid var(--moss);outline-offset:1px}
+.stage{max-width:1200px;margin:0 auto;padding:30px 20px 70px;display:grid;gap:34px;
+  grid-template-columns:1fr;justify-items:center}
+@media(min-width:1020px){.stage{grid-template-columns:auto minmax(330px,1fr);align-items:start;
+  justify-items:start}}
+.deviceWrap{display:flex;flex-direction:column;align-items:center;gap:11px}
+.device{background:var(--scr);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;
+  position:relative;width:393px;height:800px;display:flex;flex-direction:column;
+  font-family:var(--sans);color:var(--title);transition:width .25s,height .25s}
+body[data-dev="small"] .device{width:360px;height:640px}
+.devLabel{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.05em}
+
+/* ── Sitzungs-Header ─────────────────────────────────────────────────────── */
+.hdr{display:flex;align-items:center;gap:14px;padding:14px 16px 6px;flex:none}
+.hdr .x{font-size:20px;line-height:1;color:var(--title);opacity:.72}
+.track{flex:1;height:14px;border-radius:8px;background:var(--alt);overflow:hidden}
+.track i{display:block;height:100%;border-radius:8px;
+  background:linear-gradient(90deg,var(--green),var(--greenDk));transition:width .45s ease}
+.leaf{display:flex;align-items:center;gap:5px;font-weight:700;font-size:15px;color:var(--greenDk)}
+.leaf.hit{animation:shake .5s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}
+  50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+
+/* ── Screen: Aufgabe oben, Container mittig, Button unten ────────────────── */
+.screen{flex:1;display:flex;flex-direction:column;padding:0 24px 14px;min-height:0}
+.task{text-align:center;margin-top:8px;flex:none}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--eyeGreen)}
+/* Icon auf eigener Zeile über der Frage — dann steht die Frage exakt mittig. */
+.qic{margin-top:9px;font-size:27px;line-height:1}
+body[data-dev="small"] .qic{margin-top:7px;font-size:24px}
+.qhead{margin-top:6px;font-size:22px;font-weight:750;letter-spacing:-.02em;line-height:1.24;
+  text-wrap:balance;min-height:54px;display:flex;align-items:center;justify-content:center}
+body[data-dev="small"] .qhead{font-size:20px;min-height:50px}
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;min-height:0}
+
+/* ── Standort-Container ──────────────────────────────────────────────────── */
+.slotCard{background:var(--white);border-radius:18px;padding:13px 13px 13px;cursor:pointer;
+  box-shadow:0 5px 14px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
+  transition:box-shadow .2s,transform .14s}
+.slotCard:not(.filled):hover{transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.04)}
+.slotCard:focus-visible{outline:2px solid var(--eyeGreen);outline-offset:2px}
+.slotCard.filled{cursor:default}
+.lane{position:relative;height:28px;border-radius:10px;overflow:hidden;background:#F1F1EF}
+body[data-dev="small"] .lane{height:24px}
+.lane .faint{position:absolute;inset:0;background:var(--ramp);opacity:.15}
+.lane .band{position:absolute;top:3px;bottom:3px;border-radius:8px;background:var(--ramp);
+  background-size:var(--bs) 100%;background-position:var(--bp) 0;
+  box-shadow:0 1px 3px rgba(0,0,0,.2),0 0 0 1.5px #fff inset}
+.laneEnds{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;
+  color:var(--cap);padding:0 1px}
+
+.holder{margin-top:10px;height:66px;border-radius:13px;display:flex;align-items:center;gap:12px;
+  padding:0 12px;transition:background .2s,border-color .2s}
+body[data-dev="small"] .holder{height:60px;margin-top:8px}
+.holder.empty{border:2px dashed #D6D9D0;background:#FAFAF8;justify-content:center}
+.holder.empty .ph{font-size:13px;color:#9EA294;font-weight:600;display:flex;align-items:center;gap:7px}
+.holder.empty .ph i{font-style:normal;font-size:15px;opacity:.75}
+.slotCard:not(.filled):hover .holder.empty{border-color:var(--green);background:#F0F8F0}
+.holder .img{width:52px;height:52px;border-radius:8px;flex:none}
+body[data-dev="small"] .holder .img{width:46px;height:46px}
+.holder .tx{flex:1;min-width:0}
+.holder .de{font-size:15.5px;font-weight:600;color:var(--title);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;line-height:1.25}
+.holder .la{font-size:13px;font-style:italic;color:var(--sub);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;line-height:1.25}
+.holder .res{flex:none;text-align:right}
+.holder .res .n{font-size:14px;font-weight:700;color:var(--title);display:block}
+.holder .res .sw{font-size:10.5px;color:var(--sub);display:block;margin-top:1px;
+  font-variant-numeric:tabular-nums}
+.slotCard.filled{box-shadow:0 0 0 2px var(--green),0 5px 14px rgba(0,0,0,.07)}
+.holder.set{animation:snap .34s cubic-bezier(.2,1.4,.4,1)}
+@keyframes snap{0%{transform:scale(.94);opacity:.4}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+.foot{flex:none}
+/* Der Frageknopf ist 1:1 PlantInContextComponent.questionButton aus Flora Check:
+   weiße Fläche, minHeight RH(56), Radius RPH(16), 1 px Hairline rgba(0,0,0,.06),
+   Text semiBold RPH(15) zentriert, Chevron absolut rechts bei RW(16), Opacity .7. */
+.askBtn{position:relative;width:100%;min-height:56px;background:var(--white);border-radius:16px;
+  border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;
+  padding:0 16px;margin-bottom:8px;cursor:pointer;font:inherit;
+  box-shadow:0 6px 20px rgba(0,0,0,.10);transition:transform .12s}
+.askBtn:active{transform:scale(.99)}
+.askBtn:focus-visible{outline:2px solid var(--eyeGreen);outline-offset:2px}
+.askBtn span{font-size:15px;font-weight:600;color:var(--title)}
+.askBtn svg{position:absolute;right:16px;opacity:.7}
+.btn{width:100%;border:0;border-radius:16px;height:50px;font:inherit;font-size:15px;font-weight:700;
+  cursor:pointer;display:grid;place-items:center;margin-bottom:8px}
+.btnGreen{background:var(--green);color:#fff;box-shadow:0 3px 0 var(--lip)}
+.btnGreen:active{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+.btn:focus-visible{outline:2px solid var(--lip);outline-offset:2px}
+.btn:disabled{cursor:default}
+
+/* ── Bottom-Sheet zur Auswahl ────────────────────────────────────────────── */
+.scrim{position:absolute;inset:0;background:rgba(20,24,16,.42);opacity:0;pointer-events:none;
+  transition:opacity .28s;z-index:5}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;
+  padding:10px 24px 20px;transform:translateY(102%);z-index:6;
+  transition:transform .34s cubic-bezier(.2,.9,.3,1);box-shadow:0 -8px 30px rgba(0,0,0,.16)}
+.sheet.on{transform:translateY(0)}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--grey);margin:0 auto 12px}
+.shTitle{font-size:18px;font-weight:700;color:var(--title);margin-bottom:12px}
+.shLanePrev{position:relative;height:26px;border-radius:9px;overflow:hidden;background:#F1F1EF;
+  margin-bottom:6px}
+.shLanePrev .faint{position:absolute;inset:0;background:var(--ramp);opacity:.15}
+.shLanePrev .band{position:absolute;top:3px;bottom:3px;border-radius:7px;background:var(--ramp);
+  background-size:var(--bs) 100%;background-position:var(--bp) 0;box-shadow:0 0 0 1.5px #fff inset}
+.shEnds{display:flex;justify-content:space-between;font-size:10px;color:var(--cap);margin-bottom:14px}
+/* Pflanzenzeile im Chatbot-Idiom (PlantChatRow: 72 hoch, Bild 56/r8) */
+.prow{display:flex;align-items:center;gap:12px;height:72px;padding:0 12px;border-radius:12px;
+  background:var(--white);width:100%;border:1.5px solid rgba(0,0,0,.05);margin-bottom:9px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);cursor:pointer;text-align:left;font:inherit;
+  transition:border-color .18s,background .18s,transform .14s,opacity .2s}
+body[data-dev="small"] .prow{height:64px}
+.prow:hover{transform:translateY(-1px)}
+.prow:focus-visible{outline:2px solid var(--eyeGreen);outline-offset:2px}
+.prow .img{width:56px;height:56px;border-radius:8px;flex:none}
+body[data-dev="small"] .prow .img{width:50px;height:50px}
+.prow .tx{flex:1;min-width:0}
+.prow .de{font-size:16px;font-weight:500;color:var(--title);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;line-height:1.25;display:block}
+.prow .la{font-size:14px;font-style:italic;color:var(--sub);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;line-height:1.25;display:block}
+.prow .mark{font-size:15px;flex:none;color:var(--cap)}
+.prow.wrong{border-width:2px;border-color:var(--wrongB);background:var(--wrongF);cursor:default}
+.prow.wrong .mark{color:#A08662}
+.prow.used{opacity:.42;cursor:default}
+.prow.good{border-color:var(--green);box-shadow:0 0 0 2px var(--green),0 2px 8px rgba(0,0,0,.06)}
+
+/* ── Handbuch ────────────────────────────────────────────────────────────── */
+.hbHero{height:172px;position:relative;flex:none}
+.hbHero .nm{position:absolute;left:20px;bottom:15px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.hbHero .nm b{display:block;font-size:22px;font-weight:750;letter-spacing:-.01em}
+.hbHero .nm i{font-size:13px;opacity:.92}
+.hbScroll{flex:1;overflow-y:auto;padding-bottom:20px;background:var(--scr)}
+.hbSec{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--cap);padding:18px 24px 10px}
+.hbTxt{margin:0 24px;font-size:14.5px;line-height:1.55}
+.strip{display:flex;gap:11px;overflow-x:auto;padding:2px 24px 20px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.eCard{flex:none;width:158px;background:#fff;border-radius:17px;padding:13px 14px;border:0;
+  box-shadow:0 6px 14px rgba(0,0,0,.09);cursor:pointer;text-align:left;font:inherit}
+.eCard .ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:18px}
+.eCard .lb{margin-top:10px;font-size:12px;color:var(--sub)}
+.eCard .vl{margin-top:1px;font-size:16px;font-weight:750;color:var(--title)}
+.eCard .mini{margin-top:9px;position:relative;height:16px;border-radius:6px;overflow:hidden;
+  background:#F1F1EF;display:block}
+.eCard .mini .faint{position:absolute;inset:0;background:var(--ramp);opacity:.16}
+.eCard .mini .band{position:absolute;top:2px;bottom:2px;border-radius:5px;background:var(--ramp);
+  background-size:var(--bs) 100%;background-position:var(--bp) 0;box-shadow:0 0 0 1.5px #fff inset}
+.shHead{display:flex;align-items:center;gap:13px}
+.shHead .ic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:24px}
+.shHead .lb{font-size:13px;color:var(--sub)}
+.shHead .vl{font-size:21px;font-weight:750;margin-top:1px}
+
+/* Das Diagramm im Detailmodal: Achse 0–10, das Band darauf, die Zahlen AM Band.
+   Es ersetzt den früheren Erklärabsatz — man liest es, statt es erklärt zu bekommen. */
+.chart{position:relative;margin-top:26px;padding-bottom:2px}
+.pinLbl{position:absolute;top:-23px;transform:translateX(-50%);background:var(--title);color:#fff;
+  font-family:var(--mono);font-size:12.5px;font-weight:700;border-radius:7px;padding:2px 8px;
+  white-space:nowrap;z-index:3}
+.pinLbl::after{content:"";position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);
+  border:4px solid transparent;border-top-color:var(--title);border-bottom:0}
+.shLane{position:relative;height:30px;border-radius:11px;overflow:hidden;background:#F1F1EF}
+.shLane .faint{position:absolute;inset:0;background:var(--ramp);opacity:.16}
+.shLane .band{position:absolute;top:3px;bottom:3px;border-radius:9px;background:var(--ramp);
+  background-size:var(--bs) 100%;background-position:var(--bp) 0;box-shadow:0 0 0 2px #fff inset}
+.shLane .pin{position:absolute;top:1px;bottom:1px;width:2.5px;background:#fff;border-radius:2px;
+  box-shadow:0 0 0 1px rgba(0,0,0,.28);z-index:2}
+.edge{position:absolute;top:33px;font-family:var(--mono);font-size:11px;color:var(--sub);
+  font-weight:600}
+.edge.lo{transform:translateX(-50%)} .edge.hi{transform:translateX(-50%)}
+.axis{position:relative;height:24px;margin-top:19px;border-top:1px solid #E4E5E0}
+.axis .tk{position:absolute;top:0}
+.axis .tk i{position:absolute;top:-1px;left:0;width:1px;height:5px;background:#D6D8D1}
+.axis .tk em{position:absolute;top:6px;left:0;transform:translateX(-50%);font-family:var(--mono);
+  font-size:10.5px;color:var(--cap);font-style:normal}
+.shWords{display:flex;justify-content:space-between;margin-top:-6px;font-size:11.5px;color:var(--sub)}
+.shSrc{margin-top:18px;display:flex;align-items:center;gap:6px;background:none;border:0;
+  padding:0;font:inherit;font-size:12.5px;color:var(--cap);cursor:pointer}
+.shSrc:focus-visible{outline:2px solid var(--eyeGreen);outline-offset:2px}
+/* Die Quellenseite der App — das Sheet legt sich darüber, wie im echten Flow. */
+.srcPage{position:absolute;inset:0;background:var(--scr);z-index:8;display:flex;
+  flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.9,.3,1)}
+.srcPage.on{transform:none}
+.srcBar{display:flex;align-items:center;gap:12px;padding:16px 20px 12px;flex:none}
+.srcBar .bk{font-size:20px;color:var(--title);cursor:pointer}
+.srcBar h3{margin:0;font-size:17px;font-weight:700}
+.srcBody{padding:4px 20px 20px;overflow-y:auto}
+.srcItem{background:#fff;border-radius:14px;padding:14px 15px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.srcItem b{display:block;font-size:14.5px;margin-bottom:5px}
+.srcItem p{margin:0;font-size:13px;line-height:1.5;color:var(--sub)}
+.srcItem .lic{display:inline-block;margin-top:9px;font-size:11px;font-weight:700;color:var(--eyeGreen);
+  background:#E8F3E8;border-radius:6px;padding:3px 8px}
+
+.notes{max-width:540px}
+.notes h2{font-size:17.5px;margin:0 0 4px;font-weight:650;letter-spacing:-.01em}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--moss);margin-bottom:12px}
+.notes p{margin:0 0 13px;font-size:14px;color:var(--muted);line-height:1.62}
+.notes strong{color:var(--ink);font-weight:600} .notes q{font-style:italic}
+.facts{border-top:1px solid var(--rule);margin-top:18px;padding-top:14px;display:grid;gap:9px}
+.fact{display:grid;grid-template-columns:118px 1fr;gap:12px;font-size:13px;align-items:baseline}
+.fact dt{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted)}
+.fact dd{margin:0;color:var(--ink)} .fact dd b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.warn{margin-top:16px;padding:12px 14px;border-radius:11px;background:var(--moss-soft);
+  font-size:13.2px;line-height:1.55} .warn b{color:var(--ink)}
+.hide{display:none !important}
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition-duration:.01ms !important}}
+</style>
+
+<div class="masthead">
+  <div class="stamp">Konzeptstand 02.08.2026 · echte EIVE-Werte</div>
+  <h1>Standort — zwei Plätze, zwei Pflanzen</h1>
+  <p>EIVE beschreibt eine Art nicht mit einem Wert, sondern mit dem <em>Bereich</em>, in dem sie
+     wächst. Auf dem Schirm stehen nur die beiden Standorte. Ein Tipp auf den Platzhalter öffnet
+     die Auswahl — falsch gewählt kostet ein Blatt, danach geht es weiter, genau wie bei den
+     anderen Quiztypen.</p>
+</div>
+
+<div class="bar"><div class="bar-in">
+  <div class="grp"><span>Ansicht</span><div class="seg" id="segView">
+    <button data-v="quiz" aria-pressed="true">Quiz · Standort</button>
+    <button data-v="hbA" aria-pressed="false">Handbuch</button>
+  </div></div>
+  <div class="grp" id="grpFactor"><span>Faktor</span><div class="seg" id="segFactor"></div></div>
+  <div class="grp" id="grpPair"><span>Paar</span><div class="seg" id="segPair"></div></div>
+  <div class="grp"><span>Gerät</span><div class="seg" id="segDev">
+    <button data-d="std" aria-pressed="true">393×852</button>
+    <button data-d="small" aria-pressed="false">360×640</button>
+  </div></div>
+</div></div>
+
+<div class="stage">
+  <div class="deviceWrap">
+    <div class="device" id="dev"></div>
+    <div class="devLabel" id="devLabel">393 × 852 dp</div>
+  </div>
+  <div class="notes" id="notes"></div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════════
+   EIVE 1.0 — echte Werte aus SM_08 (Zenodo 7534792, CC BY 4.0).
+   p = Nischenposition 0–10 · w = Nischenbreite (nw3) · n = Quellsysteme.
+   Wuchsbereich = [p − w/2, p + w/2], auf 0–10 gekappt.
+   Spannenwörter = die Kategoriewerte der Quellsysteme (Paper S. 15):
+     „#" eng 1,25 · „I" normal 2,5 · „II" breit 5 · „x" indifferent 7,5.
+   ════════════════════════════════════════════════════════════════════════════ */
+const SPAN=[{max:2.5,word:'sehr wählerisch',hint:'will genau das'},
+            {max:5.0,word:'wählerisch',hint:'hat eine klare Vorliebe'},
+            {max:7.5,word:'anpassungsfähig',hint:'kommt mit vielem zurecht'},
+            {max:99, word:'nahezu überall',hint:'macht so gut wie alles mit'}];
+const spanOf=w=>SPAN.find(s=>w<s.max);
+
+/* Rampen aus dem gärtnerischen Bild, nachgemessen: jede Farbe ΔE ≥ 17 zu den
+   Statusfarben (#4CAF50 / #D3C2AC / #E9E0D6) und ≥ 17 zur Bahn #F1F1EF.      */
+const FACTORS={
+  /* Kategoriegrenzen (cut) sind NICHT gesetzt, sondern hergeleitet: die Ellenberg-
+     Klassengrenzen (Ellenberg et al. 1991) wurden über eine Regression EIVE↔Tichý
+     (n = 6.860–7.731 Arten, r = 0,92–0,96) auf die EIVE-Skala abgebildet.
+     Die Skalenenden folgen der EIVE-Definition: 0 = niedrigster, 10 = höchster in
+     EUROPA vorkommender Wert des jeweiligen Standortfaktors.                        */
+  L:{ic:'☀',name:'Licht',q:'Licht: Wer wächst wo?',ask:'Welche Pflanze wächst hier?',
+     ends:['tiefer Schatten','volle Sonne'],
+     ramp:['#2F3742','#BE9646','#F6DC9B'],words:['Schattig','Halbschattig','Sonnig'],cut:[3.15,6.40]},
+  M:{ic:'💧',name:'Feuchte',q:'Feuchte: Wer wächst wo?',ask:'Welche Pflanze wächst hier?',
+     ends:['extrem trocken','im Wasser'],
+     ramp:['#BCD8E8','#5C9AB8','#0E3D58'],words:['Trocken','Frisch','Feucht'],cut:[3.70,5.19]},
+  T:{ic:'🌡',name:'Wärme',q:'Wärme: Wer wächst wo?',ask:'Welche Pflanze wächst hier?',
+     ends:['sehr kalt','sehr warm'],
+     ramp:['#2E6394','#A3ABA8','#C0452A'],words:['Kühl','Mäßig warm','Warm'],cut:[2.69,4.98]},
+  N:{ic:'🌱',name:'Stickstoff',q:'Stickstoff: Wer wächst wo?',ask:'Welche Pflanze wächst hier?',
+     ends:['sehr stickstoffarm','sehr stickstoffreich'],
+     ramp:['#D5E0B4','#8CA04C','#2F401A'],words:['Mager','Mäßig','Stickstoffreich'],cut:[3.62,6.55]},
+  R:{ic:'⚗',name:'Boden-pH',q:'Boden-pH: Wer wächst wo?',ask:'Welche Pflanze wächst hier?',
+     ends:['stark sauer','stark kalkhaltig'],
+     ramp:['#93412E','#A3ABA8','#5B5FA4'],words:['Sauer','Mäßig sauer','Kalkreich'],cut:[3.73,6.68]},
+};
+const ORDER=['L','M','T','N','R'];
+const P=(de,la,a,b,v)=>({de,la,a,b,...v});
+const PLANTS={
+  fagus:P('Rot-Buche','Fagus sylvatica','#8FA96E','#3D5730',
+   {L:{p:3.00,w:7.78,n:18},T:{p:4.11,w:3.76,n:20},M:{p:4.57,w:3.23,n:24},R:{p:5.85,w:7.36,n:18},N:{p:4.86,w:6.88,n:16}}),
+  pinus:P('Wald-Kiefer','Pinus sylvestris','#A6B884','#4B6B4A',
+   {L:{p:7.10,w:5.51,n:18},T:{p:3.71,w:4.59,n:15},M:{p:4.37,w:6.67,n:20},R:{p:5.13,w:9.46,n:16},N:{p:2.69,w:8.05,n:15}}),
+  thymus:P('Sand-Thymian','Thymus serpyllum','#C9AECD','#7A5488',
+   {L:{p:7.35,w:4.24,n:15},T:{p:4.32,w:4.10,n:16},M:{p:2.52,w:3.56,n:23},R:{p:4.66,w:5.39,n:19},N:{p:1.50,w:5.07,n:16}}),
+  alnus:P('Schwarz-Erle','Alnus glutinosa','#86A78F','#3B5B4A',
+   {L:{p:5.22,w:5.55,n:18},T:{p:4.23,w:3.79,n:20},M:{p:7.17,w:3.56,n:25},R:{p:5.71,w:3.58,n:20},N:{p:5.87,w:6.70,n:16}}),
+  acer:P('Feld-Ahorn','Acer campestre','#AEC186','#5D7A3E',
+   {L:{p:5.05,w:6.09,n:18},T:{p:4.98,w:3.12,n:20},M:{p:4.22,w:2.79,n:24},R:{p:6.80,w:4.23,n:21},N:{p:5.79,w:4.89,n:19}}),
+  calluna:P('Besenheide','Calluna vulgaris','#CE93BE','#7E4472',
+   {L:{p:7.25,w:5.70,n:19},T:{p:3.57,w:5.27,n:17},M:{p:4.56,w:5.48,n:23},R:{p:1.37,w:4.25,n:23},N:{p:1.28,w:3.82,n:20}}),
+  carpinus:P('Hainbuche','Carpinus betulus','#A6BE7E','#51703B',
+   {L:{p:3.65,w:6.49,n:17},T:{p:4.69,w:2.79,n:19},M:{p:4.57,w:3.26,n:20},R:{p:5.62,w:5.95,n:16},N:{p:5.34,w:6.08,n:14}}),
+  taxus:P('Eibe','Taxus baccata','#77946F','#33492F',
+   {L:{p:3.39,w:6.29,n:18},T:{p:4.20,w:3.76,n:19},M:{p:4.49,w:2.91,n:22},R:{p:7.24,w:4.66,n:20},N:{p:4.38,w:6.75,n:15}}),
+  urtica:P('Große Brennnessel','Urtica dioica','#9BBA72','#4C6B33',
+   {L:{p:5.42,w:7.91,n:15},T:{p:4.05,w:4.96,n:18},M:{p:5.01,w:3.62,n:28},R:{p:6.61,w:4.76,n:24},N:{p:8.74,w:5.32,n:21}}),
+};
+const PAIRS=[
+  {id:'p1',a:'fagus',   b:'pinus',   label:'Buche / Kiefer'},
+  {id:'p2',a:'thymus',  b:'alnus',   label:'Thymian / Erle'},
+  {id:'p3',a:'acer',    b:'calluna', label:'Ahorn / Heide'},
+  {id:'p4',a:'carpinus',b:'taxus',   label:'Hainbuche / Eibe'},
+  {id:'p5',a:'calluna', b:'urtica',  label:'Heide / Brennnessel'},
+];
+
+/* ═══ Hilfen ═══════════════════════════════════════════════════════════════ */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(f,v)=>[clamp(v.p-v.w/2,0,10),clamp(v.p+v.w/2,0,10)];
+const pct=p=>clamp(p,0,10)/10*100;
+/* Das Band ist ein AUSSCHNITT des Verlaufs: der Verlauf wird auf die volle
+   Skalenbreite skaliert und so verschoben, dass genau dieser Bereich sichtbar ist. */
+function bandStyle(f,v){
+  const[lo,hi]=seg(f,v);
+  const left=pct(lo),width=Math.max(pct(hi)-pct(lo),3);
+  const bs=100/(width/100), bp=width>=100?0:(left/(100-width))*100;
+  return `left:${left.toFixed(1)}%;width:${width.toFixed(1)}%;--bs:${bs.toFixed(1)}%;--bp:${bp.toFixed(1)}%`;
+}
+const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+function sample(f,v){const r=FACTORS[f].ramp,t=clamp(v/10,0,1);
+  const[c1,c2]=t<.5?[hex(r[0]),hex(r[1])]:[hex(r[1]),hex(r[2])];const k=t<.5?t*2:(t-.5)*2;
+  return '#'+c1.map((c,i)=>Math.round(c+(c2[i]-c)*k).toString(16).padStart(2,'0')).join('');}
+const rampCss=f=>`linear-gradient(90deg,${FACTORS[f].ramp[0]},${FACTORS[f].ramp[1]} 50%,${FACTORS[f].ramp[2]})`;
+const photo=pl=>`background:linear-gradient(150deg,${pl.a},${pl.b})`;
+const num=v=>v.toFixed(1).replace('.',',');
+const zoneWord=(f,p)=>{const[t1,t2]=FACTORS[f].cut;return FACTORS[f].words[p<t1?0:p<t2?1:2];};
+const $=s=>document.querySelector(s);
+/* Der Mindestabstand, ab dem eine Zuordnung fair ist. Darunter kann niemand die
+   beiden auseinanderhalten — dann wechselt die Runde ihr Format.
+   Gemessen am Prüfungssortiment: 71 % der Paare schaffen 2,0 auf mindestens einem
+   Faktor, 29 % nicht.                                                            */
+const FAIR=2.0;
+const zoneIdx=(f,p)=>{const[t1,t2]=FACTORS[f].cut;return p<t1?0:p<t2?1:2;};
+const fair=(f,A,B)=>Math.abs(A[f].p-B[f].p)>=FAIR;
+
+/* ═══ Zustand ══════════════════════════════════════════════════════════════ */
+let view='quiz',factor='L',pairId='p1',dev='std';
+let slots={0:null,1:null};
+let sheetFor=null;              // offener Auswahl-Slot (0/1) oder null
+let wrongIn={0:new Set(),1:new Set()};   // je Slot: schon quittierte Fehlgriffe
+let justRight=null;             // Zeile kurz grün, bevor das Sheet schließt
+let leaves=3,leafHit=false,sheetKey=null,laneFlip=false,srcOpen=false;
+const isHb=v=>v==='hbA';
+const pairOf=()=>{const p=PAIRS.find(x=>x.id===pairId);return[p.a,p.b];};
+const ownerOf=i=>{const[a,b]=pairOf();return(laneFlip?[b,a]:[a,b])[i];};
+const bothSet=()=>slots[0]&&slots[1];
+
+/* ═══ Bedienleiste ═════════════════════════════════════════════════════════ */
+function buildBar(){
+  $('#segFactor').innerHTML=ORDER.map(k=>
+    `<button data-f="${k}" aria-pressed="${k===factor}">${FACTORS[k].ic} ${FACTORS[k].name}</button>`).join('');
+  $('#segPair').innerHTML=PAIRS.map(p=>
+    `<button data-p="${p.id}" aria-pressed="${p.id===pairId}">${p.label}</button>`).join('');
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.bar button');if(!b)return;
+  if(b.dataset.v){view=b.dataset.v;sheetKey=null;reset();}
+  else if(b.dataset.f){factor=b.dataset.f;reset();}
+  else if(b.dataset.p){pairId=b.dataset.p;reset();}
+  else if(b.dataset.d){dev=b.dataset.d;document.body.dataset.dev=dev;
+    $('#devLabel').textContent=dev==='std'?'393 × 852 dp':'360 × 640 dp — das enge Budget';render();}
+});
+function syncBar(){
+  $('#segView').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===view));
+  $('#segFactor').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===factor));
+  $('#segPair').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===pairId));
+  $('#segDev').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===dev));
+  $('#grpPair').classList.toggle('hide',isHb(view));
+}
+function reset(){slots={0:null,1:null};sheetFor=null;justRight=null;srcOpen=false;
+  wrongIn={0:new Set(),1:new Set()};leafHit=false;laneFlip=Math.random()<.5;render();}
+
+/* ═══ Quiz ═════════════════════════════════════════════════════════════════ */
+function header(){
+  const placed=(slots[0]?1:0)+(slots[1]?1:0);
+  return `<div class="hdr"><span class="x">✕</span>
+    <div class="track"><i style="width:${46+placed*4}%"></i></div>
+    <div class="leaf${leafHit?' hit':''}">🌿 ${leaves}</div></div>`;
+}
+
+function slotCard(i){
+  const F=FACTORS[factor],owner=ownerOf(i),v=PLANTS[owner][factor],filled=slots[i];
+  const pl=filled?PLANTS[filled]:null;
+  // Kein Text zum Ergebnis — das Band über der Pflanze sagt es bereits.
+  const inner = filled
+    ? `<div class="holder set">
+         <span class="img" style="${photo(pl)}"></span>
+         <span class="tx"><span class="de" style="display:block">${pl.de}</span>
+           <span class="la" style="display:block">${pl.la}</span></span>
+       </div>`
+    : `<div class="holder empty"><span class="ph"><i>＋</i>Pflanze wählen</span></div>`;
+  return `<div class="slotCard ${filled?'filled':''}" data-slot="${i}"
+       ${filled?'':'role="button" tabindex="0"'}
+       style="--ramp:${rampCss(factor)}"
+       aria-label="Standort ${i===0?'A':'B'}${filled?', belegt mit '+pl.de:', leer'}">
+    <div class="lane"><div class="faint"></div>
+      <div class="band" style="${bandStyle(factor,v)}"></div></div>
+    <div class="laneEnds"><span>${F.ends[0]}</span><span>${F.ends[1]}</span></div>
+    ${inner}
+  </div>`;
+}
+
+function chooserSheet(){
+  if(sheetFor===null)return '';
+  const i=sheetFor,F=FACTORS[factor],owner=ownerOf(i),v=PLANTS[owner][factor];
+  const[aKey,bKey]=pairOf();
+  const rows=[aKey,bKey].map(k=>{
+    const pl=PLANTS[k];
+    const used=slots[0]===k||slots[1]===k;
+    const isWrong=wrongIn[i].has(k);
+    const isGood=justRight===k;
+    const mark=used?'✓':isWrong?'✕':isGood?'✓':'›';
+    return `<button class="prow ${used?'used':''} ${isWrong?'wrong':''} ${isGood?'good':''}"
+        data-pick="${k}" ${used||isWrong?'disabled':''}>
+      <span class="img" style="${photo(pl)}"></span>
+      <span class="tx"><span class="de">${pl.de}</span><span class="la">${pl.la}</span></span>
+      <span class="mark">${mark}</span></button>`;
+  }).join('');
+  return `<div class="scrim on" data-closesheet="1"></div>
+    <div class="sheet on">
+      <div class="grab"></div>
+      <div class="shTitle">${F.ask}</div>
+      <div class="shLanePrev" style="--ramp:${rampCss(factor)}"><div class="faint"></div>
+        <div class="band" style="${bandStyle(factor,v)}"></div></div>
+      <div class="shEnds"><span>${F.ends[0]}</span><span>${F.ends[1]}</span></div>
+      ${rows}
+    </div>`;
+}
+
+const CHEVRON=`<svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+  <path d="M7.49935 18.3327H12.4993C16.666 18.3327 18.3327 16.666 18.3327 12.4993V7.49935C18.3327 3.33268 16.666 1.66602 12.4993 1.66602H7.49935C3.33268 1.66602 1.66602 3.33268 1.66602 7.49935V12.4993C1.66602 16.666 3.33268 18.3327 7.49935 18.3327Z" stroke="#6C7376" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7.05859 8.86719L10.0003 11.8005L12.9419 8.86719" stroke="#6C7376" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+/* ── Infoscreen: die beiden Bereiche liegen zu dicht beieinander, als dass man
+      sie auseinanderhalten könnte. Hier wird nicht gefragt — es wird gezeigt.
+      Beide Pflanzen stehen benannt bei ihrem Bereich, unten nur „Weiter".
+      Das ist keine Notlösung: „diese beiden stehen gleich" ist selbst die
+      Lektion, und sie kommt bei 29 % der Paare vor.                            */
+function sharedRound(){
+  const F=FACTORS[factor],[aKey,bKey]=pairOf();
+  const lane=pl=>`<div class="slotCard filled" style="--ramp:${rampCss(factor)}">
+      <div class="lane"><div class="faint"></div>
+        <div class="band" style="${bandStyle(factor,pl[factor])}"></div></div>
+      <div class="laneEnds"><span>${F.ends[0]}</span><span>${F.ends[1]}</span></div>
+      <div class="holder">
+        <span class="img" style="${photo(pl)}"></span>
+        <span class="tx"><span class="de" style="display:block">${pl.de}</span>
+          <span class="la" style="display:block">${pl.la}</span></span>
+      </div></div>`;
+  return `<div class="screen">
+    <div class="task">
+      <div class="eyebrow">Standort</div>
+      <div class="qic">${F.ic}</div>
+      <div class="qhead">${F.name}: Beide Pflanzen stehen gleich</div>
+    </div>
+    <div class="mid">${lane(PLANTS[aKey])}${lane(PLANTS[bKey])}</div>
+    <div class="foot"><button class="btn btnGreen">Weiter</button></div>
+  </div>`;
+}
+
+function quiz(){
+  const F=FACTORS[factor],[aKey,bKey]=pairOf();
+  // Zu dicht beieinander → anderes Rundenformat statt unfairer Rateaufgabe.
+  if(!fair(factor,PLANTS[aKey],PLANTS[bKey])) return sharedRound();
+  const placed=(slots[0]?1:0)+(slots[1]?1:0);
+  return `<div class="screen">
+    <div class="task">
+      <div class="eyebrow">${placed===2?'Sitzt!':'Standort'}</div>
+      <div class="qic">${F.ic}</div>
+      <div class="qhead">${F.q}</div>
+    </div>
+    <div class="mid">${slotCard(0)}${slotCard(1)}</div>
+    <div class="foot">
+      ${placed===2
+        ? `<button class="btn btnGreen">Weiter</button>`
+        : `<button class="askBtn" data-ask="1">
+             <span>${placed===0?'Pflanze wählen':'Zweite Pflanze wählen'}</span>${CHEVRON}
+           </button>`}
+    </div>
+    ${chooserSheet()}
+  </div>`;
+}
+
+
+/* ═══ Wahl im Sheet ════════════════════════════════════════════════════════ */
+function pick(key){
+  const i=sheetFor;if(i===null)return;
+  const owner=ownerOf(i);
+  const[aKey,bKey]=pairOf();
+  const ok = key===owner;   // im Zuordnen-Modus sind die Bereiche per Definition klar getrennt
+  if(ok){
+    justRight=key;render();
+    setTimeout(()=>{slots[i]=key;justRight=null;sheetFor=null;render();},380);
+  }else{
+    // Wie bei den anderen Quiztypen: braun umranden, ein Blatt, dann weiterwählen.
+    // Derselbe Fehlgriff kostet kein zweites Blatt (handledRef-Muster).
+    if(!wrongIn[i].has(key)){
+      wrongIn[i].add(key);
+      leaves=Math.max(0,leaves-1);leafHit=true;
+      setTimeout(()=>{leafHit=false;render();},600);
+    }
+    render();
+  }
+}
+
+/* ═══ Handbuch ═════════════════════════════════════════════════════════════ */
+function handbook(){
+  const pl=PLANTS.acer;
+  // Der Strip bleibt wie heute — nur das Band kommt als Ergänzung dazu.
+  // Kein Spannenwort: dass das Band kurz oder lang ist, sieht man.
+  const eCard=k=>{const F=FACTORS[k],v=pl[k],c=sample(k,v.p);
+    return `<button class="eCard" data-sh="${k}" style="--ramp:${rampCss(k)}">
+      <span class="ic" style="background:${c}30;color:${c};filter:saturate(1.35)">${F.ic}</span>
+      <span class="lb" style="display:block">${F.name}</span>
+      <span class="vl" style="display:block">${zoneWord(k,v.p)}</span>
+      <span class="mini"><span class="faint"></span>
+        <span class="band" style="${bandStyle(k,v)}"></span></span></button>`;};
+
+  let sheet='';
+  if(sheetKey){
+    const F=FACTORS[sheetKey],v=pl[sheetKey],[lo,hi]=seg(sheetKey,v),c=sample(sheetKey,v.p);
+    // Die Zahlen stehen AM Band, nicht in einem Erklärabsatz: die Achse zeigt 0–10,
+    // die beiden Bandkanten ihre Werte, der Stift die Mitte.
+    const ticks=[0,2,4,6,8,10].map(t=>
+      `<span class="tk" style="left:${pct(t)}%"><i></i><em>${t}</em></span>`).join('');
+    sheet=`<div class="sheet on"><div class="grab"></div>
+      <div class="shHead">
+        <div class="ic" style="background:${c}30;color:${c};filter:saturate(1.35)">${F.ic}</div>
+        <div><div class="lb">${F.name}</div><div class="vl">${zoneWord(sheetKey,v.p)}</div></div>
+      </div>
+      <div class="chart" style="--ramp:${rampCss(sheetKey)}">
+        <div class="pinLbl" style="left:${pct(v.p)}%">${num(v.p)}</div>
+        <div class="shLane"><div class="faint"></div>
+          <div class="band" style="${bandStyle(sheetKey,v)}"></div>
+          <div class="pin" style="left:${pct(v.p)}%"></div></div>
+        <div class="edge lo" style="left:${pct(lo)}%">${num(lo)}</div>
+        <div class="edge hi" style="left:${pct(hi)}%">${num(hi)}</div>
+        <div class="axis">${ticks}</div>
+      </div>
+      <div class="shWords"><span>${F.ends[0]}</span><span>${F.ends[1]}</span></div>
+      <button class="shSrc" data-src="1">🔗 Quelle</button>
+    </div>`;
+  }
+  return `<div class="hbHero" style="${photo(pl)}">
+      <div class="nm"><b>${pl.de}</b><i>${pl.la}</i></div></div>
+    <div class="hbScroll">
+      <div class="hbSec">Standort</div>
+      <div class="strip">${ORDER.map(eCard).join('')}</div>
+      <div class="hbSec">Beschreibung</div>
+      <p class="hbTxt">Sommergrüner Kleinbaum, oft strauchig. Verträgt Schnitt ausgezeichnet und ist
+        deshalb die klassische Pflanze für freiwachsende wie geschnittene Hecken.</p>
+    </div>
+    <div class="scrim${sheetKey?' on':''}" data-close="1"></div>${sheet}
+    <div class="srcPage${srcOpen?' on':''}">
+      <div class="srcBar"><span class="bk" data-srcback="1">‹</span><h3>Datenquellen &amp; Lizenzen</h3></div>
+      <div class="srcBody"><div class="srcItem">
+        <b>Ökologische Zeigerwerte</b>
+        <p>Dengler, J., Jansen, F., … &amp; Gillet, F. (2023): Ecological Indicator Values for
+           Europe (EIVE) 1.0. <i>Vegetation Classification and Survey</i> 4: 7–29.
+           Für die Darstellung in Stufen gruppiert.</p>
+        <span class="lic">CC BY 4.0</span>
+      </div></div>
+    </div>`;
+}
+
+/* ═══ Notizen ══════════════════════════════════════════════════════════════ */
+const NOTES={
+ quiz:{k:'Quiztyp · Standort',t:'Zwei Standorte, Auswahl im Sheet',
+  p:[`<strong>Auf dem Schirm stehen nur die beiden Standorte.</strong> Keine Pflanzen, kein Vorrat,
+      keine Ablenkung — die zwei Container sitzen mittig, darüber die Frage, darunter der Button.
+      Ein Tipp auf den Platzhalter öffnet das Auswahl-Sheet.`,
+     `<strong>Die Frage ist je Faktor ein vollständiger Satz</strong> und benennt die Aufgabe:
+      „Wer braucht wie viel Licht?" · „Wer mag es wie feucht?" · „Wer mag es wie warm?" ·
+      „Wer braucht wie viele Nährstoffe?" · „Wer mag welchen Boden?" Im Sheet steht dieselbe Sache
+      konkret: „Welche Pflanze wächst hier?"`,
+     `<strong>Im Sheet steht der Standort noch einmal oben</strong>, damit klar bleibt, welchen Platz
+      man gerade besetzt. Sonst nichts als die Pflanzen — Zeilen im Chatbot-Idiom
+      (<code>PlantChatRow</code>: 72 dp, 56er Bild mit Radius 8, Name und Kursivname).`,
+     `<strong>Nur die richtige Pflanze lässt sich setzen</strong> — wie bei Flora Check, Plant Memory
+      und Select Organ. Ein Fehlgriff wird <em>braun umrandet</em> (<code>wrongBorder</code> +
+      <code>wrongFillSolid</code>), kostet ein Blatt und bleibt gesperrt; danach wählt man weiter.
+      Derselbe Fehlgriff kostet kein zweites Blatt — das ist das <code>handledRef</code>-Muster
+      aus den bestehenden Quiztypen.`,
+     `<strong>Beim zweiten Platz</strong> tippt man den Container an und wählt die übrige Pflanze;
+      die bereits gesetzte steht dort ausgegraut mit Haken.`,
+     `<strong>Gesetzt heißt aufgelöst:</strong> die Zeile zeigt sofort ihre Zahl und ihr Spannenwort,
+      und die Karte bekommt den grünen Rahmen. Am Ende nennt die Hinweiszeile beide Zonen im Klartext.`,
+     `⚠️ <strong>Eine Abweichung von deiner früheren Festlegung:</strong> Du hattest „erst der zweite
+      Fehler kostet ein Blatt" gewählt. Mit der Selbstkorrektur kostet jetzt <em>jeder</em> erste
+      Fehlgriff je Platz ein Blatt — so wie in den anderen Quiztypen. Sag Bescheid, wenn es bei der
+      alten Regel bleiben soll.`]},
+ hbA:{k:'Handbuch',t:'Der Kartenstrip — nur um das Band ergänzt',
+  p:[`Fünf statt sechs Karten (Salz entfällt), alle Skalen 0–10. Neu ist allein das
+      <strong>Band unter dem Zonenwort</strong>. Ob es kurz oder lang ist, sieht man — deshalb
+      steht kein Wort wie „wählerisch" daneben.`,
+     `<strong>Das Detailmodal zeigt jetzt die Skala.</strong> Vorher wusste niemand, dass sie bis 10
+      geht. Statt eines Erklärabsatzes steht die Achse <code>0 – 10</code> unter dem Band, die
+      beiden Bandkanten tragen ihre Zahlen, und die dunkle Fahne markiert den Wert, bei dem die
+      Art am liebsten steht. Man liest es, statt es erklärt zu bekommen.`]},
+};
+function renderNotes(){
+  const n=NOTES[view];
+  let facts;
+  if(isHb(view)){
+    const pl=PLANTS.acer;
+    facts=ORDER.map(k=>{const v=pl[k],[lo,hi]=seg(k,v);
+      return `<div class="fact"><dt>${FACTORS[k].name}</dt><dd><b>${num(lo)}–${num(hi)}</b>
+        · Mitte ${num(v.p)} · ${spanOf(v.w).word}</dd></div>`;}).join('');
+  }else{
+    const[aKey,bKey]=pairOf();
+    facts=[aKey,bKey].map(k=>{const pl=PLANTS[k],v=pl[factor],[lo,hi]=seg(factor,v);
+      return `<div class="fact"><dt>${pl.de}</dt><dd>wächst von <b>${num(lo)} bis ${num(hi)}</b>
+        · Mitte <b>${num(v.p)}</b> · ${spanOf(v.w).word}
+        <span style="color:var(--muted)">(${v.n} Quellen)</span></dd></div>`;}).join('')
+      + `<div class="fact"><dt>Format</dt><dd>${fair(factor,PLANTS[aKey],PLANTS[bKey])
+           ?'Zuordnen — Abstand '+num(Math.abs(PLANTS[aKey][factor].p-PLANTS[bKey][factor].p))+' Punkte'
+           :'Gemeinsam — Abstand nur '+num(Math.abs(PLANTS[aKey][factor].p-PLANTS[bKey][factor].p))+' Punkte'}</dd></div>`;
+  }
+  $('#notes').innerHTML=`<div class="kicker">${n.k}</div><h2>${n.t}</h2>
+    ${n.p.map(x=>`<p>${x}</p>`).join('')}<dl class="facts">${facts}</dl>
+    <div class="warn"><b>Warum der Wuchsbereich der eigentliche Gewinn von EIVE ist.</b>
+      Die Autoren schreiben es selbst: <q>niche width is the second main parameter to describe an
+      ecological niche</q> — und EIVE sei <q>the first indicator value system to provide a systematic
+      and consistent assessment of niche width</q>. Vorher habe man Arten mit den weitesten Nischen
+      schlicht weggelassen, <q>those assessed as indifferent or „x"</q>. Ellenbergs „x" ist also
+      nicht verschwunden: es ist zum stufenlosen Wuchsbereich geworden.</div>`;
+}
+
+/* ═══ Rendern & Interaktion ════════════════════════════════════════════════ */
+function render(){
+  syncBar();
+  $('#dev').innerHTML=isHb(view)?handbook():header()+quiz();
+  renderNotes();
+}
+const dev$=$('#dev');
+dev$.addEventListener('click',e=>{
+  if(e.target.closest('[data-src]')){srcOpen=true;render();return;}
+  if(e.target.closest('[data-srcback]')){srcOpen=false;render();return;}
+  if(e.target.closest('[data-close]')){sheetKey=null;render();return;}
+  const sh=e.target.closest('[data-sh]');if(sh){sheetKey=sh.dataset.sh;render();return;}
+  if(e.target.closest('[data-closesheet]')){sheetFor=null;render();return;}
+  const pk=e.target.closest('[data-pick]');
+  if(pk&&!pk.disabled){pick(pk.dataset.pick);return;}
+  if(e.target.closest('.btn')){reset();return;}
+  // Der Frageknopf öffnet den oberen Platz, solange keiner belegt ist — sonst den übrigen.
+  // So lässt sich die Runde vollständig unten mit dem Daumen bedienen.
+  if(e.target.closest('[data-ask]')&&sheetFor===null){
+    sheetFor = slots[0]===null ? 0 : 1; render(); return;}
+  const sc=e.target.closest('[data-slot]');
+  if(sc&&!sc.classList.contains('filled')&&sheetFor===null){
+    sheetFor=+sc.dataset.slot;render();}
+});
+dev$.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'&&e.key!==' ')return;
+  const sc=e.target.closest('[data-slot]');
+  if(sc&&!sc.classList.contains('filled')){e.preventDefault();sheetFor=+sc.dataset.slot;render();}
+});
+buildBar();document.body.dataset.dev='small';dev='small';laneFlip=Math.random()<.5;
+$('#segDev').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d==='small'));
+document.body.dataset.dev='std';dev='std';render();
+</script>

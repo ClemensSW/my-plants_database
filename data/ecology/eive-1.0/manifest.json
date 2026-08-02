@@ -1,0 +1,21 @@
+{
+  "dataset": "EIVE 1.0",
+  "citation": "Dengler, J., Jansen, F., … & Gillet, F. (2023): Ecological Indicator Values for Europe (EIVE) 1.0. Vegetation Classification and Survey 4: 7–29.",
+  "doi": "10.5281/zenodo.7534792",
+  "paperDoi": "10.3897/VCS.98324",
+  "zenodoRecord": "7534792",
+  "license": "CC BY 4.0",
+  "published": "2023-01-13",
+  "updatedAt": "2026-08-02",
+  "files": {
+    "EIVE_Paper_1.0_SM_08.xlsx": { "bytes": 2900881, "md5": "0f0ce19cd2a781eeed027d8b0acadbcb", "note": "Werte: Nischenposition, Nischenbreite (nw3), n je Faktor" },
+    "EIVE_Paper_1.0_SM_03.xlsx": { "bytes": 409498,  "md5": "b94eec01646fde3cc8383146efcdbdff", "note": "Abweichungen vom Euro+Med-Backbone" },
+    "EIVE_Paper_1.0_SM_02.xlsx": { "bytes": 16095770, "md5": "d10bf808f7c4d734fe0875566c4069cb", "note": "31 Quellsysteme, Original- und harmonisierte Namen — NICHT abgelegt (16 MB)" }
+  },
+  "rows": 14835,
+  "species": 11148,
+  "taxaPerIndicator": { "M": 14714, "N": 13748, "R": 14254, "L": 14054, "T": 14496 },
+  "slim": { "file": "eive-slim.json", "species": 10693, "format": "{ binomial: { L|T|M|R|N: { p, w, n } } }" },
+  "sheet": "mainTable",
+  "columns": "EIVEres-<X> / EIVEres-<X>.nw3 / EIVEres-<X>.n  (NICHT EIVE-<X>)"
+}
