@@ -223,6 +223,9 @@ function pickPreferredGerman(usage, germanNames) {
   "canonicalName": "Azolla caroliniana",
   "rank": "SPECIES",
   "status": "ACCEPTED",
+  "family": "Salviniaceae",
+  "familyKey": 2650102,
+  "germanFamilyName": "Schwimmfarngewächse",
   "germanName": "Großer Algenfarn",
   "germanNames": [
     {
@@ -421,12 +424,13 @@ obj.germanNames.some(x => x.name && x.name.trim().length > 0)
 - Nach Filter: ~5.500 Zeilen (nur mit deutschem Namen)
 - Entfernt: ~12.500 Zeilen
 
-#### 3.2 Felder entfernen
+#### 3.2 Felder reduzieren
 
-Folgende Felder werden **nicht** für die App benötigt:
-- `acceptedKey` (nur für interne Normalisierung)
-- `originalKey` (nur für interne Normalisierung)
-- `germanName` (redundant, da `germanNames[]` vorhanden)
+Der Output wird auf **7 Felder** eingedampft. Das Array `germanNames[]` wird dabei auf **einen**
+Namen reduziert (`preferred: true`, sonst der kürzeste). Nicht übernommen werden:
+- `acceptedKey`, `originalKey` (nur für interne Normalisierung)
+- `rank`, `status` (nach dem Filter konstant: `SPECIES` / `ACCEPTED`)
+- `germanNames[]` (auf `germanName` reduziert)
 - `source` (Audit-Info, nicht für App nötig)
 
 **Input:** `data/intermediate/plantnet_species_enriched.ndjson`
@@ -437,15 +441,10 @@ Folgende Felder werden **nicht** für die App benötigt:
   "taxonKey": 2650105,
   "scientificName": "Azolla caroliniana Willd.",
   "canonicalName": "Azolla caroliniana",
-  "rank": "SPECIES",
-  "status": "ACCEPTED",
-  "germanNames": [
-    {
-      "name": "Großer Algenfarn",
-      "preferred": true,
-      "source": "Deutschsprachige Namen..."
-    }
-  ]
+  "germanName": "Großer Algenfarn",
+  "familyKey": 2650102,
+  "family": "Salviniaceae",
+  "germanFamilyName": "Schwimmfarngewächse"
 }
 ```
 
@@ -568,56 +567,52 @@ function extractOrganTag(media, url) {
 }
 ```
 
-#### 5.4 URL-Proxying
+#### 5.4 URL-Umschreibung auf die GBIF Image API
 
-**Problem:** Direkte PlantNet-URLs können langsam sein oder keine Größen-Anpassung bieten.
+**Problem:** Direkte PlantNet-URLs sind langsam, nicht größenanpassbar und nicht dauerhaft gecacht.
 
-**Lösung:** Weserv Image Proxy
+**Lösung:** GBIF Image API (`api.gbif.org/v1/image/cache`) — GBIF cached die Bilder unbegrenzt.
 
 **Original:**
 ```
 https://bs.plantnet.org/image/o/9ada0341236d166bae22e7ac1cd5cd538afbd4d9
 ```
 
-**Proxied:**
+**Umgeschrieben (in der Datenbank gespeichert):**
 ```
-https://images.weserv.nl/?url=https%3A%2F%2Fbs.plantnet.org%2Fimage%2Fo%2F9ada0341236d166bae22e7ac1cd5cd538afbd4d9
+https://api.gbif.org/v1/image/cache/occurrence/{occurrenceKey}/media/{md5}
 ```
 
-**Vorteile:**
-- On-the-fly Größen-Anpassung (`&w=400&h=400`)
-- Qualitäts-Kompression (`&q=80`)
-- Caching & CDN
-- Format-Konvertierung (`&output=webp`)
+Der `md5` ist der MD5-Hash der **Original-URL**:
 
-**Beispiele:**
+```javascript
+function gbifImageUrl(originalUrl, occurrenceKey) {
+  const md5 = crypto.createHash('md5').update(originalUrl).digest('hex');
+  return `https://api.gbif.org/v1/image/cache/occurrence/${occurrenceKey}/media/${md5}`;
+}
 ```
-# Thumbnail (400x400)
-https://images.weserv.nl/?url=...&w=400&h=400&fit=cover
 
-# Optimiert für Mobile
-https://images.weserv.nl/?url=...&w=800&q=75&output=webp
-
-# Vollbild
-https://images.weserv.nl/?url=...&w=1920&q=90
+**Größe wird erst in der App gesetzt** (siehe README, Abschnitt „Bild-URLs in der App verwenden"):
+```
+https://api.gbif.org/v1/image/cache/600x/occurrence/{occurrenceKey}/media/{md5}
 ```
 
 #### 5.5 Deduplizierung
 
-**Problem:** Manche Bilder tauchen in mehreren Occurrences auf.
+**Problem:** Dasselbe Bild taucht in der Audubon-Core-Extension **und** in `media[]` auf.
 
-**Lösung:** Set für Original-URLs (vor Proxying)
+**Lösung:** Die Extension wird zuerst gelesen (nur sie trägt Organ-Tags), `media[]` dient als
+Fallback. Ein Set über die erzeugte GBIF-URL wirft die Dubletten raus — der Eintrag **mit** Tag
+gewinnt, weil er zuerst kommt.
 
 ```javascript
 const seen = new Set();
 
-for (const img of images) {
-  const originalUrl = new URL(img.url).searchParams.get('url');
-  if (seen.has(originalUrl)) continue;
-  seen.add(originalUrl);
-
-  // Bild hinzufügen
-}
+return out.filter((rec) => {
+  if (seen.has(rec.url)) return false;
+  seen.add(rec.url);
+  return true;
+});
 ```
 
 #### 5.6 Multimedia-Dokument-Struktur
@@ -628,8 +623,9 @@ for (const img of images) {
   "species": "Azolla caroliniana Willd.",
   "organ": "leaf",
   "occurrenceId": 3949914583,
-  "url": "https://images.weserv.nl/?url=https%3A%2F%2Fbs.plantnet.org%2F...",
-  "license": "Alexandre Crégu (cc-by-sa)",
+  "url": "https://api.gbif.org/v1/image/cache/occurrence/3949914583/media/9ada0341236d166bae22e7ac1cd5cd53",
+  "creator": "Alexandre Crégu",
+  "license": "cc-by-sa",
   "wilsonScore": null
 }
 ```
@@ -639,8 +635,9 @@ for (const img of images) {
 - `species` – Wissenschaftlicher Name (für Anzeige)
 - `organ` – Organ-Tag (leaf/flower/...)
 - `occurrenceId` – GBIF Occurrence-ID (für Attribution)
-- `url` – Proxied URL
-- `license` – Lizenz & Urheber
+- `url` – GBIF-Image-API-URL ohne Größenangabe
+- `creator` – Urheber (für Attribution)
+- `license` – Lizenz in Kurzform (`cc-by`, `cc-by-sa`, `cc-0`, …)
 - `wilsonScore` – Placeholder für zukünftige Bewertung (ML-gestützt)
 
 **Output:**
@@ -649,6 +646,34 @@ for (const img of images) {
 - Anzahl: ~3.166.000 Zeilen (Stand 2025)
 
 **Dauer:** ~8-12 Stunden (bei Concurrency=6)
+
+---
+
+### Nachgelagert: Prüfungslisten
+
+**Scripts:** `scripts/build-exam-lists.js`, `scripts/validate-exam-lists.js`
+
+Kein API-Schritt, sondern ein Abgleich der kuratierten Sortimentslisten gegen die fertige
+`species.ndjson`:
+
+1. `data/reference/galabau_pflanzen.json` (AuGaLa-Sortiment, nach Kursen gruppiert) wird eingelesen.
+2. Jeder botanische Name wird normalisiert (Hybridzeichen `×`/`x` raus, Whitespace, Kleinschreibung)
+   und gegen `canonicalName` aus `species.ndjson` gematcht → `taxonKey`.
+3. Ausgabe als NDJSON unter
+   `data/exam-lists/gartenbau/garten-und-landschaftsbau/national/` — `full.ndjson` plus
+   `course-01/07/12.ndjson`, je Zeile `{ taxonKey, canonicalName, germanName }`.
+4. `npm run validate-exam-lists` prüft `catalog.json` gegen die Dateien und meldet die
+   taxonKey-Abdeckung.
+
+Diese Listen sind **im Git versioniert** — sie sind kuratierte Inhalte, kein reproduzierbarer
+API-Output.
+
+### Nicht Teil dieser Pipeline: ökologische Zeigerwerte
+
+`data/ecology/` enthält den Fremddatensatz **EIVE 1.0** (CC BY 4.0) samt Analysebericht sowie ein
+Backup der alten `ecology`-Collection aus Prod. Diese Daten werden nicht von den Phasen 1–5 erzeugt;
+sie kommen aus Zenodo bzw. aus einem `mongoexport`. Siehe
+[data/ecology/eive-1.0/references/ANALYSE.md](../data/ecology/eive-1.0/references/ANALYSE.md).
 
 ---
 
@@ -826,7 +851,7 @@ console.log(`Delta: ${deltaKeys.length} neue taxonKeys`);
 2. **NDJSON-Format** – Streaming-fähig, einfach zu parsen, MongoDB-kompatibel
 3. **Modularisierung** – Klare Phasen mit definierten Inputs/Outputs
 4. **Retry-Logik** – Robustheit bei API-Instabilitäten
-5. **Weserv-Proxy** – Bessere Performance und Flexibilität für Bildgrößen
+5. **GBIF Image API statt Direkt-URLs** – unbegrenzter Cache, Bildgröße erst in der App
 
 ### Herausforderungen & Lösungen
 
@@ -849,9 +874,9 @@ console.log(`Delta: ${deltaKeys.length} neue taxonKeys`);
 - [GBIF API Documentation](https://techdocs.gbif.org/en/openapi/)
 - [GBIF Occurrence Search](https://www.gbif.org/developer/occurrence)
 - [Audubon Core Standard](https://ac.tdwg.org/)
-- [Weserv Image Proxy Docs](https://images.weserv.nl/docs/)
+- [GBIF Image API](https://techdocs.gbif.org/en/openapi/images)
 - [PlantNet Dataset on GBIF](https://www.gbif.org/dataset/7a3679ef-5582-4aaa-81f0-8c2545cafc81)
 
 ---
 
-**Dokumentversion:** 1.0 (September 2025)
+**Dokumentversion:** 1.1 (August 2026) — Schema an den tatsächlichen Pipeline-Output angeglichen

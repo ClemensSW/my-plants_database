@@ -38,8 +38,3 @@ Thumbs.db
 # Temporary files
 *.tmp
 temp/
-
-# Hints pipeline: local work-in-progress files
-# pending/ holds candidates awaiting review — don't commit
-# approved/ and queue.json ARE committed (they are the reviewed result)
-data/hints/pending/

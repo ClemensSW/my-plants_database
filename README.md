@@ -12,15 +12,26 @@ Dieses Repository bündelt und verwaltet die Pflanzendaten für die **My-Plants 
 
 ## 🎯 Inhalt der Datenbank
 
-### species.ndjson
-- **18.673 Pflanzenarten** (Stand: September 2025)
-- **5.464 mit deutschen Namen**
-- Felder: `taxonKey`, `scientificName`, `canonicalName`, `germanName`, `germanNames[]`, `rank`, `status`
+### species.ndjson (generiert, nicht im Git)
+- **18.673 Pflanzenarten** roh, davon **~5.500 mit deutschem Namen** (nur die landen im Output)
+- Felder: `taxonKey`, `scientificName`, `canonicalName`, `germanName`, `familyKey`, `family`, `germanFamilyName`
 
-### multimedia.ndjson
+### multimedia.ndjson (generiert, nicht im Git)
 - **3.166.029 Bild-URLs** mit Organ-Tags
-- Felder: `taxonKey`, `species`, `organ` (leaf/flower/fruit/bark/habit/other), `occurrenceId`, `url`, `license`, `wilsonScore`
+- Felder: `taxonKey`, `species`, `organ` (leaf/flower/fruit/bark/habit/other), `occurrenceId`, `url`, `creator`, `license`, `wilsonScore`
 - Alle URLs nutzen die [GBIF Image API](https://techdocs.gbif.org/en/openapi/images) (unbegrenzter Cache)
+
+### data/exam-lists/ (kuratiert, im Git)
+- Prüfungslisten je Beruf, aktuell **Garten- und Landschaftsbau (AuGaLa)**: Gesamtliste (205) + Kurse 01/07/12
+- `catalog.json` beschreibt Bundesländer, Domänen, Berufe und Listen; die Listen selbst sind NDJSON
+  mit `taxonKey`, `canonicalName`, `germanName`
+
+### data/ecology/ (Fremddatensatz + Backup, im Git)
+- **EIVE 1.0** – ökologische Zeigerwerte für Europa (Licht, Wärme, Feuchte, Boden-pH, Stickstoff),
+  CC BY 4.0. Abgeleitet: `eive-slim.json` mit **10.693 Arten**
+- `backup-ecology-prod-2026-08-02.ndjson` – Sicherung der alten `ecology`-Collection aus Prod
+  (Tichý/Ellenberg-Werte, 3.363 Pflanzen), Stand vor dem Umstieg auf EIVE
+- Details und alle Messwerte: [data/ecology/eive-1.0/references/ANALYSE.md](data/ecology/eive-1.0/references/ANALYSE.md)
 
 ## 🚀 Quick Start
 
@@ -64,6 +75,18 @@ npm run retry-multimedia
 npm run build-all
 ```
 
+### Prüfungslisten bauen und prüfen
+
+```bash
+# Erzeugt data/exam-lists/**/ *.ndjson aus data/reference/galabau_pflanzen.json
+npm run build-exam-lists
+
+# Prüft catalog.json, NDJSON-Format und taxonKey-Abdeckung
+npm run validate-exam-lists
+```
+
+> Beide Befehle brauchen eine vorhandene `data/output/species.ndjson` (taxonKey-Lookup).
+
 ### Dauer-Schätzung
 - **Phase 1:** ~3-5 Minuten (je nach API-Geschwindigkeit)
 - **Phase 2:** ~4-6 Stunden (für ~18k taxonKeys bei Concurrency=10)
@@ -76,38 +99,42 @@ npm run build-all
 ## 📂 Verzeichnisstruktur
 
 ```
-my-plants_database/
+myplants-database/
 ├── README.md                           # Diese Datei
 ├── docs/
 │   ├── PROZESS.md                      # Detaillierte Prozessdokumentation
-│   ├── DATENSTRUKTUR.md               # Schema & MongoDB-Integration
-│   └── API_REFERENZ.md                # GBIF & Wikidata API Details
+│   ├── DATENSTRUKTUR.md                # Schema & MongoDB-Integration
+│   ├── API_REFERENZ.md                 # GBIF & Wikidata API Details
+│   └── plans/                          # Konzepte für spätere Ausbaustufen
 ├── scripts/
-│   ├── 01_fetch_taxonkeys.js          # Phase 1
-│   ├── 02_enrich_species.js           # Phase 2 (GBIF)
-│   ├── 03_enrich_wikidata.js          # Phase 2.5 (Wikidata) ⭐ NEU
-│   ├── 04_filter_species.js           # Phase 4
-│   ├── 05_collect_multimedia.js       # Phase 5
-│   ├── 05b_retry_multimedia.js        # Phase 5b: Fehlgeschlagene Keys nachladen
+│   ├── 01_fetch_taxonkeys.js           # Phase 1
+│   ├── 02_enrich_species.js            # Phase 2 (GBIF)
+│   ├── 03_enrich_wikidata.js           # Phase 2.5 (Wikidata)
+│   ├── 04_filter_species.js            # Phase 4
+│   ├── 05_collect_multimedia.js        # Phase 5
+│   ├── 05b_retry_multimedia.js         # Phase 5b: Fehlgeschlagene Keys nachladen
+│   ├── build-exam-lists.js             # Prüfungslisten aus Referenzdaten bauen
+│   ├── validate-exam-lists.js          # Prüfungslisten validieren
+│   ├── checks/                         # Einmalige Abdeckungs-Checks (GaLaBau)
+│   ├── tests/                          # Test-Versionen (nur 50 Plants)
 │   └── utils/
-│       ├── gbif-helpers.js            # GBIF API Funktionen
-│       ├── wikidata-helpers.js        # Wikidata SPARQL Funktionen ⭐ NEU
-│       └── filter-helpers.js          # Filter-Utilities
-├── scriptsTest/                       # Test-Versionen (nur 50 Plants)
-│   ├── 01_fetch_taxonkeys_test.js
-│   ├── 02_enrich_species_test.js
-│   ├── 03_enrich_wikidata_test.js    ⭐ NEU
-│   ├── 04_filter_species_test.js
-│   └── 05_collect_multimedia_test.js
+│       ├── gbif-helpers.js             # GBIF API Funktionen
+│       ├── wikidata-helpers.js         # Wikidata SPARQL Funktionen
+│       └── filter-helpers.js           # Filter-Utilities
 ├── data/
-│   ├── output/                        # Finale Daten
+│   ├── output/                         # Finale Daten (gitignored, weil zu groß)
 │   │   ├── species.ndjson
 │   │   └── multimedia.ndjson
-│   └── intermediate/                  # Zwischenschritte
-│       ├── plantnet_taxonKeys.json
-│       ├── plantnet_species_raw.ndjson
-│       ├── plantnet_species_enriched.ndjson
-│       └── failed_multimedia_keys.txt # Fehlgeschlagene Keys aus Phase 5
+│   ├── intermediate/                   # Zwischenschritte (gitignored)
+│   │   ├── plantnet_taxonKeys.json
+│   │   ├── plantnet_species_raw.ndjson
+│   │   ├── plantnet_species_enriched.ndjson
+│   │   └── failed_multimedia_keys.txt  # Fehlgeschlagene Keys aus Phase 5
+│   ├── reference/                      # Quelllisten (AuGaLa-Sortiment)
+│   ├── exam-lists/                     # Kuratierte Prüfungslisten + catalog.json
+│   └── ecology/                        # EIVE 1.0 + Backup der alten ecology-Collection
+├── tools/                              # GBIF-Bildbrowser (HTML), Hilfsdateien
+├── archive/                            # Historische ChatGPT-Verläufe
 └── package.json
 ```
 
@@ -148,7 +175,8 @@ graph TD
 4. **Phase 4: Filtern & Bereinigen**
    - Nur `rank: "SPECIES"` + `status: "ACCEPTED"`
    - Nur mit deutschen Namen
-   - Vereinfacht auf 4 Felder (taxonKey, scientificName, canonicalName, germanName)
+   - Vereinfacht auf 7 Felder (taxonKey, scientificName, canonicalName, germanName,
+     familyKey, family, germanFamilyName)
    - Output: Bereinigte `species.ndjson`
    - Dauer: ~10-30 Sek
 
@@ -285,6 +313,8 @@ Anpassbare Parameter:
 - **[PROZESS.md](docs/PROZESS.md)** – Detaillierte Prozessbeschreibung, API-Calls, Fehlerbehandlung
 - **[DATENSTRUKTUR.md](docs/DATENSTRUKTUR.md)** – Schema-Details, MongoDB-Integration, Query-Beispiele
 - **[API_REFERENZ.md](docs/API_REFERENZ.md)** – GBIF API Endpoints, Best Practices, Limits
+- **[ecology/eive-1.0/references/ANALYSE.md](data/ecology/eive-1.0/references/ANALYSE.md)** – EIVE 1.0:
+  Struktur, semantische Prüfung, Abdeckung, Zonenregel (alle Zahlen gemessen)
 
 ## 🤝 Beitragen
 
@@ -295,6 +325,15 @@ Für Änderungen und Erweiterungen:
 4. Pull Request erstellen
 
 ## 📝 Changelog
+
+### August 2026
+- 🗑️ **Hints-Pipeline entfernt** (Scripts, Daten, Review-UI, Doku). Die Lern-Hints werden nicht
+  umgesetzt — die App baut den entsprechenden Quiztyp stattdessen auf den ökologischen
+  Zeigerwerten (EIVE) auf.
+- 📦 EIVE 1.0 (`data/ecology/`) inkl. Analysebericht und Backup der alten `ecology`-Collection
+
+### Februar 2026
+- 📋 Prüfungslisten-Architektur (`data/exam-lists/` + `catalog.json`), erster Datensatz GaLaBau
 
 ### v1.0.0 (September 2025)
 - ✨ Initiale Refaktorisierung aus Chat-basierten Scripts

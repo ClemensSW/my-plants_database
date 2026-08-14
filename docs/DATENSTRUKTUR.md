@@ -13,6 +13,9 @@ Die Datenbank besteht aus zwei Collections:
 
 **Verknüpfung:** Via `taxonKey` (1:N Relation)
 
+Dazu kommt die Collection `ecology` (Zeigerwerte). Sie wird **nicht** von dieser Pipeline erzeugt;
+hier liegt nur ein Backup des Altstands — siehe Abschnitt „Schema: ecology" weiter unten.
+
 ---
 
 ## 📄 Schema: species
@@ -25,20 +28,10 @@ Die Datenbank besteht aus zwei Collections:
   "taxonKey": 2650105,
   "scientificName": "Azolla caroliniana Willd.",
   "canonicalName": "Azolla caroliniana",
-  "rank": "SPECIES",
-  "status": "ACCEPTED",
-  "germanNames": [
-    {
-      "name": "Großer Algenfarn",
-      "preferred": true,
-      "source": "Deutschsprachige Namen der Pflanzen der Welt"
-    },
-    {
-      "name": "Großer Schwimmfarn",
-      "preferred": false,
-      "source": "Wikipedia"
-    }
-  ]
+  "germanName": "Großer Algenfarn",
+  "familyKey": 2650102,
+  "family": "Salviniaceae",
+  "germanFamilyName": "Schwimmfarngewächse"
 }
 ```
 
@@ -50,24 +43,20 @@ Die Datenbank besteht aus zwei Collections:
 | `taxonKey` | Number | **GBIF taxonKey** (eindeutig) | `2650105` |
 | `scientificName` | String | Wissenschaftlicher Name mit Autor | `"Azolla caroliniana Willd."` |
 | `canonicalName` | String | Name ohne Autor (für Suche) | `"Azolla caroliniana"` |
-| `rank` | String | Taxonomischer Rang | `"SPECIES"` |
-| `status` | String | Taxonomischer Status | `"ACCEPTED"` |
-| `germanNames` | Array | Liste deutscher Namen | siehe unten |
+| `germanName` | String | Bevorzugter deutscher Name | `"Großer Algenfarn"` |
+| `familyKey` | Number (optional) | GBIF-Key der Familie | `2650102` |
+| `family` | String (optional) | Botanischer Familienname | `"Salviniaceae"` |
+| `germanFamilyName` | String (optional) | Deutscher Familienname | `"Schwimmfarngewächse"` |
 
-#### `germanNames[]` Sub-Schema
-
-| Feld | Typ | Beschreibung | Beispiel |
-|------|-----|--------------|----------|
-| `name` | String | Deutscher Name | `"Großer Algenfarn"` |
-| `preferred` | Boolean | Bevorzugter Name | `true` |
-| `source` | String (optional) | Quelle des Namens | `"Wikipedia"` |
+> `rank` und `status` stehen nicht im Output — nach dem Filter aus Phase 4 sind sie konstant
+> `SPECIES` / `ACCEPTED`. Ebenso ist `germanNames[]` (alle Namensvarianten mit Quelle) nur in den
+> Zwischendateien vorhanden; der Output führt nur den bevorzugten Namen.
 
 ### Constraints
 
 - `taxonKey` – **Unique Index** (nur eine Art pro taxonKey)
-- `rank` – Immer `"SPECIES"` (nur Arten, keine Gattungen/Familien)
-- `status` – Immer `"ACCEPTED"` (keine Synonyme)
-- `germanNames` – Mindestens 1 Eintrag (gefiltert in Phase 3)
+- Nur Arten mit `rank === "SPECIES"` und `status === "ACCEPTED"` (gefiltert in Phase 4)
+- `germanName` – immer gesetzt (Arten ohne deutschen Namen fallen in Phase 4 raus)
 
 ---
 
@@ -82,8 +71,9 @@ Die Datenbank besteht aus zwei Collections:
   "species": "Azolla caroliniana Willd.",
   "organ": "leaf",
   "occurrenceId": 3949914583,
-  "url": "https://images.weserv.nl/?url=https%3A%2F%2Fbs.plantnet.org%2Fimage%2Fo%2F9ada0341236d166bae22e7ac1cd5cd538afbd4d9",
-  "license": "Alexandre Crégu (cc-by-sa)",
+  "url": "https://api.gbif.org/v1/image/cache/occurrence/3949914583/media/9ada0341236d166bae22e7ac1cd5cd53",
+  "creator": "Alexandre Crégu",
+  "license": "cc-by-sa",
   "wilsonScore": null
 }
 ```
@@ -97,8 +87,9 @@ Die Datenbank besteht aus zwei Collections:
 | `species` | String | Wissenschaftlicher Name (Display) | `"Azolla caroliniana Willd."` |
 | `organ` | String (optional) | Organ-Tag | `"leaf"`, `"flower"`, `null` |
 | `occurrenceId` | Number | GBIF Occurrence-ID | `3949914583` |
-| `url` | String | Proxied Bild-URL | `"https://images.weserv.nl/..."` |
-| `license` | String | Lizenz & Urheber | `"Alexandre Crégu (cc-by-sa)"` |
+| `url` | String | GBIF-Image-API-URL (ohne Größe) | `"https://api.gbif.org/v1/image/cache/occurrence/..."` |
+| `creator` | String (optional) | Urheber (Attribution) | `"Alexandre Crégu"` |
+| `license` | String (optional) | Lizenz-Kurzform | `"cc-by-sa"` |
 | `wilsonScore` | Number (optional) | Bildqualitäts-Score (Placeholder) | `null` |
 
 ### Organ-Tag-Werte
@@ -112,6 +103,36 @@ Die Datenbank besteht aus zwei Collections:
 | `"bark"` | Rinde | ~5% |
 | `"other"` | Sonstiges (Samen, Wurzel, etc.) | ~3% |
 | `null` | Unbekannt | ~20% |
+
+---
+
+## 🌱 Schema: ecology (Backup des Altstands)
+
+`data/ecology/backup-ecology-prod-2026-08-02.ndjson` ist ein `mongoexport` der Prod-Collection
+`ecology` vom 02.08.2026 — **3.363 Pflanzen mit Tichý/Ellenberg-Werten**, gesichert vor dem
+Umstieg auf EIVE. Die Datei ist ein Backup, kein Pipeline-Output; sie wird von keinem Script
+erzeugt oder gelesen.
+
+```json
+{
+  "_id": { "$oid": "6939164ae388721766ad9e61" },
+  "taxonKey": 2882580,
+  "ecology": {
+    "light": 6.81,
+    "moisture": 3.28,
+    "nutrients": 1.71,
+    "ph": "x",
+    "temperature": 3.58,
+    "salt": 0
+  }
+}
+```
+
+- Werte sind Zahlen oder der String `"x"` (indifferent / kein Wert).
+- **Sechs** Faktoren inkl. `salt`. EIVE 1.0 hat nur **fünf** (L, T, M, R, N) und **kein Salz**,
+  außerdem eine andere Skala — die beiden Datensätze sind nicht ineinander umrechenbar.
+- Der aktuelle Datensatz liegt unter `data/ecology/eive-1.0/`; Abdeckung, Zonenregel und alle
+  Messwerte stehen in [ANALYSE.md](../data/ecology/eive-1.0/references/ANALYSE.md).
 
 ---
 
@@ -161,8 +182,8 @@ db.species.createIndex(
 );
 
 db.species.createIndex(
-  { "germanNames.name": 1 },
-  { name: "idx_germanNames_name" }
+  { "germanName": 1 },
+  { name: "idx_germanName" }
 );
 
 // Optional: Text-Index für Volltextsuche
@@ -170,13 +191,13 @@ db.species.createIndex(
   {
     canonicalName: "text",
     scientificName: "text",
-    "germanNames.name": "text"
+    "germanName": "text"
   },
   {
     name: "idx_fulltext_search",
     default_language: "none",
     weights: {
-      "germanNames.name": 10,
+      "germanName": 10,
       canonicalName: 5,
       scientificName: 1
     }
@@ -233,16 +254,16 @@ db.multimedia.stats().indexSizes;
 ```javascript
 // Einfache Liste
 db.species.find({
-  "germanNames.0": { $exists: true }
+  germanName: { $exists: true, $ne: null }
 });
 
 // Mit Projektion (nur benötigte Felder)
 db.species.find(
-  { "germanNames.0": { $exists: true } },
+  { germanName: { $exists: true, $ne: null } },
   {
     taxonKey: 1,
     canonicalName: 1,
-    "germanNames": 1
+    "germanName": 1
   }
 );
 ```
@@ -252,12 +273,12 @@ db.species.find(
 ```javascript
 // Exakte Suche (case-insensitive)
 db.species.find({
-  "germanNames.name": { $regex: /^Algenfarn$/i }
+  "germanName": { $regex: /^Algenfarn$/i }
 });
 
 // Prefix-Suche (für Autocomplete)
 db.species.find({
-  "germanNames.name": { $regex: /^Algen/i }
+  "germanName": { $regex: /^Algen/i }
 });
 
 // Volltextsuche (wenn Text-Index vorhanden)
@@ -284,7 +305,7 @@ db.species.aggregate([
     $project: {
       taxonKey: 1,
       canonicalName: 1,
-      germanNames: 1,
+      germanName: 1,
       imageCount: { $size: "$images" },
       images: {
         $slice: ["$images", 10]  // Nur erste 10 Bilder
@@ -321,13 +342,13 @@ db.multimedia.find({
 ```javascript
 // MongoDB $sample (effizient)
 db.species.aggregate([
-  { $match: { "germanNames.0": { $exists: true } } },
+  { $match: { germanName: { $exists: true, $ne: null } } },
   { $sample: { size: 1 } }
 ]);
 
 // Mit Bildern
 db.species.aggregate([
-  { $match: { "germanNames.0": { $exists: true } } },
+  { $match: { germanName: { $exists: true, $ne: null } } },
   { $sample: { size: 1 } },
   {
     $lookup: {
@@ -369,7 +390,7 @@ db.species.find({ taxonKey: 2650105 });
 // ✅ Gut (nur benötigte Felder)
 db.species.find(
   { taxonKey: 2650105 },
-  { canonicalName: 1, germanNames: 1, _id: 0 }
+  { canonicalName: 1, germanName: 1, _id: 0 }
 );
 ```
 
@@ -410,7 +431,7 @@ db.species.find(
 ```javascript
 // ✅ Gut (filtert früh)
 db.species.aggregate([
-  { $match: { "germanNames.0": { $exists: true } } },  // Früh!
+  { $match: { germanName: { $exists: true, $ne: null } } },  // Früh!
   { $lookup: { ... } },
   { $project: { ... } }
 ]);
@@ -419,7 +440,7 @@ db.species.aggregate([
 db.species.aggregate([
   { $lookup: { ... } },
   { $project: { ... } },
-  { $match: { "germanNames.0": { $exists: true } } }  // Zu spät!
+  { $match: { germanName: { $exists: true, $ne: null } } }  // Zu spät!
 ]);
 ```
 
@@ -546,7 +567,7 @@ app.get('/api/species/search', async (req, res) => {
   const { q } = req.query;
 
   const results = await db.collection('species').find({
-    "germanNames.name": { $regex: new RegExp(q, 'i') }
+    "germanName": { $regex: new RegExp(q, 'i') }
   }).limit(20).toArray();
 
   res.json(results);
@@ -570,7 +591,7 @@ app.get('/api/species/:taxonKey', async (req, res) => {
 // 3. Zufällige Art für Quiz
 app.get('/api/quiz/random', async (req, res) => {
   const [species] = await db.collection('species').aggregate([
-    { $match: { "germanNames.0": { $exists: true } } },
+    { $match: { germanName: { $exists: true, $ne: null } } },
     { $sample: { size: 1 } },
     {
       $lookup: {
@@ -597,22 +618,18 @@ type Species {
   taxonKey: Int!
   scientificName: String!
   canonicalName: String!
-  rank: String!
-  status: String!
-  germanNames: [GermanName!]!
+  germanName: String!
+  family: String
+  familyKey: Int
+  germanFamilyName: String
   images(organ: String, limit: Int = 20): [Image!]!
-}
-
-type GermanName {
-  name: String!
-  preferred: Boolean!
-  source: String
 }
 
 type Image {
   occurrenceId: Int!
   url: String!
   organ: String
+  creator: String
   license: String
 }
 
@@ -635,24 +652,15 @@ db.createCollection("species", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["taxonKey", "canonicalName", "rank", "status", "germanNames"],
+      required: ["taxonKey", "canonicalName", "scientificName", "germanName"],
       properties: {
         taxonKey: { bsonType: "int" },
         canonicalName: { bsonType: "string" },
-        rank: { enum: ["SPECIES"] },
-        status: { enum: ["ACCEPTED"] },
-        germanNames: {
-          bsonType: "array",
-          minItems: 1,
-          items: {
-            bsonType: "object",
-            required: ["name", "preferred"],
-            properties: {
-              name: { bsonType: "string" },
-              preferred: { bsonType: "bool" }
-            }
-          }
-        }
+        scientificName: { bsonType: "string" },
+        germanName: { bsonType: "string" },
+        familyKey: { bsonType: ["int", "null"] },
+        family: { bsonType: ["string", "null"] },
+        germanFamilyName: { bsonType: ["string", "null"] }
       }
     }
   }
@@ -703,4 +711,4 @@ mongorestore \
 
 ---
 
-**Dokumentversion:** 1.0 (September 2025)
+**Dokumentversion:** 1.1 (August 2026) — Schema an den tatsächlichen Pipeline-Output angeglichen
