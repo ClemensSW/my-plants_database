@@ -74,6 +74,66 @@ bisher 2,8 Anfragen/s über 100 Minuten.)*
 
 ---
 
+## 🔁 Nach der Ernte: der Weg in die App
+
+*Die Schritte 1–4 holen Daten. Dieser Abschnitt bringt sie in die App. Er ist der Grund, warum die
+Pipeline überhaupt wiederholbar sein muss: Zum Ausbildungsstart jedes Jahrgangs läuft er erneut.*
+
+**Erst wenn die Ernte durch ist** — `wc -l < data/state/plantnet_images.done` muss die Artenzahl aus
+Schritt 2 erreicht haben (Stand 19.08.2026: 84.564). Vorher zu bauen ist nicht falsch, liefert aber
+einen kleineren Katalog, als möglich wäre.
+
+```bash
+# 1. Bauen — jeder Schritt liest, was der vorige geschrieben hat
+npm run pipeline:families      # 05  deutsche Familiennamen
+npm run pipeline:ecology       # 06  EIVE je taxonKey zuordnen
+npm run pipeline:build         # 07  -> data/build/{plants,plantmedias}.ndjson
+
+# 2. Prüfungslisten (ohne Flag nur anzeigen, --write schreibt)
+node pipeline/08_build_exam_lists.js
+node pipeline/08_build_exam_lists.js --write
+
+# 3. Importieren — IMMER erst ohne --confirm, das ist der Trockenlauf
+cd ../myplants-backend
+node scripts/import-catalog.js    --dir=../myplants-database/data/build
+node scripts/import-catalog.js    --dir=../myplants-database/data/build --confirm --expect-db=myflora
+node scripts/import-exam-lists.js --dir=../myplants-database/data/build --confirm --expect-db=myflora
+```
+
+`--confirm` ohne `--expect-db=<name>` bricht ab. Das ist Absicht: Der Zielname muss benannt werden,
+damit niemand versehentlich in die falsche Datenbank schreibt.
+
+### Die drei Prüfungen, die der Import selbst fährt
+
+Sie sind der Grund, warum ein Re-Import gefahrlos ist — und sie müssen **alle drei** sauber sein:
+
+| Prüfung | Warum sie zählt |
+|---|---|
+| `_id` unverändert | `UserPlant` hängt an `plants._id`, **nicht** am `taxonKey`. Ein Drop-and-Replace löschte jeden Lernfortschritt |
+| `userplants` unverändert | dieselbe Anzahl vorher wie nachher |
+| keine verwaisten Bezüge | kein `userplant` zeigt auf eine Pflanze, die es nicht mehr gibt |
+
+Schlägt eine fehl, ist der Import **nicht** in Ordnung, auch wenn er „fertig“ meldet.
+
+### Danach: Backend neu starten
+
+Nicht optional. Der Katalog-Schnappschuss und das Bildpaket liegen im Prozessspeicher; ohne Neustart
+liefert der Server bis zu 15 Minuten den alten Stand. Der Neustart stößt außerdem den
+Vorschau-Backfill an, der die Titelbilder der neuen Pflanzen auf 150 px holt — er füllt 500 je
+Neubau, braucht also ein paar Durchläufe.
+
+Am Endpunkt prüfen, nie am „fertig“: ein neuer Etag auf `/api/v1/app/catalog` ist der Beweis, und im
+Serverprotokoll steht `[catalog] built ... N plants ... M/N previews (X MB in Y Teilen)`.
+
+### ⚠️ Was dabei mitwachsen muss
+
+- **`ASSORTMENT_REFERENCE` und die Ablenker-Konstanten** (`ecology.util.ts`) sind am damaligen
+  5.551er-Sortiment gemessen und tragen die Auflage, bei gewachsenem Katalog **neu gemessen** zu
+  werden. Sie werden nicht automatisch falsch, aber sie werden es leise.
+- **Die App braucht kein Update.** Neue Felder kommen additiv unter eigenen Schlüsseln; ältere
+  Versionen ignorieren, was sie nicht kennen. Das Bildpaket holt sich jedes Gerät selbst neu, sobald
+  der Etag sich ändert.
+
 ## Warum ein Neuaufbau
 
 Die alte Pipeline beginnt mit **einem Bilddatensatz** (Pl@ntNet) und leitet daraus ab, welche
