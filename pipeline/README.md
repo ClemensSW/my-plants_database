@@ -33,11 +33,34 @@ python3 -c "import datetime;print(datetime.datetime.fromtimestamp(<WERT>/1000).s
 
 ```bash
 cd /Users/clemenssw/Developer/MyPlants/myplants-database
-npm run new:fetch-images
+npm run pipeline:images                              # alle 84.564 Arten der Reihe nach
+node pipeline/04_fetch_plantnet_images.js --only-named=de   # NUR was die App heute braucht
 ```
 
-Keine Argumente nötig. Der Lauf überspringt erledigte Arten, arbeitet **nach Bilderzahl absteigend**
-(das Wertvollste zuerst) und hängt an die bestehenden Dateien an.
+Der Lauf überspringt erledigte Arten, arbeitet **nach Bilderzahl absteigend** (das Wertvollste
+zuerst) und hängt an die bestehenden Dateien an.
+
+#### ⚠️ `--only-named=de` ist meist der richtige Aufruf — und leicht zu übersehen
+
+Ohne Filter geht der Lauf **alle 84.564** Arten durch. Bei 10.000 Anfragen je Tag sind das rund
+neun Tage. Für die App zählt aber nur die **Zielmenge**: Arten mit deutschem Namen *und* Bildern —
+11.518 Stück. Die liegen ohne Filter verstreut über alle neun Läufe, das heißt: Die App wächst
+erst am neunten Tag auf ihren vollen Stand.
+
+Gemessen am 19.08.2026 nach zwei vollen Läufen (20.163 Arten geerntet):
+
+| | ohne Filter | `--only-named=de` |
+|---|---|---|
+| noch offen | 64.401 Arten | **2.747** |
+| Tage bis die App vollständig ist | ~7 | **1** |
+| Arten der Zielmenge, die dabei fehlen | 0 | **3** (nur über GBIF benannt) |
+
+Drei Arten gegen sechs Tage. Die drei kommen bei den späteren vollständigen Läufen ohnehin mit.
+
+**Also:** Erst `--only-named=de`, bis die Zielmenge steht. Danach ohne Filter weiterlaufen lassen —
+die restlichen ~62.000 Arten haben heute keinen deutschen Namen und erscheinen deshalb nicht in der
+App, sind aber die Grundlage, sobald neue Namensquellen dazukommen (Baumschulen, eigene Handbücher).
+
 
 ### 3. Was auf dem Schirm steht
 
