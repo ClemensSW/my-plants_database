@@ -16,6 +16,15 @@ data/output/*.json
 archive/*.ndjson
 tools/*.ndjson
 
+# Pipeline: Ernte, Zwischenstände, Importdateien und Laufzustand.
+# Alles reproduzierbar und zu groß für Git. data/raw/ecology/ ist AUSGENOMMEN —
+# EIVE und das Prod-Backup sind Quelldaten, keine Ernte.
+data/raw/gbif/
+data/raw/plantnet/
+data/work/
+data/build/
+data/state/
+
 # Test data files
 data/intermediate/*_test.*
 data/output/*_test.*
