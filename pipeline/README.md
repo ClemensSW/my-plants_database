@@ -583,12 +583,36 @@ without the written consent of the Publishers."* Pl@ntNet hat am 21.08.2026 dazu
 
 **Die Reihenfolge ist unsere Sache, die Stimmenzahl gehört nicht dazu.**
 
-Praktisch heisst das: Das Feld `rating` in `plantmedias` **bleibt** — es gehört unserer Datenbank, und
-der gesamte Code, der danach sortiert, bleibt unverändert. Nur woher die Zahl kommt, ist offen.
-Denkbar sind eigene Pflege (für die ~293 Prüfungspflanzen realistisch und fachlich besser als ein
-Laiensignal) oder ein selbst berechnetes Mass. Die geernteten `plus`-Werte liegen weiter in
-`data/raw/plantnet/plantnet_images.ndjson` — sie zu behalten kostet nichts und schadet nicht, solange
-nichts Ausgeliefertes darauf beruht.
+#### Wie es am 21.08.2026 entschieden wurde
+
+Das Feld `rating` in `plantmedias` **bleibt** und trägt weiter `plus`. Getrennt wird nicht nach
+Feld, sondern nach **Verwendung** — und diese Trennung ist inhaltlich, nicht technisch:
+
+| Verwendung | Stand | Warum |
+|---|---|---|
+| **Titelbild** einer Pflanze (Kachel, Dashboard, Suche, Katalog, Handbuch-Kopfbild, Erfolgsschirm, Standort-Quiz, Chat, Ablenker) | **bleibt** nach `rating` | Eine kuratorische Auswahl: *ein* Bild, das die Pflanze zeigen soll. Clemens' Entscheidung, ausdrücklich erlaubt |
+| **Sortierung ganzer Bildlisten** (Handbuchgalerie, „Pflanze kennenlernen") | **stillgelegt** | Das ist eine Rangfolge über fremde Stimmen — genau das, was Artikel 7 nicht deckt |
+
+Der Schalter dafür steht an **einer** Stelle: `myplants-backend/src/common/constants/media-ordering.ts`,
+Konstante `SORTIERUNG_NACH_BEWERTUNG`. Eine Zeile umlegen, Backend neu starten. Er geht zurück auf
+`true`, sobald ein **eigenes** Mass existiert — geplant ist ein Wilson-Score auf eigenen
+Rückmeldungen. Bis dahin ordnen die beiden Listen nach `{occurrenceId, organ, url}`, dem Vierklang,
+mit dem der Import eine Medienzeile identifiziert: eindeutig, und auf einem vorhandenen Index.
+
+Die geernteten `plus`-Werte liegen weiter in `data/raw/plantnet/plantnet_images.ndjson` — sie zu
+behalten kostet nichts, solange nichts Ausgeliefertes eine Rangfolge daraus baut.
+
+#### Das Datum ist ausdrücklich erlaubt — und wird seit dem 21.08. mitgeführt
+
+Artikel 7 zählt das Aufnahmedatum auf. Schritt 07 schreibt es als `dateText`, das Schema kennt es,
+der Import überträgt es, und die App zeigt es in der Bildangabe:
+
+    Foto: Nathalie Mabboux / Pl@ntNet, CC BY-SA, 14. Jan. 2024
+
+Es heisst `dateText` und **nicht** `date`, weil Pl@ntNet es bei `lang=de` bereits als deutschen
+Anzeigestring liefert. `new Date("14. Jan. 2024")` ergibt „Invalid Date", und zwar ohne
+Fehlermeldung — der Name macht das an jeder Aufrufstelle sichtbar. Gemessen an der Rohernte:
+**19.910.525 Zeilen, 0 ohne Datum.** Es musste nichts nachgeerntet werden.
 
 
 ## Schritt 4 — `04_fetch_plantnet_images.js`
