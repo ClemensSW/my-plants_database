@@ -260,6 +260,14 @@ async function main() {
       license: img.license,
       creator: img.author || null,
       rating: img.plus ?? 0,       // ← Pl@ntNets Community-Zustimmung
+      // Das Aufnahmedatum, wie Pl@ntNet es liefert: ein fertig formatierter deutscher
+      // ANZEIGESTRING („14. Jan. 2024"), weil die Ernte mit `lang=de` lief. Deshalb heisst
+      // das Feld `dateText` und nicht `date` — `new Date(m.dateText)` ergibt „Invalid Date",
+      // und zwar still. Es gehoert in die Bildangabe, nicht in eine Sortierung.
+      //
+      // Beim Wechsel auf API v2 kommt das Datum als `date: { timestamp, string }`; dann kann
+      // hier zusaetzlich der Zeitstempel mitgeschrieben werden, ohne diesen String zu verlieren.
+      dateText: img.date || null,
       isActive: true,
     }) + '\n');
     mediaWritten++;
