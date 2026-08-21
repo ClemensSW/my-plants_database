@@ -510,6 +510,87 @@ Ausgabeformat je Sprache:
 }
 ```
 
+## 🔴 Beim nächsten Jahreslauf: auf API v2 wechseln
+
+*Steht hier, weil es sonst in einem Jahr neu erarbeitet werden müsste. Stand 21.08.2026.*
+
+Die Pipeline benutzt **v1**. Das war die richtige Wahl zum Bauen und ist die falsche zum Weitermachen.
+
+### Warum überhaupt v1
+
+Schritt 04 braucht die Bilder **einer** Art und ruft dafür `/v1/projects/{project}/species/{Name mit
+Autor}` auf — eine Anfrage je Art. Diese Route ist der Grund für den ganzen Zuschnitt des Schritts:
+84.564 Anfragen, 10.000 am Tag, neun Tagesläufe.
+
+### Warum v2 anders ist
+
+**v2 hat diese Route nicht.** Es gibt keinen Weg, eine einzelne Art abzufragen. Stattdessen trägt die
+Listenroute einen Schalter:
+
+```
+GET /v2/projects/{project}/species?images=true&lang=de&page=&pageSize=
+   → id · commonNames · scientificNameWithoutAuthor · scientificNameAuthorship
+     genus · family · gbifId · powoId · iucnCategory
+     images[]: organ · author · license · date{timestamp,string} · url{o,m,s} · citation
+```
+
+Damit fielen Schritt 02 und 04 in einen zusammen: Namen und Bilder in einem Durchgang, **seitenweise
+statt artweise**. Die Größenordnung ändert sich von zehntausenden Anfragen auf einige hundert.
+
+`images=true` verlangt den **Pro-Plan**. Die Dokumentation beschreibt ausschließlich v2; v1 kommt dort
+nicht mehr vor.
+
+### 🔴 Die eine Frage, die vorher zu klären ist
+
+**Wie viele Bilder je Art liefert `images=true` auf der Listenroute?**
+
+Steht nicht in der Dokumentation und ist ohne Pro-Zugang nicht prüfbar. Ein einziger Abruf beantwortet
+es. Die Antwort entscheidet alles Weitere:
+
+- **Alle** → Schritt 02 und 04 zusammenlegen, die Ernte schrumpft von neun Tagen auf Minuten.
+- **Nur eine Auswahl** → die Bildbreite ginge verloren, auf der die App didaktisch beruht
+  (Ø ~1.540 Bilder je Art, Fagus sylvatica über 50.000). Dann bleibt der artweise Weg nötig — und es
+  ist mit Pl@ntNet zu klären, wie man ihn unter v2 geht.
+
+**Erst messen, dann umbauen.** Nicht davon ausgehen, dass die Listenroute alles liefert.
+
+### Was beim Wechsel mitkommt und was wegfällt
+
+| | v1 (heute) | v2 |
+|---|---|---|
+| Bilder je Art | vollständig | **ungeklärt** |
+| Organ, Lizenz, Autor | ✓ | ✓ |
+| Datum | ✓ | ✓ (`date.timestamp` + `date.string`) |
+| Fertige Quellenangabe | – | ✓ (`citation`) |
+| **Bewertung (`plus`)** | ✓ | **nein** |
+
+Das `citation`-Feld nimmt die Formatierung ab, die Pl@ntNet ausdrücklich verlangt
+(*„Photo by Hugo Gresse, CC-BY, Pl@ntNet, 22 October 2024"*).
+
+### ⚠️ Die Bewertung ist kein Teil der Lizenz
+
+`plus` (Community-Zustimmung, 0 bis mehrere hundert) hat die gesamte Bildsortierung getragen:
+Titelbild, Handbuchgalerie, „Pflanze kennenlernen". **Es darf nicht mehr die Quelle dieser Sortierung
+sein.**
+
+Artikel 7 der Copyright Licence zählt abschließend auf, welche Bildmerkmale kommerziell nutzbar sind
+— Organ, Autor, Lizenz, Datum, drei URLs, Quellenvorlage. Eine Bewertung steht nicht darin, und der
+Artikel schliesst mit: *„Any other use of the Publishers' databases by the Client is strictly forbidden
+without the written consent of the Publishers."* Pl@ntNet hat am 21.08.2026 dazu geschrieben:
+
+> *„We don't expose the vote on observations/images appearing on the API. […] It is up to you to
+> prioritize in which order you want to sort them."*
+
+**Die Reihenfolge ist unsere Sache, die Stimmenzahl gehört nicht dazu.**
+
+Praktisch heisst das: Das Feld `rating` in `plantmedias` **bleibt** — es gehört unserer Datenbank, und
+der gesamte Code, der danach sortiert, bleibt unverändert. Nur woher die Zahl kommt, ist offen.
+Denkbar sind eigene Pflege (für die ~293 Prüfungspflanzen realistisch und fachlich besser als ein
+Laiensignal) oder ein selbst berechnetes Mass. Die geernteten `plus`-Werte liegen weiter in
+`data/raw/plantnet/plantnet_images.ndjson` — sie zu behalten kostet nichts und schadet nicht, solange
+nichts Ausgeliefertes darauf beruht.
+
+
 ## Schritt 4 — `04_fetch_plantnet_images.js`
 
 Holt die Bilder **direkt bei Pl@ntNet** statt über GBIF — mit Organ, Lizenz und
