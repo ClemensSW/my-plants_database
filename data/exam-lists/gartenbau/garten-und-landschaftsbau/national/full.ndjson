@@ -2,204 +2,292 @@
 {"taxonKey":2685552,"canonicalName":"Abies nordmanniana","germanName":"Nordmanns-Tanne, Kaukasus-Tanne"}
 {"taxonKey":3189863,"canonicalName":"Acer campestre","germanName":"Feld-Ahorn"}
 {"taxonKey":3189866,"canonicalName":"Acer negundo","germanName":"Goldbunter Eschen-Ahorn"}
-{"taxonKey":3189882,"canonicalName":"Acer palmatum","germanName":"Fächer-Ahorn"}
-{"taxonKey":3189846,"canonicalName":"Acer platanoides","germanName":"Kugel-Ahorn"}
+{"taxonKey":3189882,"canonicalName":"Acer palmatum","germanName":"Roter Fächer-Ahorn"}
+{"taxonKey":3189846,"canonicalName":"Acer platanoides","germanName":"Spitz-Ahorn"}
 {"taxonKey":3189870,"canonicalName":"Acer pseudoplatanus","germanName":"Berg-Ahorn"}
-{"taxonKey":3033665,"canonicalName":"Aconitum napellus","germanName":"Blauer Eisenhut, Berg-Eisenhut"}
+{"taxonKey":3033665,"canonicalName":"Aconitum napellus","germanName":"Blauer Eisenhut"}
 {"taxonKey":6376106,"canonicalName":"Actaea racemosa","germanName":"Juli-Silberkerze"}
+{"taxonKey":2651832,"canonicalName":"Adiantum pedatum","germanName":"Amerikanischer Frauenhaarfarn, Pfauenradfarn"}
+{"taxonKey":5371711,"canonicalName":"Adonis vernalis","germanName":"Frühlings-Adonisröschen"}
 {"taxonKey":3034620,"canonicalName":"Aegopodium podagraria","germanName":"Gewöhnlicher Giersch, Geißfuß"}
 {"taxonKey":3189815,"canonicalName":"Aesculus hippocastanum","germanName":"Rosskastanie"}
-{"taxonKey":2927078,"canonicalName":"Ajuga reptans","germanName":"Rotlaubiger Kriechender Günsel"}
+{"taxonKey":5401760,"canonicalName":"Ageratum houstonianum","germanName":"Leberbalsam"}
+{"taxonKey":2927078,"canonicalName":"Ajuga reptans","germanName":"Rotblättriger Kriechender Günsel"}
+{"taxonKey":2972983,"canonicalName":"Albizia julibrissin","germanName":"Schlafbaum, Seidenbaum, Seidenakazie"}
 {"taxonKey":3028528,"canonicalName":"Alchemilla mollis","germanName":"Weicher Frauenmantel"}
+{"taxonKey":2865100,"canonicalName":"Alisma plantago-aquatica","germanName":"Gewöhnlicher Froschlöffel"}
 {"taxonKey":2876213,"canonicalName":"Alnus glutinosa","germanName":"Schwarz-Erle, Rot-Erle"}
 {"taxonKey":3024109,"canonicalName":"Amelanchier lamarckii","germanName":"Kupfer-Felsenbirne"}
-{"taxonKey":8930531,"canonicalName":"Armeria maritima","germanName":"Grasnelke, Strand-Grasnelke"}
+{"taxonKey":3033191,"canonicalName":"Aquilegia vulgaris","germanName":"Gewöhnliche Akelei"}
+{"taxonKey":8930531,"canonicalName":"Armeria maritima","germanName":"Grasnelke, Garten-Grasnelke"}
+{"taxonKey":5362136,"canonicalName":"Aruncus dioicus","germanName":"Wald-Geißbart"}
 {"taxonKey":2650669,"canonicalName":"Asplenium scolopendrium","germanName":"Hirschzunge, Hirschzungenfarn"}
-{"taxonKey":5377778,"canonicalName":"Aurinia saxatilis","germanName":"Felsen-Steinkraut, Felsen-Steinkresse"}
+{"taxonKey":8133114,"canonicalName":"Aster amellus","germanName":"Berg-Aster, Kalk-Aster"}
+{"taxonKey":5377778,"canonicalName":"Aurinia saxatilis","germanName":"Felsen-Steinkresse, Felsen-Steinkraut"}
+{"taxonKey":3117424,"canonicalName":"Bellis perennis","germanName":"Edel-Gänseblümchen, Maßliebchen, Tausendschön"}
 {"taxonKey":3981543,"canonicalName":"Berberis julianae","germanName":"Großblättrige Berberitze"}
 {"taxonKey":3033896,"canonicalName":"Berberis thunbergii","germanName":"Grüne Hecken-Berberitze"}
+{"taxonKey":3982312,"canonicalName":"Berberis verruculosa","germanName":"Warzen-Berberitze, Blaublatt-Berberitze"}
 {"taxonKey":5331916,"canonicalName":"Betula pendula","germanName":"Sand-Birke, Weiß-Birke, Hänge-Birke"}
+{"taxonKey":5384862,"canonicalName":"Bougainvillea glabra","germanName":"Glatte Bougainvillee, Drillingsblume"}
+{"taxonKey":2702789,"canonicalName":"Briza media","germanName":"Mittleres Zittergras"}
 {"taxonKey":2926045,"canonicalName":"Brunnera macrophylla","germanName":"Großblättriges Kaukasusvergissmeinnicht"}
-{"taxonKey":3173338,"canonicalName":"Buddleja davidii","germanName":"Schmetterlingsstrauch, Sommerflieder"}
+{"taxonKey":3173338,"canonicalName":"Buddleja davidii","germanName":"Sommerflieder, Schmetterlingsstrauch"}
+{"taxonKey":2864467,"canonicalName":"Butomus umbellatus","germanName":"Schwanenblume, Blumenbinse"}
+{"taxonKey":2984671,"canonicalName":"Buxus sempervirens","germanName":"Europäischer Buchsbaum, Gewöhnlicher Buchsbaum"}
+{"taxonKey":4127011,"canonicalName":"Calamagrostis acutiflora","germanName":"Garten-Sandrohr, Moor-Reitgras"}
 {"taxonKey":2882482,"canonicalName":"Calluna vulgaris","germanName":"Besenheide, Heidekraut, Sommerheide"}
+{"taxonKey":5371685,"canonicalName":"Caltha palustris","germanName":"Sumpf-Dotterblume"}
+{"taxonKey":2928441,"canonicalName":"Calystegia sepium","germanName":"Gewöhnliche Zaunwinde"}
+{"taxonKey":2769069,"canonicalName":"Camassia leichtlinii","germanName":"Leichtlins Prärielilie, Leichtlins Camassie"}
+{"taxonKey":3189636,"canonicalName":"Camellia japonica","germanName":"Japanische Kamelie, Teestrauch"}
+{"taxonKey":5411475,"canonicalName":"Campanula persicifolia","germanName":"Pfirsichblättrige Glockenblume"}
 {"taxonKey":5410151,"canonicalName":"Campanula poscharskyana","germanName":"Hängepolster-Glockenblume"}
 {"taxonKey":2722515,"canonicalName":"Carex morrowii","germanName":"Bunte Japan-Segge"}
+{"taxonKey":3105433,"canonicalName":"Carlina acaulis","germanName":"Krausblättrige Silberdistel, Hochstänglige Große Eberwurz, Wetterdistel"}
 {"taxonKey":2875818,"canonicalName":"Carpinus betulus","germanName":"Hainbuche, Weißbuche"}
-{"taxonKey":5333294,"canonicalName":"Castanea sativa","germanName":"Ess-Kastanie, Edelkastanie, Marone"}
-{"taxonKey":3172615,"canonicalName":"Catalpa bignonioides","germanName":"Kugel-Trompetenbaum"}
-{"taxonKey":5284682,"canonicalName":"Cedrus libani","germanName":"Blaue Atlas-Zeder, Blau-Zeder"}
+{"taxonKey":8654143,"canonicalName":"Caryopteris clandonensis","germanName":"Bartblume"}
+{"taxonKey":5333294,"canonicalName":"Castanea sativa","germanName":"Ess-Kastanie, Edel-Kastanie, Marone"}
+{"taxonKey":3172615,"canonicalName":"Catalpa bignonioides","germanName":"Trompetenbaum"}
+{"taxonKey":5284702,"canonicalName":"Cedrus atlantica","germanName":"Blau-Zeder, Blaue Atlas-Zeder"}
+{"taxonKey":2984492,"canonicalName":"Celtis australis","germanName":"Südlicher Zürgelbaum"}
+{"taxonKey":3082279,"canonicalName":"Ceratostigma plumbaginoides","germanName":"Kriechende Hornnarbe, Chinesische Scheinbleiwurz"}
 {"taxonKey":5353590,"canonicalName":"Cercis siliquastrum","germanName":"Gewöhnlicher Judasbaum"}
-{"taxonKey":2683866,"canonicalName":"Chamaecyparis lawsoniana","germanName":"Blaue Säulen-Scheinzypresse"}
+{"taxonKey":3000632,"canonicalName":"Chaenomeles superba","germanName":"Zierquitte, Scheinquitte"}
+{"taxonKey":2683866,"canonicalName":"Chamaecyparis lawsoniana","germanName":"Blaue Hecken-Scheinzypresse"}
 {"taxonKey":2683849,"canonicalName":"Chamaecyparis obtusa","germanName":"Kleine Muschel-Scheinzypresse"}
-{"taxonKey":3133887,"canonicalName":"Coreopsis verticillata","germanName":"Netzblattstern, Quirlblättriges Mädchenauge"}
-{"taxonKey":8365953,"canonicalName":"Cornus alba","germanName":"Weißer Hartriegel, Tatarischer Hartriegel"}
+{"taxonKey":3112801,"canonicalName":"Cirsium vulgare","germanName":"Lanzett-Kratzdistel, Gewöhnliche Kratzdistel"}
+{"taxonKey":7647136,"canonicalName":"Citrus limon","germanName":"Zitrone"}
+{"taxonKey":3033558,"canonicalName":"Clematis vitalba","germanName":"Gewöhnliche Waldrebe"}
+{"taxonKey":2739622,"canonicalName":"Colchicum autumnale","germanName":"Herbst-Zeitlose"}
+{"taxonKey":7459480,"canonicalName":"Convallaria majalis","germanName":"Maiglöckchen"}
+{"taxonKey":8365953,"canonicalName":"Cornus alba","germanName":"Weißbunter Hartriegel"}
 {"taxonKey":3082274,"canonicalName":"Cornus kousa","germanName":"Japanischer Blumen-Hartriegel"}
 {"taxonKey":3082263,"canonicalName":"Cornus mas","germanName":"Kornelkirsche"}
+{"taxonKey":3082234,"canonicalName":"Cornus sanguinea","germanName":"Roter Hartriegel"}
 {"taxonKey":2704523,"canonicalName":"Cortaderia selloana","germanName":"Pampasgras, Silber-Pampasgras"}
-{"taxonKey":2875979,"canonicalName":"Corylus avellana","germanName":"Korkenzieher-Haselnuss"}
+{"taxonKey":2875979,"canonicalName":"Corylus avellana","germanName":"Gewöhnliche Hasel, Haselnuss, Wald-Hasel"}
 {"taxonKey":2875968,"canonicalName":"Corylus colurna","germanName":"Baum-Hasel, Türkische Hasel"}
+{"taxonKey":3098912,"canonicalName":"Cosmos bipinnatus","germanName":"Schmuckkörbchen, Muschel-Kosmee"}
 {"taxonKey":3190522,"canonicalName":"Cotinus coggygria","germanName":"Roter Perückenstrauch"}
-{"taxonKey":9220780,"canonicalName":"Crataegus monogyna","germanName":"Eingriffeliger Weißdorn"}
+{"taxonKey":3026040,"canonicalName":"Cotoneaster suecicus","germanName":"Immergrüne Böschungsmispel"}
+{"taxonKey":9220780,"canonicalName":"Crataegus monogyna","germanName":"Eingriffliger Weißdorn"}
+{"taxonKey":2747567,"canonicalName":"Crocus vernus","germanName":"Garten-Krokus, Frühlings-Krokus"}
+{"taxonKey":7127810,"canonicalName":"Cyclamen hederifolium","germanName":"Herbst-Alpenveilchen, Saubrot"}
+{"taxonKey":3169315,"canonicalName":"Cyclamen purpurascens","germanName":"Wildes Alpenveilchen, Sommer-Alpenveilchen"}
 {"taxonKey":5362215,"canonicalName":"Cydonia oblonga","germanName":"Quitte, Echte Quitte"}
-{"taxonKey":5354656,"canonicalName":"Cytisus scoparius","germanName":"Edel-Ginster, Schmuck-Ginster"}
-{"taxonKey":5420852,"canonicalName":"Daphne mezereum","germanName":"Seidelbast, Kellerhals"}
-{"taxonKey":3033757,"canonicalName":"Delphinium elatum","germanName":"Garten-Rittersporn"}
+{"taxonKey":2820517,"canonicalName":"Cypripedium calceolus","germanName":"Gelber Frauenschuh, Marien-Frauenschuh, Marienschuh"}
+{"taxonKey":5420852,"canonicalName":"Daphne mezereum","germanName":"Gewöhnlicher Seidelbast, Kellerhals"}
 {"taxonKey":2985964,"canonicalName":"Deutzia gracilis","germanName":"Zierliche Deutzie, Maiblumenstrauch"}
 {"taxonKey":2985965,"canonicalName":"Deutzia scabra","germanName":"Gefüllter Sternchenstrauch, Gefüllte Deutzie"}
+{"taxonKey":3085424,"canonicalName":"Dianthus deltoides","germanName":"Heide-Nelke"}
 {"taxonKey":6364219,"canonicalName":"Dianthus gratianopolitanus","germanName":"Garten-Pfingst-Nelke"}
+{"taxonKey":5421338,"canonicalName":"Dictamnus albus","germanName":"Gewöhnlicher Diptam, Brennender Busch"}
+{"taxonKey":5414995,"canonicalName":"Digitalis purpurea","germanName":"Roter Fingerhut"}
+{"taxonKey":3191030,"canonicalName":"Drosera rotundifolia","germanName":"Rundblättriger Sonnentau"}
 {"taxonKey":5275132,"canonicalName":"Dryopteris filix-mas","germanName":"Gewöhnlicher Wurmfarn"}
+{"taxonKey":3150935,"canonicalName":"Echinacea purpurea","germanName":"Roter Scheinsonnenhut, Garten-Purpursonnenhut"}
+{"taxonKey":3039269,"canonicalName":"Elaeagnus angustifolia","germanName":"Schmalblättrige Ölweide"}
 {"taxonKey":5290299,"canonicalName":"Elymus repens","germanName":"Kriech-Quecke, Gewöhnliche Quecke"}
-{"taxonKey":7924597,"canonicalName":"Equisetum arvense","germanName":"Ackerschachtelhalm"}
+{"taxonKey":5319226,"canonicalName":"Epipactis palustris","germanName":"Sumpf-Ständelwurz, Sumpf-Stendelwurz, Sumpfwurz"}
+{"taxonKey":2868323,"canonicalName":"Epipremnum aureum","germanName":"Goldene Efeutute"}
+{"taxonKey":7924597,"canonicalName":"Equisetum arvense","germanName":"Acker-Schachtelhalm, Zinnkraut"}
+{"taxonKey":3033227,"canonicalName":"Eranthis hyemalis","germanName":"Kleiner Winterling, Südeuropäischer Winterling"}
+{"taxonKey":2778813,"canonicalName":"Eremurus robustus","germanName":"Riesen-Steppenkerze, Kleopatranadel"}
 {"taxonKey":5682465,"canonicalName":"Erica carnea","germanName":"Schnee-Heide, Winter-Heide"}
+{"taxonKey":2730185,"canonicalName":"Eriophorum vaginatum","germanName":"Scheiden-Wollgras, Moor-Wollgras"}
 {"taxonKey":3169120,"canonicalName":"Euonymus alatus","germanName":"Korkflügelstrauch, Flügel-Spindelstrauch, Geflügeltes Pfaffenhütchen"}
-{"taxonKey":3169137,"canonicalName":"Euonymus fortunei","germanName":"Kriechspindel"}
+{"taxonKey":3169131,"canonicalName":"Euonymus europaeus","germanName":"Pfaffenhütchen"}
+{"taxonKey":3169137,"canonicalName":"Euonymus fortunei","germanName":"Goldbunte Kriechspindel"}
+{"taxonKey":3066321,"canonicalName":"Euphorbia hypericifolia","germanName":"Zauberschnee"}
 {"taxonKey":3064669,"canonicalName":"Euphorbia myrsinites","germanName":"Walzen-Wolfsmilch"}
 {"taxonKey":2882316,"canonicalName":"Fagus sylvatica","germanName":"Rot-Buche"}
 {"taxonKey":5334351,"canonicalName":"Fallopia baldschuanica","germanName":"Schling-Knöterich"}
-{"taxonKey":5361909,"canonicalName":"Ficus carica","germanName":"Echte Feige, Feigenbaum"}
-{"taxonKey":2914642,"canonicalName":"Galium odoratum","germanName":"Waldmeister"}
-{"taxonKey":2891079,"canonicalName":"Geranium macrorrhizum","germanName":"Felsen-Storchschnabel"}
+{"taxonKey":2705031,"canonicalName":"Festuca glauca","germanName":"Blau-Schwingel"}
+{"taxonKey":5361932,"canonicalName":"Ficus benjamina","germanName":"Birken-Feige, Benjamin-Gummibaum"}
+{"taxonKey":2987999,"canonicalName":"Filipendula ulmaria","germanName":"Echtes Mädesüß"}
+{"taxonKey":5415054,"canonicalName":"Forsythia intermedia","germanName":"Goldglöckchen, Forsythie"}
+{"taxonKey":3172358,"canonicalName":"Fraxinus excelsior","germanName":"Gewöhnliche Esche"}
+{"taxonKey":5300716,"canonicalName":"Fritillaria imperialis","germanName":"Kaiserkrone"}
+{"taxonKey":2855356,"canonicalName":"Galanthus nivalis","germanName":"Kleines Schneeglöckchen"}
+{"taxonKey":5347712,"canonicalName":"Genista lydia","germanName":"Stein-Ginster, Lydischer Ginster, Goldland-Ginster"}
+{"taxonKey":5347612,"canonicalName":"Genista tinctoria","germanName":"Färber-Ginster"}
 {"taxonKey":2890920,"canonicalName":"Geranium sanguineum","germanName":"Blutroter Storchschnabel"}
+{"taxonKey":2890035,"canonicalName":"Geranium oxonianum","germanName":"Oxford-Storchschnabel, Garten-Storchschnabel"}
 {"taxonKey":2687885,"canonicalName":"Ginkgo biloba","germanName":"Fächerblattbaum, Ginkgo"}
+{"taxonKey":2959443,"canonicalName":"Gleditsia triacanthos","germanName":"Gold-Gleditschie, Gelber Lederhülsenbaum"}
+{"taxonKey":5384464,"canonicalName":"Gypsophila repens","germanName":"Teppich-Schleierkraut, Kriechendes Gipskraut"}
 {"taxonKey":8351737,"canonicalName":"Hedera helix","germanName":"Gewöhnlicher Efeu"}
-{"taxonKey":3033107,"canonicalName":"Helleborus niger","germanName":"Christrose, Schwarzer Nieswurz"}
-{"taxonKey":8365087,"canonicalName":"Heuchera micrantha","germanName":"Kleinblütiges Purpurglöckchen, Garten-Silberglöckchen"}
+{"taxonKey":9206251,"canonicalName":"Helianthus annuus","germanName":"Sonnenblume"}
+{"taxonKey":3119185,"canonicalName":"Helianthus decapetalus","germanName":"Stauden-Sonnenblume"}
+{"taxonKey":3033107,"canonicalName":"Helleborus niger","germanName":"Christrose, Schwarze Nieswurz"}
+{"taxonKey":6374953,"canonicalName":"Helleborus orientalis","germanName":"Garten-Lenzrose, Frühlings-Nieswurz"}
+{"taxonKey":5371699,"canonicalName":"Hepatica nobilis","germanName":"Gewöhnliches Leberblümchen"}
+{"taxonKey":3034825,"canonicalName":"Heracleum mantegazzianum","germanName":"Herkulesstaude, Riesen-Bärenklau"}
 {"taxonKey":3152583,"canonicalName":"Hibiscus syriacus","germanName":"Garten-Eibisch, Strauch-Eibisch"}
 {"taxonKey":3039285,"canonicalName":"Hippophae rhamnoides","germanName":"Sanddorn"}
-{"taxonKey":2772666,"canonicalName":"Hyacinthus orientalis","germanName":"Hyazinthe"}
+{"taxonKey":5372503,"canonicalName":"Hippuris vulgaris","germanName":"Tannenwedel"}
 {"taxonKey":2985994,"canonicalName":"Hydrangea macrophylla","germanName":"Bauern-Hortensie, Garten-Hortensie"}
+{"taxonKey":3645181,"canonicalName":"Hydrangea petiolaris","germanName":"Kletter-Hortensie"}
 {"taxonKey":3189497,"canonicalName":"Hypericum calycinum","germanName":"Immergrünes Johanniskraut, Niedriges Johanniskraut"}
 {"taxonKey":5551241,"canonicalName":"Iberis sempervirens","germanName":"Immergrüne Schleifenblume, Immergrünes Schneekissen"}
-{"taxonKey":5414222,"canonicalName":"Ilex aquifolium","germanName":"Stechpalme"}
-{"taxonKey":5414239,"canonicalName":"Ilex crenata","germanName":"Japanische Stechpalme, Japan-Ilex"}
+{"taxonKey":5414222,"canonicalName":"Ilex aquifolium","germanName":"Europäische Stechpalme, Gewöhnliche Hülse"}
+{"taxonKey":5414239,"canonicalName":"Ilex crenata","germanName":"Löffel-Ilex, Japanische Stechpalme"}
+{"taxonKey":2891770,"canonicalName":"Impatiens glandulifera","germanName":"Drüsiges Springkraut, Indisches Springkraut"}
+{"taxonKey":2891772,"canonicalName":"Impatiens walleriana","germanName":"Fleißiges Lieschen"}
+{"taxonKey":5298231,"canonicalName":"Iris pseudacorus","germanName":"Sumpf-Schwertlilie"}
 {"taxonKey":5298126,"canonicalName":"Iris sibirica","germanName":"Sibirische Schwertlilie, Wiesen-Iris"}
 {"taxonKey":3172266,"canonicalName":"Jasminum nudiflorum","germanName":"Winter-Jasmin"}
 {"taxonKey":3054368,"canonicalName":"Juglans regia","germanName":"Walnuss"}
+{"taxonKey":2701311,"canonicalName":"Juncus effusus","germanName":"Flatter-Binse"}
+{"taxonKey":2684709,"canonicalName":"Juniperus communis","germanName":"Irischer Säulen-Wacholder"}
 {"taxonKey":2684410,"canonicalName":"Juniperus horizontalis","germanName":"Blauer Teppich-Wacholder"}
+{"taxonKey":5371450,"canonicalName":"Kerria japonica","germanName":"Gefüllter Ranunkelstrauch, Gefüllte Kerrie"}
+{"taxonKey":2888706,"canonicalName":"Kolkwitzia amabilis","germanName":"Kolkwitzie, Perlmuttstrauch"}
+{"taxonKey":5356351,"canonicalName":"Laburnum watereri","germanName":"Edel-Goldregen"}
+{"taxonKey":3188725,"canonicalName":"Lagerstroemia indica","germanName":"Kräuselmyrte, Kreppmyrte, Indischer Flieder"}
+{"taxonKey":2926684,"canonicalName":"Lamium maculatum","germanName":"Gefleckte Garten-Taubnessel"}
+{"taxonKey":2925303,"canonicalName":"Lantana camara","germanName":"Wandelröschen, Lantane"}
 {"taxonKey":2686212,"canonicalName":"Larix decidua","germanName":"Europäische Lärche"}
-{"taxonKey":3034015,"canonicalName":"Laurus nobilis","germanName":"Lorbeerbaum, Lorbeer"}
+{"taxonKey":3034015,"canonicalName":"Laurus nobilis","germanName":"Lorbeer, Lorbeerbaum"}
 {"taxonKey":2927305,"canonicalName":"Lavandula angustifolia","germanName":"Echter Lavendel"}
+{"taxonKey":2860409,"canonicalName":"Leucojum vernum","germanName":"Märzenbecher, Frühlings-Knotenblume"}
+{"taxonKey":3104314,"canonicalName":"Liatris spicata","germanName":"Prachtscharte"}
+{"taxonKey":5395559,"canonicalName":"Ligularia przewalskii","germanName":"Przewalskis Goldkolben, Kerzen-Ligularie"}
 {"taxonKey":3172300,"canonicalName":"Ligustrum vulgare","germanName":"Gewöhnlicher Liguster, Rainweide"}
+{"taxonKey":2873878,"canonicalName":"Linum perenne","germanName":"Ausdauernder Lein, Stauden-Lein"}
 {"taxonKey":3152824,"canonicalName":"Liquidambar styraciflua","germanName":"Amberbaum, Amerikanischer Amberbaum"}
 {"taxonKey":3152861,"canonicalName":"Liriodendron tulipifera","germanName":"Tulpenbaum, Amerikanischer Tulpenbaum"}
+{"taxonKey":5334259,"canonicalName":"Lonicera xylosteum","germanName":"Gewöhnliche Heckenkirsche, Rote Heckenkirsche"}
 {"taxonKey":2700859,"canonicalName":"Luzula sylvatica","germanName":"Wald-Hainsimse, Wald-Marbel"}
-{"taxonKey":3169379,"canonicalName":"Lysimachia nummularia","germanName":"Pfennigkraut, Pfennig-Gilbweiderich"}
-{"taxonKey":3033865,"canonicalName":"Mahonia aquifolium","germanName":"Gewöhnliche Mahonie"}
+{"taxonKey":3169340,"canonicalName":"Lysimachia punctata","germanName":"Goldfelberich, Punktierter Gilbweiderich"}
+{"taxonKey":3188736,"canonicalName":"Lythrum salicaria","germanName":"Blut-Weiderich"}
+{"taxonKey":3153912,"canonicalName":"Magnolia stellata","germanName":"Stern-Magnolie"}
+{"taxonKey":7925303,"canonicalName":"Magnolia soulangeana","germanName":"Tulpen-Magnolie"}
 {"taxonKey":3001244,"canonicalName":"Malus domestica","germanName":"Apfel, Kultur-Apfel"}
+{"taxonKey":5341511,"canonicalName":"Menyanthes trifoliata","germanName":"Fieberklee, Bitterklee"}
 {"taxonKey":5284231,"canonicalName":"Metasequoia glyptostroboides","germanName":"Urweltmammutbaum, Chinesisches Rotholz"}
 {"taxonKey":2706026,"canonicalName":"Miscanthus sinensis","germanName":"Garten-Chinaschilf, Silber-Chinaschilf"}
+{"taxonKey":4121791,"canonicalName":"Molinia arundinacea","germanName":"Garten-Pfeifengras, Rohr-Pfeifengras"}
+{"taxonKey":2762680,"canonicalName":"Musa acuminata","germanName":"Banane, Koch-Banane"}
+{"taxonKey":2772094,"canonicalName":"Muscari botryoides","germanName":"Kleine Traubenhyazinthe, Kleines Träubel"}
+{"taxonKey":5341175,"canonicalName":"Myosotis sylvatica","germanName":"Vergissmeinnicht"}
+{"taxonKey":3180085,"canonicalName":"Myrtus communis","germanName":"Braut-Myrte, Gewöhnliche Myrte"}
+{"taxonKey":2858244,"canonicalName":"Narcissus pseudonarcissus","germanName":"Gelbe Narzisse, Osterglocke"}
+{"taxonKey":7350989,"canonicalName":"Nepeta faassenii","germanName":"Katzenminze, Blaue Katzenminze"}
 {"taxonKey":3169756,"canonicalName":"Nerium oleander","germanName":"Oleander"}
-{"taxonKey":2874930,"canonicalName":"Nothofagus antarctica","germanName":"Pfennigbuche, Scheinbuche, Südbuche"}
-{"taxonKey":5415040,"canonicalName":"Olea europaea","germanName":"Olivenbaum, Olive, Ölbaum"}
-{"taxonKey":2984676,"canonicalName":"Pachysandra terminalis","germanName":"Dickmännchen, Schattengrün"}
-{"taxonKey":3083486,"canonicalName":"Paeonia lactiflora","germanName":"Garten-Pfingstrose, Edel-Pfingstrose"}
+{"taxonKey":2874930,"canonicalName":"Nothofagus antarctica","germanName":"Scheinbuche, Südbuche, Pfennigbuche"}
+{"taxonKey":2882437,"canonicalName":"Nymphaea alba","germanName":"Weiße Seerose"}
+{"taxonKey":3188904,"canonicalName":"Oenothera macrocarpa","germanName":"Missouri-Nachtkerze, Kriechende Nachtkerze"}
+{"taxonKey":5415040,"canonicalName":"Olea europaea","germanName":"Olive, Ölbaum, Olivenbaum"}
+{"taxonKey":8794742,"canonicalName":"Orchis purpurea","germanName":"Purpur-Knabenkraut"}
+{"taxonKey":8049341,"canonicalName":"Osmunda regalis","germanName":"Königsfarn, Königs-Rispenfarn"}
+{"taxonKey":8427624,"canonicalName":"Oxalis corniculata","germanName":"Gehörnter Sauerklee, Hornfrüchtiger Sauerklee"}
+{"taxonKey":2984676,"canonicalName":"Pachysandra terminalis","germanName":"Schattengrün, Dickmännchen"}
+{"taxonKey":2705081,"canonicalName":"Panicum virgatum","germanName":"Garten-Rutenhirse"}
+{"taxonKey":2888437,"canonicalName":"Papaver orientale","germanName":"Türkischer Mohn, Stauden-Mohn"}
+{"taxonKey":5553951,"canonicalName":"Parrotia persica","germanName":"Parrotie, Eisenholzbaum"}
 {"taxonKey":3039209,"canonicalName":"Parthenocissus tricuspidata","germanName":"Selbstklimmender Wilder Wein, Dreispitz-Jungfernrebe"}
-{"taxonKey":2986045,"canonicalName":"Philadelphus coronarius","germanName":"Europäischer Pfeifenstrauch, Bauernjasmin"}
-{"taxonKey":2927744,"canonicalName":"Phlox paniculata","germanName":"Garten-Phlox, Großer Stauden-Phlox"}
-{"taxonKey":2927727,"canonicalName":"Phlox subulata","germanName":"Polster-Phlox, Moos-Phlox"}
-{"taxonKey":5290171,"canonicalName":"Phyllostachys nigra","germanName":"Schwarzer Bambus, Schwarzrohrbambus"}
+{"taxonKey":2874199,"canonicalName":"Passiflora caerulea","germanName":"Blaue Passionsblume"}
+{"taxonKey":3170823,"canonicalName":"Paulownia tomentosa","germanName":"Blauglockenbaum"}
+{"taxonKey":2986045,"canonicalName":"Philadelphus coronarius","germanName":"Bauernjasmin, Europäischer Pfeifenstrauch"}
+{"taxonKey":5290171,"canonicalName":"Phyllostachys nigra","germanName":"Schwarzrohrbambus"}
 {"taxonKey":5284884,"canonicalName":"Picea abies","germanName":"Gewöhnliche Fichte, Rot-Fichte"}
 {"taxonKey":5284950,"canonicalName":"Picea omorika","germanName":"Serbische Fichte, Omorika-Fichte"}
 {"taxonKey":2882631,"canonicalName":"Pieris japonica","germanName":"Japanische Lavendelheide, Hängendes Schattenglöckchen"}
+{"taxonKey":5285385,"canonicalName":"Pinus mugo","germanName":"Krummholz-Kiefer"}
+{"taxonKey":5284809,"canonicalName":"Pinus nigra","germanName":"Schwarz-Kiefer, Österreichische Schwarz-Kiefer"}
 {"taxonKey":5285637,"canonicalName":"Pinus sylvestris","germanName":"Wald-Kiefer, Föhre, Gewöhnliche Kiefer"}
 {"taxonKey":5285074,"canonicalName":"Pinus wallichiana","germanName":"Tränen-Kiefer"}
+{"taxonKey":3189767,"canonicalName":"Plantago major","germanName":"Breit-Wegerich, Großer Wegerich"}
 {"taxonKey":7400250,"canonicalName":"Platanus hispanica","germanName":"Platane, Ahornblättrige Platane"}
-{"taxonKey":4044517,"canonicalName":"Polystichum setiferum","germanName":"Borstiger Schildfarn, Weicher Schildfarn"}
+{"taxonKey":2770228,"canonicalName":"Polygonatum odoratum","germanName":"Echtes Salomonssiegel, Wohlriechende Weißwurz"}
+{"taxonKey":7319269,"canonicalName":"Polystichum aculeatum","germanName":"Glanz-Schildfarn, Dorniger Schildfarn"}
+{"taxonKey":3040227,"canonicalName":"Populus nigra","germanName":"Säulen-Pappel, Pyramiden-Pappel"}
 {"taxonKey":3040249,"canonicalName":"Populus tremula","germanName":"Zitter-Pappel, Espe"}
-{"taxonKey":8377689,"canonicalName":"Primula veris","germanName":"Echte Schlüsselblume, Wiesen-Schlüsselblume"}
-{"taxonKey":3020791,"canonicalName":"Prunus avium","germanName":"Süß-Kirsche, Knorpel-Kirsche, Herz-Kirsche"}
+{"taxonKey":8377689,"canonicalName":"Primula veris","germanName":"Echte Schlüsselblume, Wiesen-Primel"}
+{"taxonKey":3020791,"canonicalName":"Prunus avium","germanName":"Vogel-Kirsche, Wild-Kirsche"}
 {"taxonKey":3021730,"canonicalName":"Prunus cerasifera","germanName":"Blut-Pflaume"}
+{"taxonKey":3021922,"canonicalName":"Prunus cerasus","germanName":"Sauer-Kirsche, Weichsel"}
 {"taxonKey":7931731,"canonicalName":"Prunus domestica","germanName":"Pflaume, Zwetsche, Zwetschge"}
-{"taxonKey":3021496,"canonicalName":"Prunus laurocerasus","germanName":"Kirschlorbeer"}
+{"taxonKey":3021496,"canonicalName":"Prunus laurocerasus","germanName":"Aufrechte Lorbeerkirsche, Aufrechter Kirschlorbeer"}
 {"taxonKey":3020871,"canonicalName":"Prunus lusitanica","germanName":"Portugiesische Lorbeerkirsche"}
-{"taxonKey":8149923,"canonicalName":"Prunus persica","germanName":"Pfirsich"}
-{"taxonKey":3022609,"canonicalName":"Prunus serrulata","germanName":"Zier-Kirsche, Japanische Blüten-Kirsche"}
+{"taxonKey":3021037,"canonicalName":"Prunus padus","germanName":"Trauben-Kirsche"}
+{"taxonKey":3022609,"canonicalName":"Prunus serrulata","germanName":"Japanische Säulen-Kirsche"}
+{"taxonKey":3023221,"canonicalName":"Prunus spinosa","germanName":"Schlehe, Schwarzdorn"}
+{"taxonKey":2685796,"canonicalName":"Pseudotsuga menziesii","germanName":"Douglasie"}
 {"taxonKey":5341203,"canonicalName":"Pulmonaria saccharata","germanName":"Geflecktes Lungenkraut, Spanisches Lungenkraut"}
-{"taxonKey":3033621,"canonicalName":"Pulsatilla vulgaris","germanName":"Küchenschelle, Kuhschelle"}
+{"taxonKey":3033621,"canonicalName":"Pulsatilla vulgaris","germanName":"Gewöhnliche Küchenschelle, Kuhschelle, Kühchenschelle"}
+{"taxonKey":5420901,"canonicalName":"Punica granatum","germanName":"Granatapfel, Granatbaum"}
+{"taxonKey":5363119,"canonicalName":"Pyrus calleryana","germanName":"Chinesische Wild-Birne"}
 {"taxonKey":5362573,"canonicalName":"Pyrus communis","germanName":"Birne, Kultur-Birne"}
-{"taxonKey":2878688,"canonicalName":"Quercus robur","germanName":"Stiel-Eiche"}
+{"taxonKey":2879098,"canonicalName":"Quercus ilex","germanName":"Stein-Eiche"}
+{"taxonKey":8313153,"canonicalName":"Quercus palustris","germanName":"Sumpf-Eiche, Boulevard-Eiche"}
+{"taxonKey":2878688,"canonicalName":"Quercus robur","germanName":"Stiel-Eiche, Deutsche Eiche"}
 {"taxonKey":2880539,"canonicalName":"Quercus rubra","germanName":"Amerikanische Rot-Eiche"}
 {"taxonKey":7135755,"canonicalName":"Rhododendron luteum","germanName":"Pontische Azalee"}
+{"taxonKey":3190538,"canonicalName":"Rhus typhina","germanName":"Essigbaum, Hirschkolben-Sumach"}
+{"taxonKey":2986184,"canonicalName":"Ribes alpinum","germanName":"Alpen-Johannisbeere"}
 {"taxonKey":2986097,"canonicalName":"Ribes rubrum","germanName":"Rote Johannisbeere, Weiße Johannisbeere"}
 {"taxonKey":2986130,"canonicalName":"Ribes sanguineum","germanName":"Blut-Johannisbeere"}
 {"taxonKey":2986185,"canonicalName":"Ribes uva-crispa","germanName":"Stachelbeere, Kultur-Stachelbeere"}
-{"taxonKey":5352251,"canonicalName":"Robinia pseudoacacia","germanName":"Kugel-Robinie"}
+{"taxonKey":5352251,"canonicalName":"Robinia pseudoacacia","germanName":"Kegel-Robinie"}
+{"taxonKey":7339492,"canonicalName":"Rodgersia aesculifolia","germanName":"Kastanien-Schaublatt, Rodgersie"}
 {"taxonKey":3002461,"canonicalName":"Rosa canina","germanName":"Hunds-Rose"}
 {"taxonKey":3003979,"canonicalName":"Rosa rugosa","germanName":"Kartoffel-Rose, Apfel-Rose"}
 {"taxonKey":8436459,"canonicalName":"Rubus fruticosus","germanName":"Brombeere, Kultur-Brombeere"}
+{"taxonKey":2993094,"canonicalName":"Rubus idaeus","germanName":"Himbeere, Kultur-Himbeere"}
 {"taxonKey":7344766,"canonicalName":"Rudbeckia fulgida","germanName":"Sonnenhut"}
-{"taxonKey":5372952,"canonicalName":"Salix caprea","germanName":"Sal-Weide"}
+{"taxonKey":2888951,"canonicalName":"Rumex acetosa","germanName":"Wiesen-Sauer-Ampfer, Großer Sauerampfer"}
+{"taxonKey":5328882,"canonicalName":"Sagittaria sagittifolia","germanName":"Gewöhnliches Pfeilkraut"}
+{"taxonKey":5372952,"canonicalName":"Salix caprea","germanName":"Kätzchen-Weide"}
+{"taxonKey":5372800,"canonicalName":"Salix purpurea","germanName":"Purpur-Weide, Korb-Weide"}
 {"taxonKey":2927028,"canonicalName":"Salvia nemorosa","germanName":"Steppen-Salbei"}
 {"taxonKey":2888728,"canonicalName":"Sambucus nigra","germanName":"Schwarzer Holunder, Fliederbeere"}
-{"taxonKey":2684120,"canonicalName":"Sequoiadendron giganteum","germanName":"Kalifornischer Bergmammutbaum"}
-{"taxonKey":3012167,"canonicalName":"Sorbus aucuparia","germanName":"Eberesche, Vogelbeere"}
-{"taxonKey":8170635,"canonicalName":"Spiraea japonica","germanName":"Zwerg-Spiere, Japanischer Spierstrauch"}
-{"taxonKey":5384604,"canonicalName":"Stellaria media","germanName":"Vogel-Sternmiere, Vogelmiere"}
+{"taxonKey":3032837,"canonicalName":"Saxifraga paniculata","germanName":"Trauben-Steinbrech, Rispen-Steinbrech"}
+{"taxonKey":2767506,"canonicalName":"Scilla bifolia","germanName":"Zweiblättriger Blaustern, Scilla"}
+{"taxonKey":8080743,"canonicalName":"Scilla siberica","germanName":"Sibirischer Blaustern, Nickende Sternhyazinthe"}
+{"taxonKey":5362007,"canonicalName":"Sedum acre","germanName":"Scharfer Mauerpfeffer, Scharfe Fetthenne"}
+{"taxonKey":2684120,"canonicalName":"Sequoiadendron giganteum","germanName":"Bergmammutbaum, Riesenmammutbaum"}
+{"taxonKey":7740617,"canonicalName":"Skimmia japonica","germanName":"Frucht-Skimmie, Japanische Skimmie"}
+{"taxonKey":5389029,"canonicalName":"Solidago canadensis","germanName":"Kanadische Goldrute"}
+{"taxonKey":3012167,"canonicalName":"Sorbus aucuparia","germanName":"Gewöhnliche Eberesche, Vogelbeere"}
+{"taxonKey":8170635,"canonicalName":"Spiraea japonica","germanName":"Rote Sommer-Spiere"}
+{"taxonKey":3027190,"canonicalName":"Spiraea arguta","germanName":"Braut-Spiere, Schnee-Spiere"}
+{"taxonKey":2927230,"canonicalName":"Stachys byzantina","germanName":"Woll-Ziest"}
+{"taxonKey":4127831,"canonicalName":"Stipa pennata","germanName":"Echtes Federgras, Mädchenhaargras"}
+{"taxonKey":2963569,"canonicalName":"Styphnolobium japonicum","germanName":"Japanischer Schnurbaum"}
+{"taxonKey":3855595,"canonicalName":"Symphoricarpos chenaultii","germanName":"Niedrige Purpurbeere, Niedrige Bastard-Korallenbeere"}
+{"taxonKey":4067302,"canonicalName":"Symphytum grandiflorum","germanName":"Kleiner Kaukasus-Beinwell, Kaukasus-Wallwurz"}
 {"taxonKey":5415039,"canonicalName":"Syringa vulgaris","germanName":"Edel-Flieder"}
+{"taxonKey":2874706,"canonicalName":"Tamarix parviflora","germanName":"Rosa Frühlings-Tamariske"}
 {"taxonKey":5284517,"canonicalName":"Taxus baccata","germanName":"Gewöhnliche Eibe"}
+{"taxonKey":6376340,"canonicalName":"Thalictrum aquilegiifolium","germanName":"Akeleiblättrige Wiesenraute"}
 {"taxonKey":2684178,"canonicalName":"Thuja occidentalis","germanName":"Abendländischer Lebensbaum"}
 {"taxonKey":6409622,"canonicalName":"Thymus serpyllum","germanName":"Sand-Thymian, Feld-Thymian"}
+{"taxonKey":5371610,"canonicalName":"Tiarella cordifolia","germanName":"Herzblättrige Schaumblüte, Wald-Schaumblüte"}
 {"taxonKey":3152047,"canonicalName":"Tilia cordata","germanName":"Winter-Linde"}
+{"taxonKey":3152048,"canonicalName":"Tilia platyphyllos","germanName":"Sommer-Linde"}
+{"taxonKey":3152046,"canonicalName":"Tilia europaea","germanName":"Kaiser-Linde"}
+{"taxonKey":2739071,"canonicalName":"Trachycarpus fortunei","germanName":"Chinesische Hanfpalme"}
+{"taxonKey":5358748,"canonicalName":"Trifolium repens","germanName":"Weiß-Klee, Kriechender Klee"}
+{"taxonKey":3033289,"canonicalName":"Trollius europaeus","germanName":"Europäische Trollblume"}
 {"taxonKey":2687182,"canonicalName":"Tsuga canadensis","germanName":"Kanadische Hemlocktanne"}
+{"taxonKey":5299536,"canonicalName":"Tulipa sylvestris","germanName":"Wilde Tulpe, Weinberg-Tulpe"}
+{"taxonKey":3149879,"canonicalName":"Tussilago farfara","germanName":"Huflattich"}
+{"taxonKey":5289461,"canonicalName":"Typha angustifolia","germanName":"Schmalblättriger Rohrkolben"}
+{"taxonKey":5361866,"canonicalName":"Ulmus glabra","germanName":"Berg-Ulme, Weißrüster"}
 {"taxonKey":7960979,"canonicalName":"Urtica dioica","germanName":"Große Brennnessel"}
+{"taxonKey":3171945,"canonicalName":"Verbascum nigrum","germanName":"Schwarze Königskerze"}
+{"taxonKey":3172099,"canonicalName":"Veronica austriaca","germanName":"Großer Garten-Ehrenpreis"}
+{"taxonKey":3172118,"canonicalName":"Veronica longifolia","germanName":"Langblättriger Ehrenpreis, Langblättriger Blauweiderich"}
+{"taxonKey":3172206,"canonicalName":"Veronicastrum virginicum","germanName":"Kandelaberehrenpreis, Virginischer Arzneiehrenpreis"}
 {"taxonKey":2888615,"canonicalName":"Viburnum lantana","germanName":"Wolliger Schneeball"}
 {"taxonKey":2888605,"canonicalName":"Viburnum opulus","germanName":"Gewöhnlicher Schneeball, Wasser-Schneeball"}
-{"taxonKey":3169707,"canonicalName":"Vinca minor","germanName":"Kleines Immergrün, Kleinblättriges Singrün"}
+{"taxonKey":3857539,"canonicalName":"Viburnum bodnantense","germanName":"Winter-Schneeball, Bodnant-Schneeball"}
+{"taxonKey":3169707,"canonicalName":"Vinca minor","germanName":"Kleines Immergrün, Kleines Singrün"}
+{"taxonKey":5331181,"canonicalName":"Viola odorata","germanName":"März-Veilchen, Duft-Veilchen, Wohlriechendes Veilchen"}
+{"taxonKey":5331389,"canonicalName":"Viola wittrockiana","germanName":"Garten-Stiefmütterchen"}
 {"taxonKey":8149049,"canonicalName":"Wisteria sinensis","germanName":"Chinesischer Blauregen, Glyzine"}
-{"taxonKey":2775561,"canonicalName":"Yucca filamentosa","germanName":"Fädige Palmlilie, Palmlilie"}
-{"taxonKey":null,"canonicalName":"Achillea","germanName":"Garten-Gold-Garbe, Garten-Schafgarbe"}
-{"taxonKey":null,"canonicalName":"Anemone x hybrida","germanName":"Herbst-Anemone"}
-{"taxonKey":null,"canonicalName":"Astilbe chinensis","germanName":"Zwerg-Prachtspiere, Zwerg-Astilbe"}
-{"taxonKey":null,"canonicalName":"Aubrieta","germanName":"Blaukissen"}
-{"taxonKey":null,"canonicalName":"Berberis verruculosa","germanName":"Warzen-Berberitze, Blaublatt-Berberitze"}
-{"taxonKey":null,"canonicalName":"Bergenia","germanName":"Bergenie, Riesensteinbrech"}
-{"taxonKey":null,"canonicalName":"Buxus sempervirens var. arborescens","germanName":"Gewöhnlicher Buchsbaum, Hoher Buchsbaum"}
-{"taxonKey":null,"canonicalName":"Cercidiphyllum japonicum","germanName":"Katsurabaum, Kuchenbaum"}
-{"taxonKey":null,"canonicalName":"Cotoneaster x suecicus","germanName":"Immergrüne Böschungsmispel"}
-{"taxonKey":null,"canonicalName":"Epimedium x versicolor","germanName":"Verschiedenfarbige Elfenblume, Verschiedenfarbige Sockenblume"}
-{"taxonKey":null,"canonicalName":"Fargesia","germanName":"Winterharter Schirmbambus"}
-{"taxonKey":null,"canonicalName":"Festuca glauca","germanName":"Blau-Schwingel"}
-{"taxonKey":null,"canonicalName":"Forsythia x intermedia","germanName":"Goldglöckchen, Forsythie"}
-{"taxonKey":null,"canonicalName":"Genista lydia","germanName":"Goldland-Ginster, Stein-Ginster, Lydischer Ginster"}
-{"taxonKey":null,"canonicalName":"Geum chiloense","germanName":"Chile-Nelkenwurz"}
-{"taxonKey":null,"canonicalName":"Hamamelis x intermedia","germanName":"Hybrid-Zaubernuss, Großblütige Zaubernuss"}
-{"taxonKey":null,"canonicalName":"Helenium","germanName":"Sonnenbraut"}
-{"taxonKey":null,"canonicalName":"Helianthemum","germanName":"Sonnenröschen"}
-{"taxonKey":null,"canonicalName":"Hemerocallis","germanName":"Taglilie, Garten-Taglilie"}
-{"taxonKey":null,"canonicalName":"Hosta","germanName":"Garten-Funkie"}
-{"taxonKey":null,"canonicalName":"Hydrangea anomala subsp. petiolaris","germanName":"Kletter-Hortensie"}
-{"taxonKey":null,"canonicalName":"Iris barbata-elatior","germanName":"Hohe Garten-Schwertlilie, Hohe Bart-Iris"}
-{"taxonKey":null,"canonicalName":"Kolkwitzia amabilis","germanName":"Kolkwitzie, Perlmuttstrauch"}
-{"taxonKey":null,"canonicalName":"Laburnum x watereri","germanName":"Edel-Goldregen"}
-{"taxonKey":null,"canonicalName":"Leucanthemum x superbum","germanName":"Sommer-Margerite, Garten-Margerite"}
-{"taxonKey":null,"canonicalName":"Lonicera henryi","germanName":"Immergrünes Geißblatt, Immergrüne Geißschlinge"}
-{"taxonKey":null,"canonicalName":"Lonicera nitida","germanName":"Immergrüne Flache Heckenmyrte"}
-{"taxonKey":null,"canonicalName":"Lupinus","germanName":"Stauden-Lupine, Garten-Lupine"}
-{"taxonKey":null,"canonicalName":"Magnolia x soulangeana","germanName":"Tulpen-Magnolie"}
-{"taxonKey":null,"canonicalName":"Nepeta x faassenii","germanName":"Katzenminze, Blaue Katzenminze"}
-{"taxonKey":null,"canonicalName":"Parrotia persica","germanName":"Eisenholzbaum, Parrotie"}
-{"taxonKey":null,"canonicalName":"Pennisetum alopecuroides","germanName":"Federborstengras, Lampenputzergras"}
-{"taxonKey":null,"canonicalName":"Pinus mugo subsp. mugo","germanName":"Krummholz-Kiefer"}
-{"taxonKey":null,"canonicalName":"Pinus nigra subsp. nigra","germanName":"Schwarz-Kiefer, Österreichische Schwarz-Kiefer"}
-{"taxonKey":null,"canonicalName":"Potentilla fruticosa","germanName":"Fingerstrauch"}
-{"taxonKey":null,"canonicalName":"Prunus laurocerasus","germanName":"Lorbeerkirsche Rotundifolia"}
-{"taxonKey":null,"canonicalName":"Prunus lusitanica","germanName":"Portugiesische Lorbeer-Kirsche"}
-{"taxonKey":null,"canonicalName":"Pyracantha","germanName":"Feuerdorn"}
-{"taxonKey":null,"canonicalName":"Pyrus calleryana","germanName":"Chinesische Wild-Birne"}
-{"taxonKey":null,"canonicalName":"Rhododendron dauricum","germanName":"Rhododendron, Alpenrose"}
-{"taxonKey":null,"canonicalName":"Rhododendron forrestii","germanName":"Flacher Rhododendron"}
-{"taxonKey":null,"canonicalName":"Rosa","germanName":"Beet-Rose"}
-{"taxonKey":null,"canonicalName":"Rosa","germanName":"Edel-Rose"}
-{"taxonKey":null,"canonicalName":"Rosa","germanName":"Kletter-Rose"}
-{"taxonKey":null,"canonicalName":"Sedum floriferum","germanName":"Teppich-Sedum"}
-{"taxonKey":null,"canonicalName":"Sedum telephium","germanName":"Hohe Garten-Fetthenne"}
-{"taxonKey":null,"canonicalName":"Sempervivum","germanName":"Dachwurz, Hauswurz"}
-{"taxonKey":null,"canonicalName":"Skimmia japonica","germanName":"Frucht-Skimmie, Japanische Skimmie"}
-{"taxonKey":null,"canonicalName":"Spiraea x arguta","germanName":"Braut-Spiere, Schnee-Spiere"}
-{"taxonKey":null,"canonicalName":"Taraxacum sect. Ruderalia","germanName":"Wiesen-Löwenzahn, Wiesen-Kuhblume"}
-{"taxonKey":null,"canonicalName":"Taxus x media","germanName":"Hybrid-Eibe"}
-{"taxonKey":null,"canonicalName":"Tiarella cordifolia","germanName":"Herzblättrige Schaumblüte, Wald-Schaumblüte"}
-{"taxonKey":null,"canonicalName":"Viburnum x bodnantense","germanName":"Winter-Schneeball, Bodnant-Schneeball"}
-{"taxonKey":null,"canonicalName":"Viola x wittrockiana","germanName":"Garten-Stiefmütterchen"}
-{"taxonKey":null,"canonicalName":"Waldsteinia ternata","germanName":"Dreiblättrige Waldsteinie, Teppich-Golderdbeere"}
-{"taxonKey":null,"canonicalName":"Weigela","germanName":"Weigelie, Glockenstrauch"}
+{"taxonKey":2775561,"canonicalName":"Yucca filamentosa","germanName":"Palmlilie, Fädige Palmlilie"}
+{"taxonKey":3111754,"canonicalName":"Zinnia elegans","germanName":"Garten-Zinnie, Pracht-Zinnie"}
