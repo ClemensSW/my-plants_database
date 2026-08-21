@@ -57,6 +57,16 @@ const FILES = {
   // 03 / 05 — Zwischenstände
   speciesEnriched: path.join(DIRS.work, 'species_enriched.ndjson'),
   speciesEnrichedMeta: path.join(DIRS.work, 'species_enriched.meta.json'),
+  /**
+   * Pl@ntNets `gbifKey` → der Schlüssel, den GBIFs Backbone heute führt.
+   *
+   * Zwischenspeicher, kein Nebenprodukt: Ein zweiter Lauf fragt nur nach dem, was neu dazukam.
+   * Löschen erzwingt eine vollständige Neuauflösung (~700 GBIF-Anfragen). Siehe
+   * `lib/gbif-key-resolver.js`.
+   */
+  gbifKeyMap: path.join(DIRS.work, 'gbif_key_map.ndjson'),
+  /** Die Arten, für die auch GBIF keinen heutigen Schlüssel kennt — zum Nachsehen, nicht zum Ignorieren. */
+  gbifKeyUnresolved: path.join(DIRS.work, 'gbif_key_unresolved.ndjson'),
   ecologyByTaxon: path.join(DIRS.work, 'ecology_by_taxon.ndjson'),
   ecologyByTaxonMeta: path.join(DIRS.work, 'ecology_by_taxon.meta.json'),
 

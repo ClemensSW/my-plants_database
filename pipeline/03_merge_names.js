@@ -22,6 +22,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const { DIRS, FILES } = require('./lib/paths');
+const { resolveKeys, toLookup } = require('./lib/gbif-key-resolver');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -65,6 +66,7 @@ function normalize(name) {
 
 async function loadPlantnetNames() {
   const byKey = new Map();
+  const alle = [];
   const rl = readline.createInterface({
     input: fs.createReadStream(CONFIG.NAMES_FILE, 'utf8'),
     crlfDelay: Infinity,
@@ -73,8 +75,33 @@ async function loadPlantnetNames() {
     if (!line.trim()) continue;
     const rec = JSON.parse(line);
     if (rec.gbifKey) byKey.set(rec.gbifKey, rec);
+    alle.push(rec);
   }
-  return byKey;
+  return { byKey, alle };
+}
+
+/**
+ * Die Artenliste zweimal indizieren: nach Schlüssel und nach Namen.
+ *
+ * Beides braucht der Auflöser, und beides steht in derselben Datei — sie zweimal zu lesen wäre
+ * ein zweiter Durchgang über 446.842 Zeilen für nichts.
+ */
+async function loadKatalogIndex() {
+  const akzeptiert = new Set();
+  const nachName = new Map();
+  const rl = readline.createInterface({
+    input: fs.createReadStream(CONFIG.CATALOG_FILE, 'utf8'),
+    crlfDelay: Infinity,
+  });
+  for await (const line of rl) {
+    if (!line.trim()) continue;
+    const rec = JSON.parse(line);
+    akzeptiert.add(String(rec.taxonKey));
+    if (rec.canonicalName && !nachName.has(rec.canonicalName)) {
+      nachName.set(rec.canonicalName, rec.taxonKey);
+    }
+  }
+  return { akzeptiert, nachName };
 }
 
 async function main() {
@@ -93,8 +120,41 @@ async function main() {
   console.log();
 
   log('Lade Pl@ntNet-Namen …');
-  const plantnet = await loadPlantnetNames();
-  log(`  ${fmt(plantnet.size)} Arten mit GBIF-Key`);
+  const { byKey: plantnetRoh, alle: plantnetAlle } = await loadPlantnetNames();
+  log(`  ${fmt(plantnetRoh.size)} Arten mit GBIF-Key`);
+
+  /**
+   * Pl@ntNets Schlüssel auf GBIFs heutige übersetzen — BEVOR verknüpft wird.
+   *
+   * Ohne diesen Schritt fielen am 21.08.2026 gemessen 672 von 12.186 Arten mit deutschem Namen und
+   * Bildern still aus dem Katalog, weil ihr `gbifKey` auf einen Datensatz zeigt, den GBIFs Backbone
+   * nicht mehr als akzeptierte Art führt. Darunter Prüfungspflanzen. Siehe lib/gbif-key-resolver.js.
+   */
+  log('Schlüssel gegen GBIF abgleichen …');
+  const { akzeptiert, nachName } = await loadKatalogIndex();
+  const kandidaten = plantnetAlle
+    .filter(r => r.gbifKey || r.plantnetName)
+    .map(r => ({ quelle: r.gbifKey ?? `name:${r.plantnetName}`, name: r.plantnetName }));
+  const { karte, statistik } = await resolveKeys(kandidaten, akzeptiert, nachName, {
+    mapFile: FILES.gbifKeyMap,
+    unresolvedFile: FILES.gbifKeyUnresolved,
+    log: m => log(`  ${m}`),
+    onProgress: (n, gesamt) => process.stdout.write(`\r  ${fmt(n)}/${fmt(gesamt)} …`),
+  });
+  if (statistik.match || statistik.ohne) process.stdout.write('\r');
+  log(`  direkt ${fmt(statistik.direkt)} · über den Namen ${fmt(statistik.name)} · ` +
+      `über GBIF ${fmt(statistik.match)} · ohne Treffer ${fmt(statistik.ohne)}`);
+  if (statistik.ohne > 0) log(`  ungeklärt stehen in ${FILES.gbifKeyUnresolved}`);
+  const lookup = toLookup(karte);
+
+  // Die Namen unter dem AUFGELÖSTEN Schlüssel ablegen, damit der Join darunter findet.
+  const plantnet = new Map();
+  for (const rec of plantnetAlle) {
+    const quelle = String(rec.gbifKey ?? `name:${rec.plantnetName}`);
+    const ziel = lookup.get(quelle);
+    if (ziel && !plantnet.has(ziel)) plantnet.set(ziel, rec);
+  }
+  log(`  verknüpfbar nach Auflösung: ${fmt(plantnet.size)} (vorher ${fmt(plantnetRoh.size)})`);
 
   const stats = {};
   for (const lang of CONFIG.LANGUAGES) {

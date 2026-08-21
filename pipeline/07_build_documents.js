@@ -39,6 +39,7 @@ const path = require('path');
 
 const { DIRS, FILES, ensureDirs, requireFiles, rel } = require('./lib/paths');
 const { buildSearchTerms } = require('./lib/search-normalize');
+const { loadLookup } = require('./lib/gbif-key-resolver');
 
 const CONFIG = {
   // Erlaubnisliste. `cc-by-nc`, `cc-by-nc-sa`, `©` und alles Unbekannte fallen damit heraus.
@@ -85,6 +86,29 @@ async function main() {
   console.log();
 
   // ── Durchgang 1: Welche Arten haben erlaubte Bilder? ────────────────────────
+  /**
+   * Dieselbe Übersetzung, die Schritt 03 für die Namen benutzt — jetzt für die Bilder.
+   *
+   * Die Bilder tragen den Schlüssel, den Pl@ntNet beim Ernten genannt hat. Weicht der von GBIFs
+   * heutigem ab, sucht die Schleife weiter unten unter dem GBIF-Schlüssel und findet nichts: Die
+   * Art landet ohne Bilder im Katalog und fällt damit aus der Auswahlregel („dt. Name UND ≥1 Bild“).
+   * Genau so verschwanden 672 Arten, darunter Prüfungspflanzen.
+   *
+   * Fehlt die Karte, wird NICHT still weitergemacht — dann liefe der Bau in denselben Verlust,
+   * ohne dass es jemand merkt.
+   */
+  const keyLookup = loadLookup(FILES.gbifKeyMap);
+  if (keyLookup.size === 0) {
+    console.error(
+      '\n🔴 ABBRUCH: Die Schluesselkarte fehlt (' + FILES.gbifKeyMap + ').\n' +
+      '   Sie entsteht in Schritt 03. Ohne sie fallen ~672 Arten mit deutschem Namen und Bildern\n' +
+      '   still aus dem Katalog. Erst `npm run pipeline:merge` laufen lassen.\n');
+    process.exit(1);
+  }
+  log(`Schlüsselkarte: ${fmt(keyLookup.size)} Übersetzungen`);
+  /** Pl@ntNets Schlüssel → GBIFs heutiger. Unbekanntes bleibt, wie es ist. */
+  const auflösen = (k) => keyLookup.get(String(k)) ?? k;
+
   log('Durchgang 1/3 — Bilder sichten (4,4 GB, dauert einige Minuten) …');
   const imageStats = new Map();   // taxonKey → { total, byOrgan }
   const licenseSeen = {};
@@ -98,8 +122,9 @@ async function main() {
     if (!licenseAllowed(img.license, allowed)) continue;
     if (!img.taxonKey) continue;
     imagesAllowed++;
-    let s = imageStats.get(img.taxonKey);
-    if (!s) { s = { total: 0, byOrgan: {} }; imageStats.set(img.taxonKey, s); }
+    const key = auflösen(img.taxonKey);
+    let s = imageStats.get(key);
+    if (!s) { s = { total: 0, byOrgan: {} }; imageStats.set(key, s); }
     s.total++;
     s.byOrgan[img.organ] = (s.byOrgan[img.organ] || 0) + 1;
     if (imagesRead % 5000000 === 0) log(`  ${fmt(imagesRead)} Bilder gelesen …`);
@@ -220,11 +245,12 @@ async function main() {
   let ratingSum = 0;
 
   for await (const img of readNdjson(FILES.plantnetImages)) {
-    if (!selected.has(img.taxonKey)) continue;
+    const key = auflösen(img.taxonKey);
+    if (!selected.has(key)) continue;
     if (!licenseAllowed(img.license, allowed)) continue;
     const occurrenceId = Number(img.observationId);
     mediaOut.write(JSON.stringify({
-      taxonKey: img.taxonKey,
+      taxonKey: key,
       species: img.species,
       organ: img.organ,
       occurrenceId: Number.isFinite(occurrenceId) ? occurrenceId : null,

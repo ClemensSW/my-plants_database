@@ -103,28 +103,123 @@ bisher 2,8 Anfragen/s über 100 Minuten.)*
 Pipeline überhaupt wiederholbar sein muss: Zum Ausbildungsstart jedes Jahrgangs läuft er erneut.*
 
 **Erst wenn die Ernte durch ist** — `wc -l < data/state/plantnet_images.done` muss die Artenzahl aus
-Schritt 2 erreicht haben (Stand 19.08.2026: 84.564). Vorher zu bauen ist nicht falsch, liefert aber
-einen kleineren Katalog, als möglich wäre.
+Schritt 2 erreicht haben. Vorher zu bauen ist nicht falsch, liefert aber einen kleineren Katalog,
+als möglich wäre.
 
 ```bash
-# 1. Bauen — jeder Schritt liest, was der vorige geschrieben hat
+# 1. Zusammenführen — hier entsteht auch die Schlüsselkarte (siehe unten). Pflicht vor Schritt 07.
+npm run pipeline:merge         # 03
+
+# 2. Bauen — jeder Schritt liest, was der vorige geschrieben hat
 npm run pipeline:families      # 05  deutsche Familiennamen
 npm run pipeline:ecology       # 06  EIVE je taxonKey zuordnen
 npm run pipeline:build         # 07  -> data/build/{plants,plantmedias}.ndjson
 
-# 2. Prüfungslisten (ohne Flag nur anzeigen, --write schreibt)
+# 3. Prüfungslisten (ohne Flag nur anzeigen, --write schreibt)
 node pipeline/08_build_exam_lists.js
 node pipeline/08_build_exam_lists.js --write
 
-# 3. Importieren — IMMER erst ohne --confirm, das ist der Trockenlauf
+# 4. Importieren — IMMER erst ohne --confirm, das ist der Trockenlauf
 cd ../myplants-backend
-node scripts/import-catalog.js    --dir=../myplants-database/data/build
-node scripts/import-catalog.js    --dir=../myplants-database/data/build --confirm --expect-db=myflora
-node scripts/import-exam-lists.js --dir=../myplants-database/data/build --confirm --expect-db=myflora
+node scripts/import-catalog.js    --dir=../myplants-database/data/build --prune
+node scripts/import-catalog.js    --dir=../myplants-database/data/build --prune --confirm --expect-db=myflora
+node scripts/import-exam-lists.js --confirm --expect-db=myflora
 ```
 
 `--confirm` ohne `--expect-db=<name>` bricht ab. Das ist Absicht: Der Zielname muss benannt werden,
-damit niemand versehentlich in die falsche Datenbank schreibt.
+damit niemand versehentlich in die falsche Datenbank schreibt. `import-exam-lists.js` braucht **kein**
+`--dir` — es liest aus `data/exam-lists/`, nicht aus `data/build/`.
+
+---
+
+### ⚠️ Die Schlüsselkarte — ohne sie fallen ~700 Arten still heraus
+
+Pl@ntNet liefert zu jeder Art einen `gbifKey`. Der stimmt meistens, aber nicht immer — und wenn er
+nicht stimmt, passiert nichts Lautes: Die Art wird über den Schlüssel gesucht, nicht gefunden, und
+verschwindet aus dem Katalog.
+
+Am 21.08.2026 gemessen, über alle Pl@ntNet-Arten mit deutschem Namen **und** Bildern:
+
+| | |
+|---|---|
+| Arten | 12.186 |
+| Schlüssel passt | 11.514 |
+| **Schlüssel zeigt ins Leere** | **672** (5,5 %) |
+
+Darunter Prüfungspflanzen: *Cercidiphyllum japonicum* (Japanischer Kuchenbaum, AuGaLa-Liste) hat
+2.364 Bilder, alle `cc-by-sa`, und einen deutschen Namen — Pl@ntNet nennt den Schlüssel 12281377,
+GBIFs Backbone führt die Art unter 8060423.
+
+**Wo beide sich widersprechen, gilt GBIF.** Der Backbone ist bei der Nomenklatur aktueller:
+*Dicentra spectabilis* heisst dort *Lamprocapnos spectabilis*, *Anemone nemorosa* heisst
+*Anemonoides nemorosa*. Pl@ntNets Schlüssel folgen dem verzögert.
+
+`lib/gbif-key-resolver.js` löst das in vier Stufen — **direkt** (Schlüssel steht in unserer
+Artenliste) → **name** (wissenschaftlicher Name steht dort) → **match** (GBIFs `species/match`
+befragen, Synonymen bis zum akzeptierten Namen folgen) → **ohne**. Nur die dritte Stufe kostet
+Anfragen.
+
+Drei Eigenschaften, auf die man sich verlassen kann:
+
+- **Die Karte liegt in `data/work/gbif_key_map.ndjson`** und ist ein Zwischenspeicher. Ein zweiter
+  Lauf fragt nur nach Neuem — ein Neubau kostet dann null Anfragen. Löschen erzwingt eine
+  vollständige Neuauflösung (~2.800 Anfragen, wenige Minuten).
+- **Schritt 07 bricht ab, wenn die Karte fehlt.** Er läuft nicht still in denselben Verlust.
+- **Ungeklärtes steht in `data/work/gbif_key_unresolved.ndjson`** — nicht nur in einer Logzeile, die
+  beim Schliessen des Fensters verloren geht. Am 21.08. waren es 798, überwiegend Hybriden.
+
+Ergebnis des Umbaus: **11.387 → 11.828 Pflanzen**, deutsche Namen 14.464 → 14.731.
+
+---
+
+### `--prune`: nur noch Pflanzen aus der Pipeline
+
+Ohne diesen Schalter **wächst** der Bestand nur. Was einmal drin war, bleibt drin — auch wenn die
+Pipeline es nicht mehr kennt, weil die Art umgehängt wurde, ihre Bilder die Lizenz gewechselt haben
+oder Pl@ntNet sie entfernt hat. Solche Pflanzen pflegt niemand mehr und sie sehen in der App aus wie
+alle anderen.
+
+Der häufigste Grund für ein Herausfallen ist aber **kein Verschwinden, sondern eine Umbenennung**.
+Deshalb drei Fälle, in dieser Reihenfolge:
+
+| Fall | Behandlung |
+|---|---|
+| Der Katalog führt eine Pflanze, die den alten Namen als **Synonym** kennt | Nutzerdaten ziehen um, alte Pflanze **gelöscht** |
+| kein Nachfolger, von niemandem benutzt | **gelöscht**, samt Medienzeilen |
+| kein Nachfolger, **aber** benutzt | abgeschaltet (`isActive: false`) — mit `--drop-orphans` ebenfalls gelöscht, samt der Nutzerdaten daran |
+
+Der dritte Fall ist der einzige, in dem „keine Karteileichen" und „kein Fortschrittsverlust"
+einander widersprechen. Er ist selten (am 21.08.: **null von 164**) und wird in jedem Lauf gemeldet,
+auch wenn er null ist.
+
+Medienzeilen werden gelöscht statt abgeschaltet: Auf `plantmedias._id` verweist nichts (gegen alle
+Schemata geprüft) — und hier sitzt das Lizenzrisiko. Ein Bild, das Pl@ntNet entfernt oder auf
+NonCommercial umgestellt hat, verschwindet aus dem Bau und muss auch aus der Datenbank.
+
+#### 🔴 Die Schranke, die ein Löschen verhindert — und warum es sie gibt
+
+`--prune` arbeitet nach **Markieren und Kehren**: Jede Zeile, die der Lauf anfasst, bekommt seine
+Kennung (`importLauf`); was danach eine andere trägt, wird gelöscht.
+
+Am 21.08.2026 hat genau das **den gesamten Medienbestand gelöscht — 18,2 Millionen Zeilen.** Die
+Ursache war eine Zeile, die bei einem Umbau nicht mitkam: Der Medien-Upsert schrieb `importLauf`
+nicht mit. Also trug nichts die Kennung, das Kehren hielt alles für überzählig, und die Löschung war
+logisch völlig korrekt.
+
+Der Fehler lag nicht im Kehren, sondern darin, dass das Kehren dem Markieren geglaubt hat, **ohne
+nachzusehen**. Deshalb zählt der Lauf jetzt vor dem Löschen nach: Er weiss, wie viele Zeilen er
+geschrieben hat, so viele müssen seine Kennung tragen. Sind es weniger als 70 %, bricht er ab und
+löscht nichts.
+
+Zwei weitere Regeln aus demselben Vorfall:
+
+- **`--prune` und eine wiederaufgenommene Einspielung vertragen sich nicht** und werden abgelehnt.
+  Ein fortgesetzter Import überspringt bereits geschriebene Zeilen, färbt sie also nicht — und
+  löschte genau das, was er importiert hat. Entweder ohne `--prune` zu Ende importieren und danach
+  erneut mit, oder mit `--restart-media` von vorn.
+- **Absichtlich Gelöschtes ist kein `_id`-Wechsel.** Die Migrationsprüfung meldete einmal
+  „164 geändert" für 164 planmäßig gelöschte Pflanzen. Eine Prüfung, die bei beabsichtigtem
+  Verhalten Alarm schlägt, wird beim nächsten Mal überlesen. Sie unterscheidet jetzt.
 
 ### Die drei Prüfungen, die der Import selbst fährt
 
@@ -136,26 +231,47 @@ Sie sind der Grund, warum ein Re-Import gefahrlos ist — und sie müssen **alle
 | `userplants` unverändert | dieselbe Anzahl vorher wie nachher |
 | keine verwaisten Bezüge | kein `userplant` zeigt auf eine Pflanze, die es nicht mehr gibt |
 
-Schlägt eine fehl, ist der Import **nicht** in Ordnung, auch wenn er „fertig“ meldet.
+Schlägt eine fehl, ist der Import **nicht** in Ordnung, auch wenn er „fertig" meldet.
 
 ### Danach: Backend neu starten
 
 Nicht optional. Der Katalog-Schnappschuss und das Bildpaket liegen im Prozessspeicher; ohne Neustart
-liefert der Server bis zu 15 Minuten den alten Stand. Der Neustart stößt außerdem den
+liefert der Server bis zu 15 Minuten den alten Stand. Der Neustart stösst ausserdem den
 Vorschau-Backfill an, der die Titelbilder der neuen Pflanzen auf 150 px holt — er füllt 500 je
 Neubau, braucht also ein paar Durchläufe.
 
-Am Endpunkt prüfen, nie am „fertig“: ein neuer Etag auf `/api/v1/app/catalog` ist der Beweis, und im
+Am Endpunkt prüfen, nie am „fertig": ein neuer Etag auf `/api/v1/app/catalog` ist der Beweis, und im
 Serverprotokoll steht `[catalog] built ... N plants ... M/N previews (X MB in Y Teilen)`.
 
-### ⚠️ Was dabei mitwachsen muss
+---
 
-- **`ASSORTMENT_REFERENCE` und die Ablenker-Konstanten** (`ecology.util.ts`) sind am damaligen
-  5.551er-Sortiment gemessen und tragen die Auflage, bei gewachsenem Katalog **neu gemessen** zu
-  werden. Sie werden nicht automatisch falsch, aber sie werden es leise.
-- **Die App braucht kein Update.** Neue Felder kommen additiv unter eigenen Schlüsseln; ältere
-  Versionen ignorieren, was sie nicht kennen. Das Bildpaket holt sich jedes Gerät selbst neu, sobald
-  der Etag sich ändert.
+### 🌍 Auf die Live-Datenbank statt auf den Spiegel
+
+Bis hierher beschreibt alles den **lokalen Spiegel** (`myflora` auf `localhost`). Für Prod gilt
+zusätzlich:
+
+1. **Der Import läuft auf der Box, nicht vom Laptop.** Die Atlas-Schreibkennung liegt nur im
+   Prozess-Environment dort. `--expect-db` entsprechend setzen (die Live-DB heisst `dev`).
+2. **Trockenlauf ist Pflicht, nicht Kür.** Auf Prod hängen echte Sammlungen an den Pflanzen. Der
+   Trockenlauf zeigt, wie viele Pflanzen umziehen, gelöscht oder abgeschaltet würden — die Zahl
+   „benutzt, ohne Nachfolger" ist die einzige, bei der Nutzerdaten auf dem Spiel stehen.
+3. **`previewB64` einmalig leeren.** Prod trägt noch 64-px-Blur-ups aus der Zeit davor. Die App
+   behandelt Vorschauen inzwischen als das Kachelbild selbst — 64 px auf 150 hochskaliert sähen
+   weicher aus als früher. Nach dem Leeren holt der Backfill sie in 150 px nach; währenddessen laden
+   die Kacheln normal übers Netz.
+4. **Backend und App zusammen ausliefern.** Eine ältere App ruft `/catalog/previews` **ohne**
+   `?part=` ab und bekäme dann nur Teil 0 — statt aller Vorschauen etwa ein Zehntel.
+5. **Deploy-Fenster beachten.** Seit dem 06.08.2026 nutzen echte, teils minderjährige Azubis die App.
+
+**Den lokalen Spiegel frisch ziehen** (ersetzt nur `plants`, `plantmedias`, `sitesettings`; eigene
+Testkonten bleiben unangetastet):
+
+```bash
+bash myplants-docs/operations/spiegel-ziehen.sh
+```
+
+Danach `previewB64` leeren, sonst gilt Punkt 3 auch lokal.
+
 
 ## Warum ein Neuaufbau
 
@@ -351,6 +467,17 @@ muss die Pipeline nicht neu laufen lassen.
 
 ```bash
 node pipeline/03_merge_names.js
+```
+
+⚠️ **Hier entsteht auch die Schlüsselkarte** (`data/work/gbif_key_map.ndjson`), ohne die Schritt 07
+abbricht. Sie übersetzt Pl@ntNets `gbifKey` auf den, den GBIFs Backbone heute führt — siehe
+§ „Nach der Ernte". Der erste Lauf befragt GBIF für die ungeklärten Fälle (~2.800 Anfragen, wenige
+Minuten), jeder weitere nur noch für Neuzugänge.
+
+Der Schritt meldet die Aufteilung, und die Zeile gehört gelesen:
+
+```
+direkt 80.388 · über den Namen 1.362 · über GBIF 2.016 · ohne Treffer 798
 ```
 
 Ergebnis für Deutsch, gemessen am vollständigen Katalog:
