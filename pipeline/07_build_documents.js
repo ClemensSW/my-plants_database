@@ -38,7 +38,7 @@ const readline = require('readline');
 const path = require('path');
 
 const { DIRS, FILES, ensureDirs, requireFiles, rel } = require('./lib/paths');
-const { buildSearchTerms, squash } = require('./lib/search-normalize');
+const { buildSearchNames, squash } = require('./lib/search-normalize');
 const { loadLookup } = require('./lib/gbif-key-resolver');
 const { stripAuthorship, istBrauchbarerName } = require('./lib/botanical-name');
 
@@ -233,7 +233,7 @@ async function main() {
      *
      * Die vollen Zitierungen bleiben in `synonyms` stehen; gekuerzt wird nur, was in die Suche geht.
      */
-    const searchTerms = buildSearchTerms([
+    const searchNames = buildSearchNames([
       ...germanNames,
       sp.canonicalName,
       // ⚠️ Auch hier — und zwar VOR ALLEM hier. Der wissenschaftliche Name ist der Haupttraeger
@@ -244,6 +244,20 @@ async function main() {
       ...synonyms.map(stripAuthorship),
     ].filter(Boolean));
 
+    /**
+     * Das Altfeld — ABGELEITET, nicht zweitgebaut.
+     *
+     * Eine aeltere App-Fassung kennt `searchNames` nicht und fiele sonst still auf die Notsuche
+     * ueber drei Rohfelder zurueck: ohne Synonyme, ohne Zweitnamen. Wer „Mahonia aquifolium" tippt,
+     * fande dann nichts mehr.
+     *
+     * Aus denselben Zeichenketten abgeleitet statt getrennt gebaut, damit beide nie
+     * auseinanderlaufen. Nach dem Entfernen der Leerzeichen fallen Dubletten an, die es mit
+     * Leerzeichen nicht gab („Stiel Eiche" und „Stieleiche" werden beide `stieleiche`) — das Set
+     * raeumt sie weg.
+     */
+    const searchTerms = [...new Set(searchNames.map((n) => n.replace(/ /g, '')))];
+
     const doc = {
       taxonKey: sp.taxonKey,
       scientificName: sp.scientificName,
@@ -251,7 +265,8 @@ async function main() {
       germanName: germanNames[0] || de.primary,      // Altfeld — bleibt gefüllt
       germanNames,                                    // NEU: Rangfolge erhalten
       synonyms,                                       // NEU
-      searchTerms,                                    // NEU
+      searchNames,                                    // NEU — mit Wortgrenzen, fuer die Rangfolge
+      searchTerms,                                    // Altfeld, aus searchNames abgeleitet
       botanicalFamily: sp.family || null,
       germanFamily: familyNames[sp.familyKey]?.germanFamily || null,
       familyKey: sp.familyKey || null,

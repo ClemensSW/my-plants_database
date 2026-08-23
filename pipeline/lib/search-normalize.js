@@ -72,8 +72,70 @@ function searchVariants(name) {
 }
 
 /**
+ * Wie `squash`, aber Wortgrenzen bleiben als EIN Leerzeichen stehen.
+ *
+ *     „Hänge-Birke"                → „hange birke"
+ *     „Alyssum minutulum Schleich." → „alyssum minutulum schleich"
+ */
+function squashWords(value) {
+  return String(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+/**
+ * Dieselben Varianten wie `searchVariants`, nur mit erhaltenen Wortgrenzen.
+ *
+ * ## Warum die Leerzeichen zurückmüssen
+ *
+ * `searchVariants` klebt alles zu einer Zeichenkette. Damit gehen zwei Dinge verloren:
+ *
+ * **1. Falschtreffer über Wortgrenzen.** `Schleich.` + `ex` wird `schleichex` und enthält `eiche`.
+ * (Dagegen hilft schon `stripAuthorship` — aber nur bei Autoren, nicht allgemein.)
+ *
+ * **2. Die Möglichkeit, Treffer zu BEWERTEN.** Ohne Wortgrenzen sind „Stiel-Eiche" und „Weicher
+ * Akanthus" bei der Anfrage „Eiche" ununterscheidbar: In beiden steckt die Zeichenfolge. Erst wenn
+ * die App weiß, WO im Wort der Treffer sitzt, kann sie das eine vor das andere sortieren.
+ *
+ * Der deutsche Sonderfall, auf dem das beruht: **Im Kompositum steht das Grundwort hinten.**
+ * „Stiel-*eiche*" ist eine Eiche, „*Eichen*-blättrige Spiere" ist keine. „Hänge-*birke*" ist eine
+ * Birke, „*Birken*-feige" ist ein Ficus. Ein Wort, das auf die Anfrage ENDET, meint sie meistens.
+ */
+function searchNameVariants(name) {
+  const raw = String(name || '').trim();
+  if (!raw) return [];
+  const expanded = squashWords(stripDiacritics(expandUmlauts(raw)));
+  const folded = squashWords(stripDiacritics(raw.replace(/ß/g, 'ss')));
+  const out = [];
+  if (expanded) out.push(expanded);
+  if (folded && folded !== expanded) out.push(folded);
+  return out;
+}
+
+/**
+ * Die Suchnamen einer Pflanze — mit Wortgrenzen, ohne Dubletten, Reihenfolge erhalten.
+ *
+ * Das ist die Grundlage; `buildSearchTerms` wird daraus ABGELEITET, damit beide nie auseinander
+ * laufen können.
+ */
+function buildSearchNames(names) {
+  const seen = new Set();
+  const out = [];
+  for (const name of names) {
+    for (const variant of searchNameVariants(name)) {
+      if (seen.has(variant)) continue;
+      seen.add(variant);
+      out.push(variant);
+    }
+  }
+  return out;
+}
+
+/**
  * Die Suchbegriffe einer Pflanze: alle Namen und Synonyme, beide Varianten, ohne Dubletten.
  * Reihenfolge bleibt erhalten — der bevorzugte Name steht vorn.
+ *
+ * ⚠️ **Altfeld.** Neue App-Fassungen nehmen `searchNames` (mit Wortgrenzen). Dieses Feld bleibt,
+ * weil eine ältere Fassung sonst still auf die Notsuche über drei Rohfelder zurückfiele — ohne
+ * Synonyme, ohne Zweitnamen. Es wird aus `searchNames` abgeleitet, damit beide dasselbe sagen.
  */
 function buildSearchTerms(names) {
   const seen = new Set();
@@ -93,4 +155,9 @@ function normalizeQuery(query) {
   return searchVariants(query);
 }
 
-module.exports = { expandUmlauts, stripDiacritics, squash, searchVariants, buildSearchTerms, normalizeQuery };
+module.exports = {
+  expandUmlauts, stripDiacritics, squash, squashWords,
+  searchVariants, searchNameVariants,
+  buildSearchTerms, buildSearchNames,
+  normalizeQuery,
+};
