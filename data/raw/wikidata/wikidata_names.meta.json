@@ -1,0 +1,15 @@
+{
+  "step": "09_fetch_wikidata_names",
+  "finishedAt": "2026-08-23T19:59:19.268Z",
+  "regel": "nur Arten OHNE deutschen Namen bei Pl@ntNet/GBIF, mit Bildern und aufloesbarem Schluessel",
+  "zuordnung": "P846 (GBIF-ID) bevorzugt, P225 (Taxonname) als Rueckfall",
+  "filter": "istEchterTrivialname — verwirft Binome, Rangkuerzel, Autorenangaben, Gattungsnamen",
+  "result": {
+    "abgefragt": 48,
+    "gefunden": 38,
+    "mitNamen": 0,
+    "namenGesamt": 0,
+    "ueberSchluessel": 34,
+    "quellen": {}
+  }
+}
