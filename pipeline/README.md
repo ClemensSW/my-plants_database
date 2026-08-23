@@ -7,6 +7,50 @@ unverändert und weiter lauffähig.
 
 ---
 
+## ⚖️ Bevor jemand hier erntet: worauf das rechtlich steht
+
+**Es gibt eine schriftliche Zustimmung von Pl@ntNet vom 21.08.2026**, und sie deckt genau, was diese
+Pipeline tut: Trivialnamen für den ganzen Katalog, den Weg über die API statt eines Exports, und einen
+eigenen Bildcache. Der Nachweis samt Wortlaut, Vertragsstellen und Schwachstellen steht in
+**`myplants-docs/recht/Plantnet-Nutzungsrecht.md`** — dort nachlesen, bevor der Umfang der Ernte
+geändert wird.
+
+Drei Dinge, die direkt hier gelten:
+
+| | |
+|---|---|
+| **Namensnennung ist Pflicht** | „Foto: `<Urheber>` / Pl@ntNet, `<Lizenz>`, `<Datum>`". Prüfbar: `cd myplants-backend && npm run pruefe:namensnennung` |
+| **Lizenzfilter gegen eine ERLAUBNISLISTE** | `cc-by`, `cc-by-sa`, `cc0`, `public` — nie gegen eine Verbotsliste. Eine Verbotsliste lässt jede Schreibvariante durch, und gemessen kommen `cc-by-nc`, `cc-by-nc-sa`, `©` und `gpl` im Rohbestand vor |
+| **Der `plus`-Wert ist NICHT zugesagt** | Pl@ntNet ausdrücklich: *„We don't expose the vote on observations/images appearing on the API."* Er wird geerntet und gespeichert, aber die Listensortierung ist stillgelegt — Schalter in `myplants-backend/src/common/constants/media-ordering.ts` |
+
+⛔ **Nicht bei Pl@ntNet nachfragen.** Das ist entschieden, und zwar dagegen — die Begründung steht im
+Rechtsdokument. Eine Nachfrage kann eine erteilte Zustimmung nur verschlechtern.
+
+### ⚠️ `api.plantnet.org/v1` ist undokumentiert
+
+Diese Pipeline nutzt `https://api.plantnet.org/v1` — **nicht** die dokumentierte Entwickler-API
+`my-api.plantnet.org/v2`. Am 23.08.2026 nachgemessen:
+
+- Die **Wurzel** des Hosts antwortet mit `401 Missing authentication`, die `robots.txt` mit
+  `Disallow: /`. Offen sind nur vier Routen: `/projects`, `/projects/{p}/species/{name}`, `/stats`
+  und `/gbif/{key}/map.png`. Alles andere gibt es dort **nicht** (404, nicht 401).
+- `/v1/identify` ist **verschwunden** — die Bestimmung ist nach `my-api.../v2` umgezogen, hinter den
+  Schlüssel. 43 GitHub-Projekte referenzieren den alten Pfad noch.
+- `/v1/stats` liefert exakt die Zähler der Pl@ntNet-Startseite. Es ist die Datenschicht der
+  öffentlichen Website, kein API-Angebot.
+- In der Dokumentation taucht der Host **nirgends** auf, auch nicht im Webarchiv von 2022.
+
+**Vergessen wurde er nicht** — er ist gedrosselt (`x-ratelimit-userpathlimit: 10000` je Pfad und 24 h),
+und die teure Route wurde gezielt entfernt. Aber undokumentiert heißt: **keine Versionierung, keine
+Ankündigung bei Änderungen.** Er kann jederzeit schließen.
+
+Der Schaden wäre begrenzt: Die Rohernten liegen in `data/raw/`, ein Wegfall kostet einen Neuaufbau,
+nicht die Daten. Der Rückweg wäre der Pro-Plan über v2 — dieselben Daten, dann mit Vertrag. Was v2
+dort liefert, ist allerdings ungeprüft: `images=true` antwortet ohne Pro mit
+`403 "Switch to pro plan to enable this feature"`.
+
+---
+
 ## 📅 Der tägliche Bilderlauf — Kurzanleitung
 
 Pl@ntNet erlaubt **10.000 Anfragen je Pfad und 24-Stunden-Fenster**. Der Bildabruf braucht deshalb
