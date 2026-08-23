@@ -147,14 +147,41 @@ async function main() {
   if (statistik.ohne > 0) log(`  ungeklärt stehen in ${FILES.gbifKeyUnresolved}`);
   const lookup = toLookup(karte);
 
-  // Die Namen unter dem AUFGELÖSTEN Schlüssel ablegen, damit der Join darunter findet.
-  const plantnet = new Map();
+  /**
+   * Die Namen unter dem AUFGELÖSTEN Schlüssel ablegen, damit der Join darunter findet.
+   *
+   * ## Warum hier eine LISTE steht und nicht ein Datensatz
+   *
+   * Mehrere Pl@ntNet-Arten zeigen regelmäßig auf dieselbe akzeptierte Art — genau das tun
+   * Synonyme. `Aconitum vulparia` und `Aconitum moldavicum` sind beide `Aconitum lycoctonum`.
+   *
+   * Hier stand früher `if (ziel && !plantnet.has(ziel))` — der erste Schreiber gewann, alle
+   * weiteren wurden verworfen. Wenn der erste keinen deutschen Namen hatte, blieb das Feld leer,
+   * obwohl ein späterer einen hatte:
+   *
+   *     Antigonon cinerascens  (4034359)  de=[]                          ← gewann, weil zuerst
+   *     Antigonon leptopus     (2889355)  de=['Mexikanischer Knöterich'] ← verworfen
+   *
+   * Am 23.08.2026 gemessen: **283 Ziele** haben mehrere Quellen. Bei **36** davon verlor das Ziel
+   * dadurch seinen deutschen Namen komplett; bei den übrigen gingen zusätzliche Namen verloren,
+   * die die Suche gebraucht hätte.
+   *
+   * Der Reihenfolge nach zusammengeführt: Der Datensatz, dessen `gbifKey` das Ziel SELBST ist,
+   * steht vorn — seine Namen sind die der Art, nicht die eines Synonyms.
+   */
+  const plantnetListe = new Map();
   for (const rec of plantnetAlle) {
     const quelle = String(rec.gbifKey ?? `name:${rec.plantnetName}`);
     const ziel = lookup.get(quelle);
-    if (ziel && !plantnet.has(ziel)) plantnet.set(ziel, rec);
+    if (!ziel) continue;
+    if (!plantnetListe.has(ziel)) plantnetListe.set(ziel, []);
+    // Der eigene Datensatz nach vorn, Synonyme dahinter.
+    if (String(rec.gbifKey) === String(ziel)) plantnetListe.get(ziel).unshift(rec);
+    else plantnetListe.get(ziel).push(rec);
   }
-  log(`  verknüpfbar nach Auflösung: ${fmt(plantnet.size)} (vorher ${fmt(plantnetRoh.size)})`);
+  const mehrfach = [...plantnetListe.values()].filter((v) => v.length > 1).length;
+  log(`  verknüpfbar nach Auflösung: ${fmt(plantnetListe.size)} (vorher ${fmt(plantnetRoh.size)})`);
+  log(`  davon mit mehreren Pl@ntNet-Quellen: ${fmt(mehrfach)} — deren Namen werden vereinigt`);
 
   const stats = {};
   for (const lang of CONFIG.LANGUAGES) {
@@ -176,7 +203,8 @@ async function main() {
     if (!line.trim()) continue;
     const rec = JSON.parse(line);
     total++;
-    const pn = plantnet.get(rec.taxonKey) || null;
+    const pnAlle = plantnetListe.get(rec.taxonKey) || [];
+    const pn = pnAlle[0] || null;
     if (pn) joined++;
 
     const names = {};
@@ -185,7 +213,9 @@ async function main() {
       const gbifNames = (rec.vernacularNames || [])
         .filter((v) => codes.includes(v.language))
         .map((v) => v.name);
-      const pnNames = pn?.commonNames?.[lang] || [];
+      // Über ALLE Quellen vereinigt, Reihenfolge erhalten, ohne Dubletten. Bei nur einer
+      // Quelle ist das Ergebnis identisch zu vorher.
+      const pnNames = [...new Set(pnAlle.flatMap((r) => r?.commonNames?.[lang] || []))];
 
       const s = stats[lang];
       if (pnNames.length) s.fromPlantnet++;
@@ -216,6 +246,15 @@ async function main() {
         author: pn.author,
         imagesCount: pn.imagesCount,
         observationsCount: pn.observationsCount,
+        /**
+         * JEDER Pl@ntNet-Name, der auf diese Art abgebildet wurde.
+         *
+         * Wer unter einem dieser Namen sucht, meint diese Pflanze — auch wenn GBIF sie inzwischen
+         * anders führt. Schritt 07 macht daraus Synonyme, sonst bleibt der gelernte Name
+         * unauffindbar: „Waldsteinia ternata" fände `Geum ternatum` nicht, weil Pl@ntNet den Namen
+         * nicht als Synonym seiner selbst führt.
+         */
+        alleNamen: [...new Set(pnAlle.map((r) => r.plantnetName).filter(Boolean))],
       };
     }
     out.write(JSON.stringify(enriched) + '\n');

@@ -38,8 +38,9 @@ const readline = require('readline');
 const path = require('path');
 
 const { DIRS, FILES, ensureDirs, requireFiles, rel } = require('./lib/paths');
-const { buildSearchTerms } = require('./lib/search-normalize');
+const { buildSearchTerms, squash } = require('./lib/search-normalize');
 const { loadLookup } = require('./lib/gbif-key-resolver');
+const { stripAuthorship, istBrauchbarerName } = require('./lib/botanical-name');
 
 const CONFIG = {
   // Erlaubnisliste. `cc-by-nc`, `cc-by-nc-sa`, `©` und alles Unbekannte fallen damit heraus.
@@ -183,17 +184,64 @@ async function main() {
     // Namen: Pl@ntNets vollständige Rangliste, sonst der eine aus dem Listen-Endpunkt,
     // ergänzt um die GBIF-Namen. Reihenfolge = Rangfolge, Dubletten fallen raus.
     const plantnetNames = (d.commonNames && d.commonNames.length ? d.commonNames : de.plantnet) || [];
-    const germanNames = [...new Set([...plantnetNames, ...(de.gbif || [])].map((n) => String(n).trim()).filter(Boolean))];
+    const germanNames = [...new Set(
+      [...plantnetNames, ...(de.gbif || [])]
+        .map((n) => String(n).trim())
+        // Unrat aus den Gemeinschaftsdaten faellt hier heraus — er stuende sonst im Handbuch
+        // unter „Weitere Namen" und im Suchindex. Siehe `istBrauchbarerName`.
+        .filter(istBrauchbarerName),
+    )];
 
-    const synonyms = [...new Set((d.synonyms || [])
-      .map((s) => (typeof s === 'string' ? s : s && (s.name || s.scientificName)))
-      .filter(Boolean))];
+    /**
+     * Synonyme — aus zwei Quellen, und die zweite ist die, die lange gefehlt hat.
+     *
+     * **1. Pl@ntNets eigene Synonymliste.** Wie bisher.
+     *
+     * **2. Die Namen, unter denen Pl@ntNet DIESE Art führt**, sofern sie vom akzeptierten Namen
+     * abweichen. Das ist kein Beiwerk: Pl@ntNet nennt die Pflanze `Waldsteinia ternata`, GBIF
+     * führt sie als `Geum ternatum` — und Pl@ntNet listet den eigenen Namen naturgemäß nicht als
+     * Synonym seiner selbst. Wer ihn gelernt hat, fand die Pflanze deshalb nicht.
+     *
+     * Dasselbe gilt, wenn mehrere Pl@ntNet-Arten auf eine akzeptierte abgebildet werden:
+     * `Aconitum vulparia` und `Aconitum moldavicum` sind beide `Aconitum lycoctonum`, und unter
+     * beiden Namen wird gesucht.
+     *
+     * Am 23.08.2026 gemessen: 271 bereits zugeordnete Pflanzen tragen einen Pl@ntNet-Namen, der
+     * heute nirgends im Index steht — überwiegend Schreibvarianten wie `serpillifolia` gegen
+     * `serpyllifolia`, die auch jemand so sucht.
+     */
+    const zuordnungsNamen = (sp.plantnet?.alleNamen || [])
+      .filter((n) => n && squash(n) !== squash(sp.canonicalName));
+
+    const synonyms = [...new Set([
+      ...(d.synonyms || [])
+        .map((s) => (typeof s === 'string' ? s : s && (s.name || s.scientificName)))
+        .filter(Boolean),
+      ...zuordnungsNamen,
+    ])];
 
     const growthForm = (d.traits || [])
       .find((t) => t.key === 'growth_form')?.values?.map((v) => v.key).join(', ') || null;
 
+    /**
+     * Der Suchindex bekommt die Namen OHNE Autorenangabe.
+     *
+     * `buildSearchTerms` klebt jeden Namen zu einer Zeichenkette ohne Leerzeichen. Aus
+     * `Alyssum minutulum Schleich. ex DC.` wird `alyssumminutulumschleichexdc` — und darin steckt
+     * `eiche`, weil `Schleich.` und `ex` aneinanderstossen. 58 der 244 Treffer fuer „Eiche" kamen
+     * am 23.08.2026 auf diesem Weg zustande.
+     *
+     * Die vollen Zitierungen bleiben in `synonyms` stehen; gekuerzt wird nur, was in die Suche geht.
+     */
     const searchTerms = buildSearchTerms([
-      ...germanNames, sp.canonicalName, sp.scientificName, ...synonyms,
+      ...germanNames,
+      sp.canonicalName,
+      // ⚠️ Auch hier — und zwar VOR ALLEM hier. Der wissenschaftliche Name ist der Haupttraeger
+      // der Autorenangabe: `Lotus alpinus (Ser.) Schleich. ex Ramond`. Genau dieser Eintrag, nicht
+      // ein Synonym, hat den Alpen-Hornklee bei „Eiche" auftauchen lassen. Nach dem Kuerzen ist er
+      // meist identisch mit `canonicalName` — das Set wirft die Dublette weg.
+      stripAuthorship(sp.scientificName),
+      ...synonyms.map(stripAuthorship),
     ].filter(Boolean));
 
     const doc = {
