@@ -17,6 +17,7 @@
     "pipeline:families": "node pipeline/05_fetch_family_names.js",
     "pipeline:ecology": "node pipeline/06_build_ecology.js",
     "pipeline:build": "node pipeline/07_build_documents.js",
+    "test:aufloeser": "node pipeline/tests/gbif-key-resolver_test.js",
     "pipeline:all": "npm run pipeline:species && npm run pipeline:names && npm run pipeline:merge && npm run pipeline:images && npm run pipeline:families && npm run pipeline:ecology && npm run pipeline:build",
     "build-exam-lists": "node legacy/build-exam-lists.js",
     "validate-exam-lists": "node legacy/validate-exam-lists.js",

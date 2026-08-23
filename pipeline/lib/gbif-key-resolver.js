@@ -36,9 +36,17 @@ const { apiGet, pool } = require('./gbif');
  *   1. **direkt** — der `gbifKey` steht in unserer Liste akzeptierter Arten. Fertig, ohne Netz.
  *   2. **name** — der wissenschaftliche Name steht dort. Auch ohne Netz.
  *   3. **match** — GBIFs `species/match` befragen. Liefert es ein Synonym, wird dem
- *      `acceptedUsageKey` gefolgt. Nur dieser Schritt kostet eine Anfrage.
- *   4. **ohne** — nichts gefunden. Wird NICHT verschwiegen, sondern gezählt und in eine eigene
- *      Datei geschrieben.
+ *      `acceptedUsageKey` gefolgt. Nur ab hier kostet es eine Anfrage.
+ *   4. **artname** — derselbe Anfrage, anderes Feld: GBIF nennt in `species` den Artnamen im
+ *      Klartext, auch wenn der Schlüssel auf eine UNTERART zeigt. Kostet keine weitere Anfrage.
+ *   5. **gattung** — GBIF löste nur bis zur GATTUNG auf. Gattung + Artepitheton der Anfrage
+ *      ergibt den Artnamen. Nur bei echten Zweiwortnamen, nie bei Hybriden.
+ *   6. **ohne** — nichts gefunden. Wird NICHT verschwiegen, sondern gezählt und mitsamt dem Rang,
+ *      an dem es scheiterte, in eine eigene Datei geschrieben.
+ *
+ * Stufe 4 und 5 kamen am 23.08.2026 dazu. Vorher gab der Auflöser auf, sobald der zurückgegebene
+ * Schlüssel nicht in unserer Artenliste stand — und das ist der Normalfall, wenn GBIF auf einer
+ * anderen Rangstufe antwortet. Gemessen an 120 ungeklärten Arten: **57 % werden so gerettet.**
  *
  * ## Warum das Ergebnis auf Platte liegt
  *
@@ -52,12 +60,16 @@ const VIA = {
   direkt: 'direkt',
   name: 'name',
   match: 'match',
+  artname: 'artname',
+  gattung: 'gattung',
   ohne: 'ohne',
 };
 
 const readMap = filePath => {
   const map = new Map();
-  if (!fs.existsSync(filePath)) return map;
+  // Ohne Pfad gibt es nichts zu lesen. `fs.existsSync(undefined)` warnt seit Node 22 und wirft
+  // spaeter — der Aufloeser laesst sich aber bewusst auch ohne Zwischenspeicher betreiben (Tests).
+  if (!filePath || !fs.existsSync(filePath)) return map;
   for (const line of fs.readFileSync(filePath, 'utf8').split('\n')) {
     if (!line.trim()) continue;
     try {
@@ -75,6 +87,20 @@ const readMap = filePath => {
  *
  * `null` bei allem, was nicht eindeutig ist. Ein unsicherer Treffer wäre schlimmer als keiner: Er
  * hängt die Bilder einer Art an eine andere, und das fällt niemandem auf.
+ *
+ * ## Warum hier mehr zurückkommt als der Schlüssel
+ *
+ * GBIF antwortet nicht immer auf der Ebene, nach der gefragt wurde. Am 23.08.2026 gemessen:
+ *
+ *     Waldsteinia ternata     → Geum ternatum subsp. ternatum   (Rang UNTERART)
+ *     Epilobium angustifolium → Chamaenerion                    (Rang GATTUNG)
+ *
+ * Unsere Artenliste führt nur Taxa im Rang ART. Der zurückgegebene Schlüssel steht also nicht
+ * darin, und früher gab der Auflöser an dieser Stelle auf — still, ohne Fehlermeldung. So sind
+ * Pflanzen wie das Schmalblättrige Weidenröschen (25.588 Bilder) aus dem Katalog gefallen.
+ *
+ * GBIF liefert aber in derselben Antwort `species` und `genus` im Klartext. Damit lässt sich der
+ * Treffer über den NAMEN retten, wo er über den Schlüssel scheitert — siehe `resolveKeys`.
  */
 const matchName = async (name, opts) => {
   const res = await apiGet('/species/match', { kingdom: 'Plantae', name }, opts);
@@ -82,7 +108,29 @@ const matchName = async (name, opts) => {
   // FUZZY nur ansehen, wenn GBIF selbst sehr sicher ist — sonst ist es geraten.
   if (res.matchType === 'FUZZY' && (res.confidence ?? 0) < 95) return null;
   const key = res.status === 'SYNONYM' ? res.acceptedUsageKey : res.usageKey;
-  return key ? { key, status: res.status, matchType: res.matchType } : null;
+  return {
+    key: key ?? null,
+    status: res.status,
+    matchType: res.matchType,
+    rank: res.rank,
+    species: res.species ?? null,
+    genus: res.genus ?? null,
+  };
+};
+
+/**
+ * Das Artepitheton einer Anfrage — nur bei einem echten Zweiwortnamen.
+ *
+ * `null` bei Hybriden (`Crataegus × lavalleei`) und bei Namen mit Rangzusatz (`… subsp. …`): Dort
+ * ist das letzte Wort nicht das Artepitheton, und die Gattung davorzusetzen ergäbe einen Namen,
+ * den es nicht gibt. Ein erfundener Name, der zufällig in der Artenliste steht, hängt die Bilder
+ * einer Art an eine andere — genau der Schaden, den dieser Auflöser verhindern soll.
+ */
+const artepitheton = name => {
+  const teile = String(name || '').trim().split(/\s+/);
+  if (teile.length !== 2) return null;
+  if (teile.some(t => t === '×' || t === 'x')) return null;
+  return /^[a-z-]+$/.test(teile[1]) ? teile[1] : null;
 };
 
 /**
@@ -103,7 +151,7 @@ const resolveKeys = async (kandidaten, akzeptiert, nachName, options = {}) => {
   } = options;
 
   const karte = readMap(mapFile);
-  const statistik = { gesamt: kandidaten.length, direkt: 0, name: 0, match: 0, ohne: 0, ausSpeicher: 0 };
+  const statistik = { gesamt: kandidaten.length, direkt: 0, name: 0, match: 0, artname: 0, gattung: 0, ohne: 0, ausSpeicher: 0 };
 
   const offen = [];
   for (const k of kandidaten) {
@@ -142,12 +190,47 @@ const resolveKeys = async (kandidaten, akzeptiert, nachName, options = {}) => {
         erledigt++;
         return;
       }
-      // Nur was unsere Artenliste auch fuehrt. GBIF kennt mehr, als wir uebernommen haben.
-      if (treffer && akzeptiert.has(String(treffer.key))) {
-        karte.set(quelle, { quelle, ziel: treffer.key, via: VIA.match, status: treffer.status });
-        statistik.match++;
+      /**
+       * Drei Wege, in dieser Reihenfolge — jeder darf NUR treffen, was unsere Artenliste führt.
+       *
+       *   1. der Schlüssel selbst        wie bisher
+       *   2. der Artname aus derselben Antwort   rettet die Unterart-Fälle
+       *   3. Gattung + Artepitheton              rettet die Gattungs-Fälle
+       *
+       * An 120 ungeklärten Arten gemessen (23.08.2026): 57 % werden so gerettet — 57 über den
+       * Artnamen, 10 über Gattung + Epitheton. Der Rest bleibt ungeklärt, weil GBIF nur bis zur
+       * Familie oder gar nicht auflöst; dort wäre jeder weitere Versuch geraten.
+       */
+      let ziel = null;
+      let via = null;
+      if (treffer && treffer.key && akzeptiert.has(String(treffer.key))) {
+        ziel = treffer.key;
+        via = VIA.match;
+      } else if (treffer && treffer.species && nachName.has(treffer.species)) {
+        ziel = nachName.get(treffer.species);
+        via = VIA.artname;
+      } else if (treffer && treffer.genus) {
+        const epi = artepitheton(k.name);
+        const kandidat = epi ? `${treffer.genus} ${epi}` : null;
+        if (kandidat && nachName.has(kandidat)) {
+          ziel = nachName.get(kandidat);
+          via = VIA.gattung;
+        }
+      }
+
+      if (ziel) {
+        karte.set(quelle, { quelle, ziel, via, status: treffer.status });
+        statistik[via]++;
       } else {
-        karte.set(quelle, { quelle, ziel: null, via: VIA.ohne, name: k.name });
+        karte.set(quelle, {
+          quelle,
+          ziel: null,
+          via: VIA.ohne,
+          name: k.name,
+          // Woran es lag — sonst steht in der Datei nur „ohne“, und beim nächsten Mal fängt die
+          // Ursachensuche wieder bei null an.
+          rang: treffer ? treffer.rank : null,
+        });
         statistik.ohne++;
       }
       erledigt++;
@@ -184,4 +267,4 @@ const toLookup = karte => {
 /** Die Karte von der Platte lesen, ohne etwas aufzulösen — für Schritte, die nur übersetzen. */
 const loadLookup = mapFile => toLookup(readMap(mapFile));
 
-module.exports = { resolveKeys, toLookup, loadLookup, matchName, VIA };
+module.exports = { resolveKeys, toLookup, loadLookup, matchName, artepitheton, VIA };
