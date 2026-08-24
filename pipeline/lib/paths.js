@@ -54,6 +54,9 @@ const FILES = {
   // Deutsche Trivialnamen aus Wikidata — Schritt 09. Nur fuer Arten, die weder Pl@ntNet noch
   // GBIF benennen; der dewiki-Sitelink traegt davon die grosse Mehrheit.
   wikidataNames: path.join(DIRS.rawWikidata, 'wikidata_names.ndjson'),
+  // Schritt 10/11 — Taxa unterhalb der Art und ihre Commons-Bilder.
+  wikidataCultivars: path.join(DIRS.rawWikidata, 'wikidata_cultivars.ndjson'),
+  commonsImages: path.join(ROOT, 'data/raw/commons/commons_images.ndjson'),
   wikidataNamesMeta: path.join(DIRS.rawWikidata, 'wikidata_names.meta.json'),
 
   eiveSlim: path.join(DIRS.rawEcology, 'eive-1.0/eive-slim.json'),

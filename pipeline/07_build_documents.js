@@ -41,6 +41,8 @@ const { DIRS, FILES, ensureDirs, requireFiles, rel } = require('./lib/paths');
 const { buildSearchNames, squash } = require('./lib/search-normalize');
 const { loadLookup } = require('./lib/gbif-key-resolver');
 const { stripAuthorship, istBrauchbarerName } = require('./lib/botanical-name');
+const { organAusDateiname } = require('./lib/organ-aus-dateiname');
+const { commonsOriginalUrl } = require('./lib/commons-url');
 
 const CONFIG = {
   // Erlaubnisliste. `cc-by-nc`, `cc-by-nc-sa`, `©` und alles Unbekannte fallen damit heraus.
@@ -420,6 +422,129 @@ async function main() {
   }
   await new Promise((r) => mediaOut.end(r));
 
+  // ── Sorten, Formen, Varietaeten und Unterarten aus Wikidata + Commons ──────
+  //
+  // 🔴 Sie laufen NACH den Arten, und das ist keine Bequemlichkeit: Eine Sorte erbt den deutschen
+  // Namen, die Familie und die Suchbegriffe IHRER ART. Die Art muss also schon gebaut sein.
+  //
+  // ## Die Aufnahmeregel ist eine andere als bei den Arten
+  //
+  // Bei Arten gilt „deutscher Name UND >= 1 Bild". Eine Sorte hat in aller Regel keinen deutschen
+  // Trivialnamen — ihr Name IST der Sortenname. Die alte Regel wuerde also ALLE ausschliessen,
+  // und zwar nicht wegen der Datenlage, sondern wegen ihrer eigenen Formulierung.
+  //
+  // Deshalb gilt hier: **ueber einen deutschen Suchbegriff auffindbar UND >= 1 Bild.** Wer
+  // „Spitz-Ahorn" sucht, soll die Art UND ihre Sorten bekommen — dafuer erbt die Sorte die
+  // `searchTerms` ihrer Art und ergaenzt das Sortenepitheton. So faellt keine Sorte durch, ohne
+  // dass ein Name erfunden wird.
+  const sortenStats = { gelesen: 0, mitBildern: 0, geschrieben: 0, jeRang: {},
+                        namenQuelle: {}, medien: 0, mitOrgan: 0, organQuellen: {} };
+  const commonsBilder = new Map();   // plantKey -> [zeile]
+  if (fs.existsSync(FILES.commonsImages)) {
+    for await (const b of readNdjson(FILES.commonsImages)) {
+      if (!b.plantKey) continue;
+      const liste = commonsBilder.get(b.plantKey) || [];
+      liste.push(b);
+      commonsBilder.set(b.plantKey, liste);
+    }
+    log(`  Commons-Bilder fuer ${fmt(commonsBilder.size)} Taxa geladen`);
+  }
+
+  if (fs.existsSync(FILES.wikidataCultivars) && commonsBilder.size > 0) {
+    const plantsAppend = fs.createWriteStream(FILES.buildPlants, { encoding: 'utf8', flags: 'a' });
+    const mediaAppend = fs.createWriteStream(FILES.buildPlantMedias, { encoding: 'utf8', flags: 'a' });
+
+    for await (const t of readNdjson(FILES.wikidataCultivars)) {
+      sortenStats.gelesen++;
+      const bilder = commonsBilder.get(t.plantKey) || [];
+      if (bilder.length === 0) continue;
+      sortenStats.mitBildern++;
+
+      // Der deutsche Name: dewiki zuerst, sonst zusammengesetzt aus dem Artnamen.
+      //
+      // ⚠️ Zusammengesetzt wird NUR bei Sorten. „Rotbuche f. pendula" waere ein Mischmasch aus
+      // zwei Sprachen und kein deutscher Name. Formen und Varietaeten bekommen den dewiki-Namen
+      // oder gar keinen — sie sind dann ueber die geerbten Suchbegriffe und ihren botanischen
+      // Namen trotzdem auffindbar.
+      let germanName = t.germanName;
+      let germanNameQuelle = t.germanNameQuelle;
+      if (!germanName && t.rang === 'cultivar' && t.elternGermanName) {
+        const epi = /['\u2018\u2019\u02bd]([^'\u2018\u2019\u02bd]+)['\u2018\u2019\u02bd]/.exec(t.scientificName);
+        if (epi) {
+          germanName = `${t.elternGermanName} '${epi[1]}'`;
+          germanNameQuelle = 'zusammengesetzt';
+        }
+      }
+      if (!germanName) {
+        germanName = stripAuthorship(t.scientificName);
+        germanNameQuelle = 'botanisch';
+      }
+      sortenStats.namenQuelle[germanNameQuelle] = (sortenStats.namenQuelle[germanNameQuelle] || 0) + 1;
+
+      // Suchbegriffe: die der Art (damit „Spitz-Ahorn" die Sorten findet) plus der eigene Name.
+      const eigeneNamen = buildSearchNames([germanName, stripAuthorship(t.scientificName)].filter(Boolean));
+      const searchNames = [...new Set([...(t.elternSearchTerms || []), ...eigeneNamen])];
+      const searchTerms = [...new Set(searchNames.map((n) => n.replace(/ /g, '')))];
+
+      sortenStats.jeRang[t.rang] = (sortenStats.jeRang[t.rang] || 0) + 1;
+      plantsAppend.write(JSON.stringify({
+        // 🔴 KEIN taxonKey. GBIF fuehrt diese Taxa nicht (oder nur als Synonym) — ein Schluessel
+        // hier waere eine Zahl, auf die GBIF mit 404 antwortet.
+        taxonKey: null,
+        plantKey: t.plantKey,
+        parentPlantKey: t.parentPlantKey,
+        rang: t.rang,
+        wikidataId: t.wikidataId,
+        commonsCategory: t.commonsCategory,
+        scientificName: t.scientificName,
+        canonicalName: stripAuthorship(t.scientificName),
+        germanName,
+        germanNameQuelle,
+        germanNames: [germanName],
+        synonyms: [],
+        searchNames,
+        searchTerms,
+        botanicalFamily: t.botanicalFamily || null,
+        germanFamily: t.germanFamily || null,
+        imagesCount: bilder.length,
+        imagesCountByOrgan: {},
+        isActive: true,
+      }) + '\n');
+      sortenStats.geschrieben++;
+
+      for (const b of bilder) {
+        // Die strenge Organregel — sie trifft selten und dann richtig. Alles andere `unknown`,
+        // NICHT `other`: `other` waere die Aussage „kein Blatt, keine Bluete".
+        const { organ, grund } = organAusDateiname(b.commonsFile, t.scientificName);
+        if (organ) sortenStats.mitOrgan++;
+        sortenStats.organQuellen[organ ? 'dateiname' : grund] =
+          (sortenStats.organQuellen[organ ? 'dateiname' : grund] || 0) + 1;
+        mediaAppend.write(JSON.stringify({
+          taxonKey: null,
+          plantKey: t.plantKey,
+          species: stripAuthorship(t.scientificName),
+          organ: organ || 'unknown',
+          organQuelle: organ ? 'dateiname' : null,
+          occurrenceId: null,
+          // Die Original-URL; die App leitet 120/250/500/1280 daraus ab.
+          url: commonsOriginalUrl(b.commonsFile),
+          commonsFile: b.commonsFile,
+          license: b.license,
+          creator: b.creator || null,
+          // Commons hat KEINE Bewertung. `0` ist hier die ehrliche Antwort, nicht ein Platzhalter.
+          rating: 0,
+          dateText: b.dateText || null,
+          zuordnung: b.zuordnung,
+          isActive: true,
+        }) + '\n');
+        sortenStats.medien++;
+      }
+    }
+    await new Promise((r) => plantsAppend.end(r));
+    await new Promise((r) => mediaAppend.end(r));
+  }
+
+
   // ── Meta ───────────────────────────────────────────────────────────────────
   const meta = {
     step: '06_build_documents',
@@ -456,6 +581,16 @@ async function main() {
   log('Lizenzen im Rohbestand:');
   for (const [k, v] of Object.entries(licenseSeen).sort((a, b) => b[1] - a[1])) {
     console.log(`     ${allowed.has(k) ? '✓' : '✗'} ${k.padEnd(14)} ${fmt(v).padStart(12)}`);
+  }
+  console.log();
+  if (sortenStats.geschrieben > 0) {
+    console.log();
+    log(`SORTEN, FORMEN, VARIETAETEN, UNTERARTEN`);
+    log(`   gelesen:           ${fmt(sortenStats.gelesen)} · mit Bildern ${fmt(sortenStats.mitBildern)}`);
+    log(`➜  aufgenommen:       ${fmt(sortenStats.geschrieben)}`);
+    log(`   je Rang:           ${Object.entries(sortenStats.jeRang).map(([k, v]) => `${k} ${fmt(v)}`).join(' · ')}`);
+    log(`   Namensquelle:      ${Object.entries(sortenStats.namenQuelle).map(([k, v]) => `${k} ${fmt(v)}`).join(' · ')}`);
+    log(`➜  Medienzeilen:      ${fmt(sortenStats.medien)} · davon mit Organ ${fmt(sortenStats.mitOrgan)}`);
   }
   console.log();
   log(`${rel(FILES.buildPlants)} · ${rel(FILES.buildPlantMedias)}`);
