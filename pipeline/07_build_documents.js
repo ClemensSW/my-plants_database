@@ -115,15 +115,29 @@ async function main() {
   const licenseSeen = {};
   let imagesRead = 0;
   let imagesAllowed = 0;
+  let imagesOhneKey = 0;   // ueber `name:<Pl@ntNet-Name>` gerettet
 
   for await (const img of readNdjson(FILES.plantnetImages)) {
     imagesRead++;
     const lic = String(img.license || '(ohne)').toLowerCase();
     licenseSeen[lic] = (licenseSeen[lic] || 0) + 1;
     if (!licenseAllowed(img.license, allowed)) continue;
-    if (!img.taxonKey) continue;
+    /**
+     * 🔴 Ein Bild OHNE `taxonKey` ist nicht verloren — es ist nur nicht beschriftet.
+     *
+     * Schritt 04 schreibt Pl@ntNets rohen `gbifKey` an jedes Bild. Wo Pl@ntNet keinen hat, stand
+     * dort `null`, und diese Zeile warf das Bild weg. Gemessen am 24.08.2026: **60.228 Bilder in
+     * 54 Arten**, darunter der Löwenzahn (16.931) und der Ackersenf (11.898).
+     *
+     * Die Übersetzung dafür liegt längst in der Schlüsselkarte — Schritt 03 legt genau für diese
+     * Fälle einen Eintrag unter `name:<Pl@ntNet-Name>` an. Sie wurde nur nie befragt.
+     */
+    const key = img.taxonKey
+      ? auflösen(img.taxonKey)
+      : (keyLookup.get(`name:${img.species}`) ?? null);
+    if (!key) continue;
     imagesAllowed++;
-    const key = auflösen(img.taxonKey);
+    if (!img.taxonKey) imagesOhneKey++;
     let s = imageStats.get(key);
     if (!s) { s = { total: 0, byOrgan: {} }; imageStats.set(key, s); }
     s.total++;
@@ -132,6 +146,9 @@ async function main() {
   }
   log(`  ${fmt(imagesRead)} Bilder gelesen · ${fmt(imagesAllowed)} mit erlaubter Lizenz · `
     + `${fmt(imageStats.size)} Arten`);
+  if (imagesOhneKey > 0) {
+    log(`  davon ${fmt(imagesOhneKey)} ohne Pl@ntNet-Schlüssel, über den Namen zugeordnet`);
+  }
 
   // ── Artebene: Detaildaten und Zeigerwerte in den Speicher ──────────────────
   log('Durchgang 2/3 — Artebene zusammenführen …');
@@ -150,6 +167,25 @@ async function main() {
     log('⚠ data/work/family_names.json fehlt — `germanFamily` bliebe leer. Schritt 5 laufen lassen.');
   }
 
+  /**
+   * Deutsche Trivialnamen aus Wikidata — Schritt 09.
+   *
+   * 🔴 Sie sind die EINZIGE Namensquelle fuer diese 316 Arten. Pl@ntNet und GBIF kennen dort
+   * keinen deutschen Namen, und ohne Namen faellt eine Art am Tor unten heraus. Wer diese Datei
+   * beim Bauen vergisst, verliert sie still — der Lauf, der sie geholt hat, dauerte sechs Stunden.
+   */
+  const wikidataNames = new Map();   // taxonKey → [{ name, quelle }]
+  if (fs.existsSync(FILES.wikidataNames)) {
+    for await (const w of readNdjson(FILES.wikidataNames)) {
+      if (!w.taxonKey || !Array.isArray(w.namen) || w.namen.length === 0) continue;
+      const bisher = wikidataNames.get(w.taxonKey) || [];
+      wikidataNames.set(w.taxonKey, [...bisher, ...w.namen]);
+    }
+    log(`  Wikidata-Namen fuer ${fmt(wikidataNames.size)} Arten geladen`);
+  } else {
+    log(`⚠ ${rel(FILES.wikidataNames)} fehlt — ${'316'} Arten blieben ohne deutschen Namen. Schritt 09 laufen lassen.`);
+  }
+
   const ecology = new Map();
   if (fs.existsSync(FILES.ecologyByTaxon)) {
     for await (const e of readNdjson(FILES.ecologyByTaxon)) {
@@ -165,14 +201,23 @@ async function main() {
   const stats = {
     speciesSeen: 0, withGermanName: 0, withImages: 0, selected: 0,
     withEive: 0, withLegacyEcology: 0, withSynonyms: 0, withGrowthForm: 0, withGermanFamily: 0,
-    namesTotal: 0, synonymsTotal: 0, searchTermsTotal: 0,
+    namesTotal: 0, synonymsTotal: 0, searchTermsTotal: 0, nurWikidata: 0, mitRang: 0,
   };
 
   for await (const sp of readNdjson(FILES.speciesEnriched)) {
     stats.speciesSeen++;
+    /**
+     * Das Aufnahmetor: ohne deutschen Namen keine Pflanze.
+     *
+     * 🔴 Wikidata zaehlt hier als vollwertige Quelle. Vorher stand hier nur `if (!de) continue`,
+     * und eine Art, die AUSSCHLIESSLICH ueber Wikidata benannt ist, kam nie bis zur Zeile, in der
+     * ihre Namen zusammengesetzt werden. Der Erntelauf war dann umsonst.
+     */
+    const wikidata = (wikidataNames.get(sp.taxonKey) || []).map(x => x.name).filter(Boolean);
     const de = sp.commonNames?.de;
-    if (!de) continue;
+    if (!de && wikidata.length === 0) continue;
     stats.withGermanName++;
+    if (!de && wikidata.length > 0) stats.nurWikidata++;
 
     const img = imageStats.get(sp.taxonKey);
     if (!img || img.total === 0) continue;
@@ -183,9 +228,11 @@ async function main() {
 
     // Namen: Pl@ntNets vollständige Rangliste, sonst der eine aus dem Listen-Endpunkt,
     // ergänzt um die GBIF-Namen. Reihenfolge = Rangfolge, Dubletten fallen raus.
-    const plantnetNames = (d.commonNames && d.commonNames.length ? d.commonNames : de.plantnet) || [];
+    const plantnetNames = (d.commonNames && d.commonNames.length ? d.commonNames : de?.plantnet) || [];
+    // Reihenfolge = Rangfolge: Pl@ntNet, dann GBIF, dann Wikidata. Wikidata steht hinten, weil
+    // seine Namen aus Wikipedia-Artikeltiteln stammen und oefter die seltenere Bezeichnung sind.
     const germanNames = [...new Set(
-      [...plantnetNames, ...(de.gbif || [])]
+      [...plantnetNames, ...(de?.gbif || []), ...wikidata]
         .map((n) => String(n).trim())
         // Unrat aus den Gemeinschaftsdaten faellt hier heraus — er stuende sonst im Handbuch
         // unter „Weitere Namen" und im Suchindex. Siehe `istBrauchbarerName`.
@@ -258,11 +305,28 @@ async function main() {
      */
     const searchTerms = [...new Set(searchNames.map((n) => n.replace(/ /g, '')))];
 
+    /**
+     * Der Rang unterhalb der Art — soweit er sich AUS DEN DATEN ergibt.
+     *
+     * 🔴 Nur die Sammelart steht hier. Hybride, Sorte, Unterart, Varietät und Form sind am Namen
+     * ablesbar; die App leitet sie selbst ab und braucht kein Feld dafür.
+     *
+     * Die Sammelart ist es NICHT. Der Löwenzahn heißt im Katalog *Taraxacum officinale* — das
+     * sieht aus wie eine gewöhnliche Art. Dass Pl@ntNet ihn als *Taraxacum* sect. *Taraxacum*
+     * führt, steht ausschließlich in seinen Synonymen. Wer diesen Vermerk nicht mitgibt, verliert
+     * die Auskunft an genau der Stelle, an der sie gelernt werden soll.
+     */
+    const rang = synonyms.some((x) => /\b(sect|agg)\.?(\s|$)/i.test(String(x)))
+      ? 'aggregate'
+      : null;
+    if (rang) stats.mitRang++;
+
     const doc = {
       taxonKey: sp.taxonKey,
+      rang,
       scientificName: sp.scientificName,
       canonicalName: sp.canonicalName,
-      germanName: germanNames[0] || de.primary,      // Altfeld — bleibt gefüllt
+      germanName: germanNames[0] || de?.primary || wikidata[0],   // Altfeld — bleibt gefüllt
       germanNames,                                    // NEU: Rangfolge erhalten
       synonyms,                                       // NEU
       searchNames,                                    // NEU — mit Wortgrenzen, fuer die Rangfolge
@@ -308,8 +372,13 @@ async function main() {
   let ratingSum = 0;
 
   for await (const img of readNdjson(FILES.plantnetImages)) {
-    const key = auflösen(img.taxonKey);
-    if (!selected.has(key)) continue;
+    // Derselbe Rückweg wie in Durchgang 1 — sonst zählt Durchgang 1 die Bilder des Löwenzahns
+    // mit, und Durchgang 3 schreibt sie nicht. Die Pflanze käme mit `imagesCount: 16.931` in den
+    // Katalog und hätte kein einziges Bild.
+    const key = img.taxonKey
+      ? auflösen(img.taxonKey)
+      : (keyLookup.get(`name:${img.species}`) ?? null);
+    if (!key || !selected.has(key)) continue;
     if (!licenseAllowed(img.license, allowed)) continue;
     const occurrenceId = Number(img.observationId);
     mediaOut.write(JSON.stringify({
@@ -361,6 +430,9 @@ async function main() {
   console.log('='.repeat(64));
   log(`Arten gesichtet:      ${fmt(stats.speciesSeen)}`);
   log(`  mit dt. Namen:      ${fmt(stats.withGermanName)}`);
+  // Laut sagen, was NUR durch Wikidata hereinkam — sonst ist der Sechs-Stunden-Lauf unsichtbar.
+  log(`     davon nur Wikidata: ${fmt(stats.nurWikidata)}`);
+  log(`   als Sammelart vermerkt: ${fmt(stats.mitRang)}`);
   log(`  + mit Bildern:      ${fmt(stats.withImages)}`);
   log(`➜ PFLANZEN:           ${fmt(stats.selected)}`);
   log(`   Trivialnamen Ø     ${meta.result.namesPerPlant} · Synonyme Ø ${meta.result.synonymsPerPlant}`);

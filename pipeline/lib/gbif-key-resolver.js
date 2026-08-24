@@ -41,7 +41,10 @@ const { apiGet, pool } = require('./gbif');
  *      Klartext, auch wenn der Schlüssel auf eine UNTERART zeigt. Kostet keine weitere Anfrage.
  *   5. **gattung** — GBIF löste nur bis zur GATTUNG auf. Gattung + Artepitheton der Anfrage
  *      ergibt den Artnamen. Nur bei echten Zweiwortnamen, nie bei Hybriden.
- *   6. **ohne** — nichts gefunden. Wird NICHT verschwiegen, sondern gezählt und mitsamt dem Rang,
+ *   6. **sammelart** — der Name trägt eine RANGMARKE (`sect.` · `agg.` · `ser.`), zu der GBIFs
+ *      Backbone nichts führt. Dann `species/search` befragen und den obersten Treffer nehmen —
+ *      aber nur, wenn er Rang SPECIES und Status ACCEPTED hat UND dieselbe Gattung trägt.
+ *   7. **ohne** — nichts gefunden. Wird NICHT verschwiegen, sondern gezählt und mitsamt dem Rang,
  *      an dem es scheiterte, in eine eigene Datei geschrieben.
  *
  * Stufe 4 und 5 kamen am 23.08.2026 dazu. Vorher gab der Auflöser auf, sobald der zurückgegebene
@@ -62,6 +65,7 @@ const VIA = {
   match: 'match',
   artname: 'artname',
   gattung: 'gattung',
+  sammelart: 'sammelart',
   ohne: 'ohne',
 };
 
@@ -119,6 +123,75 @@ const matchName = async (name, opts) => {
 };
 
 /**
+ * Trägt der Name eine Rangmarke oberhalb der Art?
+ *
+ * `Taraxacum sect. Taraxacum` · `Rubus fruticosus agg.` · `Achillea ser. Millefolium`.
+ *
+ * ⚠️ Bewusst NICHT `subsp.`, `var.` und `f.` — die stehen UNTERHALB der Art. Sie über
+ * `species/search` auf eine Art zu ziehen wäre kein Auflösen, sondern ein Einebnen.
+ */
+/** GBIFs Backbone-Taxonomie. Alles andere sind Checklisten mit eigenen Schlüsselräumen. */
+const BACKBONE_DATASET = 'd7dddbf4-2cf0-4f39-9b2a-bb099caae36c';
+
+const RANGMARKE = /\b(sect|agg|ser|subg|subsect)\.?(\s|$)/i;
+const hatRangmarke = name => RANGMARKE.test(String(name || ''));
+
+/** Die Gattung — das erste Wort, ohne ein vorangestelltes Hybridzeichen. */
+const gattungVon = name =>
+  String(name || '').trim().replace(/^[×x]\s*/, '').split(/\s+/)[0] || null;
+
+/**
+ * Der Sammelart-Rückfall.
+ *
+ * ## Warum `species/search` und nicht noch einmal `species/match`
+ *
+ * `match` ist auf einen exakten Namen ausgelegt und gibt bei `Taraxacum sect. Taraxacum` die
+ * Gattung zurück — richtig, aber unbrauchbar: Eine Gattung hat keine Bilder bei uns. `search` ist
+ * unscharf und findet die Art, die der Sammelname meint.
+ *
+ * ## Warum das trotzdem nicht Raten ist
+ *
+ * 🔴 Drei Bedingungen, und alle drei müssen halten:
+ *
+ *   1. der Treffer hat Rang **SPECIES** — keine Gattung, keine Unterart,
+ *   2. sein Status ist **ACCEPTED** — kein Synonym, dem wir dann noch folgen müssten,
+ *   3. seine **Gattung stimmt** mit der Gattung der Anfrage überein.
+ *
+ * Bedingung 3 ist die tragende. `search` liefert auf einen unklaren Namen gern etwas aus einer
+ * ganz anderen Gattung; ohne diese Prüfung hingen die 16.932 Löwenzahnbilder irgendwann an einer
+ * fremden Pflanze. Und weil der Weg als `via: 'sammelart'` in der Karte steht, lässt sich später
+ * genau danach filtern, wer so zugeordnet wurde.
+ */
+const searchSammelart = async (name, opts) => {
+  const gattung = gattungVon(name);
+  if (!gattung) return null;
+  const res = await apiGet(
+    '/species/search',
+    {
+      q: name,
+      rank: 'SPECIES',
+      status: 'ACCEPTED',
+      // 🔴 Ans Backbone gebunden, und das ist keine Feinheit. Ohne `datasetKey` antwortet GBIF
+      // auch aus fremden Checklisten, und deren `key` ist ein LOKALER Schlüssel des jeweiligen
+      // Datensatzes — beim Löwenzahn 266900909, während der Backbone ihn unter 5394163 führt.
+      // Wer den ungeprüft übernimmt, schreibt einen Schlüssel in die Karte, den unser Katalog
+      // nie kennt: die Art fiele still heraus, obwohl sie gefunden wurde.
+      datasetKey: BACKBONE_DATASET,
+      limit: 5,
+    },
+    opts,
+  );
+  for (const t of res?.results || []) {
+    if (t.rank !== 'SPECIES') continue;
+    if (t.taxonomicStatus !== 'ACCEPTED') continue;
+    if (String(t.genus || '') !== gattung) continue;
+    // `nubKey` zuerst — er ist der Backbone-Schlüssel. `key` nur als Rückfall.
+    return { key: t.nubKey ?? t.key ?? null, species: t.species ?? t.canonicalName ?? null };
+  }
+  return null;
+};
+
+/**
  * Das Artepitheton einer Anfrage — nur bei einem echten Zweiwortnamen.
  *
  * `null` bei Hybriden (`Crataegus × lavalleei`) und bei Namen mit Rangzusatz (`… subsp. …`): Dort
@@ -151,7 +224,7 @@ const resolveKeys = async (kandidaten, akzeptiert, nachName, options = {}) => {
   } = options;
 
   const karte = readMap(mapFile);
-  const statistik = { gesamt: kandidaten.length, direkt: 0, name: 0, match: 0, artname: 0, gattung: 0, ohne: 0, ausSpeicher: 0 };
+  const statistik = { gesamt: kandidaten.length, direkt: 0, name: 0, match: 0, artname: 0, gattung: 0, sammelart: 0, ohne: 0, ausSpeicher: 0 };
 
   const offen = [];
   for (const k of kandidaten) {
@@ -218,8 +291,24 @@ const resolveKeys = async (kandidaten, akzeptiert, nachName, options = {}) => {
         }
       }
 
+      // Vierter Rückfall: nur für Namen mit Rangmarke, und nur wenn oben nichts griff.
+      if (!ziel && hatRangmarke(k.name)) {
+        try {
+          const s = await searchSammelart(k.name, options);
+          if (s && s.key && akzeptiert.has(String(s.key))) {
+            ziel = s.key;
+            via = VIA.sammelart;
+          } else if (s && s.species && nachName.has(s.species)) {
+            ziel = nachName.get(s.species);
+            via = VIA.sammelart;
+          }
+        } catch {
+          // Wie oben: ein Netzfehler ist kein Ergebnis.
+        }
+      }
+
       if (ziel) {
-        karte.set(quelle, { quelle, ziel, via, status: treffer.status });
+        karte.set(quelle, { quelle, ziel, via, status: treffer ? treffer.status : null });
         statistik[via]++;
       } else {
         karte.set(quelle, {
@@ -267,4 +356,7 @@ const toLookup = karte => {
 /** Die Karte von der Platte lesen, ohne etwas aufzulösen — für Schritte, die nur übersetzen. */
 const loadLookup = mapFile => toLookup(readMap(mapFile));
 
-module.exports = { resolveKeys, toLookup, loadLookup, matchName, artepitheton, VIA };
+module.exports = {
+  resolveKeys, toLookup, loadLookup, matchName, artepitheton,
+  hatRangmarke, gattungVon, searchSammelart, VIA,
+};

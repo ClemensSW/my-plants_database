@@ -30,6 +30,7 @@ const DIRS = {
   rawGbif: path.join(ROOT, 'data/raw/gbif'),
   rawPlantnet: path.join(ROOT, 'data/raw/plantnet'),
   rawEcology: path.join(ROOT, 'data/raw/ecology'),
+  rawWikidata: path.join(ROOT, 'data/raw/wikidata'),
   work: path.join(ROOT, 'data/work'),
   build: path.join(ROOT, 'data/build'),
   state: path.join(ROOT, 'data/state'),
@@ -50,6 +51,11 @@ const FILES = {
   plantnetSpeciesDetail: path.join(DIRS.rawPlantnet, 'plantnet_species_detail.ndjson'),
 
   // Zeigerwerte
+  // Deutsche Trivialnamen aus Wikidata — Schritt 09. Nur fuer Arten, die weder Pl@ntNet noch
+  // GBIF benennen; der dewiki-Sitelink traegt davon die grosse Mehrheit.
+  wikidataNames: path.join(DIRS.rawWikidata, 'wikidata_names.ndjson'),
+  wikidataNamesMeta: path.join(DIRS.rawWikidata, 'wikidata_names.meta.json'),
+
   eiveSlim: path.join(DIRS.rawEcology, 'eive-1.0/eive-slim.json'),
   eiveManifest: path.join(DIRS.rawEcology, 'eive-1.0/manifest.json'),
   ecologyLegacyBackup: path.join(DIRS.rawEcology, 'backup-ecology-prod-2026-08-02.ndjson'),

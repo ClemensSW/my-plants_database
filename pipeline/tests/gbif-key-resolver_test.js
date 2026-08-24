@@ -118,10 +118,58 @@ const teilB = async () => {
   }
 };
 
+// ── C: Die Sammelart ─────────────────────────────────────────────────────────
+//
+// Anlass: Pl@ntNet fuehrt den Loewenzahn als `Taraxacum sect. Taraxacum`. GBIFs `species/match`
+// antwortet darauf mit der GATTUNG — richtig, aber unbrauchbar, denn eine Gattung hat bei uns
+// keine Bilder. Die 16.932 Loewenzahnbilder hingen an nichts.
+
+const teilC = async () => {
+  const { hatRangmarke, gattungVon, searchSammelart } = require('../lib/gbif-key-resolver');
+
+  console.log('\nC — Sammelart: Rangmarke erkennen');
+  for (const n of ['Taraxacum sect. Taraxacum', 'Rubus fruticosus agg.',
+                   'Achillea ser. Millefolium', 'Carex subg. Carex']) {
+    pruefe(hatRangmarke(n) === true, `Rangmarke erkannt: ${n}`);
+  }
+  // 🔴 subsp./var./f. stehen UNTERHALB der Art. Sie ueber species/search auf eine Art zu ziehen
+  // waere kein Aufloesen, sondern ein Einebnen — die Unterart verloere ihre Identitaet.
+  for (const n of ['Betula pendula', 'Quercus robur subsp. robur',
+                   'Buxus sempervirens var. arborescens', 'Fagus sylvatica f. purpurea',
+                   'Crataegus × lavalleei']) {
+    pruefe(hatRangmarke(n) === false, `KEINE Rangmarke: ${n}`);
+  }
+  pruefe(gattungVon('Taraxacum sect. Taraxacum') === 'Taraxacum', 'Gattung aus dem Namen');
+  pruefe(gattungVon('× Amarcrinum memoria-corsii') === 'Amarcrinum',
+         'Gattung trotz freistehendem Hybridzeichen');
+
+  if (process.env.OHNE_NETZ === '1') {
+    console.log('  … Netzteil uebersprungen (OHNE_NETZ=1)');
+    return;
+  }
+
+  console.log('\nC — Sammelart: der echte Loewenzahn (mit Netz)');
+  const t = await searchSammelart('Taraxacum sect. Taraxacum', {});
+  pruefe(!!t && t.species === 'Taraxacum officinale',
+         'species/search findet Taraxacum officinale', t ? t.species : 'nichts');
+  // 🔴 Der BACKBONE-Schluessel, nicht der Checklisten-Schluessel. Ohne die Bindung an
+  // `datasetKey` antwortet GBIF mit 266900909 aus einer fremden Checkliste; unser Katalog kennt
+  // nur 5394163 — die Art fiele still heraus, obwohl sie gefunden wurde.
+  pruefe(!!t && Number(t.key) === 5394163,
+         'Backbone-Schluessel 5394163, nicht der Checklisten-Schluessel',
+         t ? String(t.key) : 'nichts');
+
+  // Die Sperre: was nicht zur Gattung passt, darf nicht durchkommen.
+  const fremd = await searchSammelart('Taraxacum sect. Erythrosperma', {});
+  pruefe(fremd === null || String(fremd.species || '').startsWith('Taraxacum'),
+         'fremde Gattung wird verworfen', fremd ? fremd.species : 'nichts');
+};
+
 (async () => {
   console.log('=== SCHLUESSELAUFLOESER ===');
   teilA();
   await teilB();
+  await teilC();
   console.log('\n' + '─'.repeat(70));
   console.log(fehler === 0 ? '✓ alles gruen' : `🔴 ${fehler} Pruefung(en) fehlgeschlagen`);
   console.log('─'.repeat(70) + '\n');
