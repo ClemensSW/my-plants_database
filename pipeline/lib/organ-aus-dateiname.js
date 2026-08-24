@@ -65,9 +65,28 @@ for (const [organ, woerter] of Object.entries(LEXIKON)) {
   for (const w of woerter) if (!NICHT_VERWENDEN.has(w)) WORT.set(w, organ);
 }
 
-/** Kein Pflanzenfoto, sondern ein Druck, ein Beleg oder eine Karte. */
+/**
+ * Kein Pflanzenfoto, sondern ein Druck, ein Beleg, eine Karte oder eine Briefmarke.
+ *
+ * 🔴 Diese Liste entscheidet nicht nur ueber das Organ, sondern ueber die AUFNAHME: Eine
+ * Commons-Kategorie enthaelt auch botanische Tafeln aus dem 19. Jahrhundert, Verbreitungskarten
+ * und Wappen. Ohne den Filter zeigte die Kachel der Saeuleneiche ein **Wappen** — am 24.08.2026
+ * an der echten Karte gesehen.
+ *
+ * ⚠️ Was hier NICHT stehen darf, obwohl es verlockend ist:
+ *
+ *     crest     steckt im Sortennamen 'Goldcrest'
+ *     grave     eine Zypresse auf einem Friedhof ist ein Pflanzenfoto
+ *     sign      Wegweiser und Pflanzenschilder sind nicht zu trennen
+ *     monument  „National Monument" ist eine Landschaft, in der die Pflanze steht
+ *
+ * Gemessen an 30.866 Bildern: 742 verworfen (2,4 %).
+ */
 const KEIN_FOTO =
-  /\b(catalog|catalogue|katalog|plate|tafel|herbarium|specimen|illustration|abbildung|drawing|engraving|zeichnung|print|page|seite|book|buch|map|karte|diagram|logo|wappen|stamp)\b/i;
+  /\b(coat[_ ]of[_ ]arms|wappen|blason|escudo|stemma|flag|flagge|drapeau|catalogue|catalog|katalog|plate|tafel|herbarium|specimen|illustration|abbildung|drawing|engraving|zeichnung|gravure|lithograph|woodcut|range[_ ]map|map|karte|mapa|distribution|diagram|schema|logo|stamp|briefmarke|banknote|coin|BHL\d+|page[_ ]\d+)\b/i;
+
+/** Ist das ueberhaupt ein Pflanzenfoto? Entscheidet ueber die Aufnahme, nicht nur ueber das Organ. */
+const istPflanzenfoto = (dateiname) => !KEIN_FOTO.test(String(dateiname || ''));
 
 /**
  * 🔴 Die wichtigste Sperre: Umstandsbeschreibungen.
@@ -123,4 +142,4 @@ function organAusDateiname(dateiname, wissName, maxFreieWoerter = 4) {
   return { organ: [...treffer][0], grund: 'eindeutig' };
 }
 
-module.exports = { organAusDateiname, LEXIKON, NICHT_VERWENDEN };
+module.exports = { organAusDateiname, istPflanzenfoto, LEXIKON, NICHT_VERWENDEN };

@@ -41,7 +41,7 @@ const { DIRS, FILES, ensureDirs, requireFiles, rel } = require('./lib/paths');
 const { buildSearchNames, squash } = require('./lib/search-normalize');
 const { loadLookup } = require('./lib/gbif-key-resolver');
 const { stripAuthorship, istBrauchbarerName } = require('./lib/botanical-name');
-const { organAusDateiname } = require('./lib/organ-aus-dateiname');
+const { organAusDateiname, istPflanzenfoto } = require('./lib/organ-aus-dateiname');
 const { commonsOriginalUrl } = require('./lib/commons-url');
 
 const CONFIG = {
@@ -438,7 +438,7 @@ async function main() {
   // `searchTerms` ihrer Art und ergaenzt das Sortenepitheton. So faellt keine Sorte durch, ohne
   // dass ein Name erfunden wird.
   const sortenStats = { gelesen: 0, mitBildern: 0, geschrieben: 0, jeRang: {},
-                        namenQuelle: {}, medien: 0, mitOrgan: 0, organQuellen: {} };
+                        namenQuelle: {}, medien: 0, mitOrgan: 0, keinFoto: 0, organQuellen: {} };
   const commonsBilder = new Map();   // plantKey -> [zeile]
   if (fs.existsSync(FILES.commonsImages)) {
     for await (const b of readNdjson(FILES.commonsImages)) {
@@ -456,7 +456,17 @@ async function main() {
 
     for await (const t of readNdjson(FILES.wikidataCultivars)) {
       sortenStats.gelesen++;
-      const bilder = commonsBilder.get(t.plantKey) || [];
+      /**
+       * 🔴 ERST filtern, DANN zaehlen — nicht umgekehrt.
+       *
+       * Eine Commons-Kategorie enthaelt auch botanische Tafeln, Verbreitungskarten und Wappen.
+       * Eine Sorte, deren einzige Datei ein Wappen ist, hat KEIN Bild. Stuende die Pruefung vor
+       * dem Filter, kaeme sie mit `imagesCount: 1` in den Katalog und haette keine einzige
+       * Medienzeile: eine graue Kachel mit einer Zahl, die luegt.
+       */
+      const rohBilder = commonsBilder.get(t.plantKey) || [];
+      const bilder = rohBilder.filter((b) => istPflanzenfoto(b.commonsFile));
+      sortenStats.keinFoto += rohBilder.length - bilder.length;
       if (bilder.length === 0) continue;
       sortenStats.mitBildern++;
 
@@ -614,6 +624,7 @@ async function main() {
     log(`   je Rang:           ${Object.entries(sortenStats.jeRang).map(([k, v]) => `${k} ${fmt(v)}`).join(' · ')}`);
     log(`   Namensquelle:      ${Object.entries(sortenStats.namenQuelle).map(([k, v]) => `${k} ${fmt(v)}`).join(' · ')}`);
     log(`➜  Medienzeilen:      ${fmt(sortenStats.medien)} · davon mit Organ ${fmt(sortenStats.mitOrgan)}`);
+    log(`   kein Pflanzenfoto:  ${fmt(sortenStats.keinFoto)} verworfen (Tafeln, Karten, Wappen)`);
   }
   console.log();
   log(`${rel(FILES.buildPlants)} · ${rel(FILES.buildPlantMedias)}`);
