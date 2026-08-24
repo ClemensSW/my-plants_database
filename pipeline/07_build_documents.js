@@ -466,8 +466,31 @@ async function main() {
       // zwei Sprachen und kein deutscher Name. Formen und Varietaeten bekommen den dewiki-Namen
       // oder gar keinen — sie sind dann ueber die geerbten Suchbegriffe und ihren botanischen
       // Namen trotzdem auffindbar.
-      let germanName = t.germanName;
-      let germanNameQuelle = t.germanNameQuelle;
+      /**
+       * 🔴 Zweite Sperre gegen botanische Namen in Tarnung.
+       *
+       * Schritt 10 verwirft ein Label, das WÖRTLICH `P225` ist. Das reicht nicht: Wikidata
+       * schreibt oft ein ANDERES Synonym in das deutsche Label, und das ist genauso wenig ein
+       * deutscher Name. Gemessen am ersten Bau kamen so durch:
+       *
+       *     Nymphaea nouchali var. caerulea  →  „Nymphaea caerulea"
+       *     Actinidia chinensis var. deliciosa → „Actinidia deliciosa"
+       *     Malus domestica var. Opal        →  „UEB 32642"        (eine Züchternummer)
+       *
+       * Die Form verrät sie: Gattung grossgeschrieben, Epitheton klein — oder ein Rangkürzel,
+       * oder überhaupt keine Kleinbuchstaben. Ein deutscher Pflanzenname sieht nie so aus.
+       */
+      const siehtBotanischAus = (n) => {
+        const x = String(n || '').trim();
+        if (!x) return true;
+        if (/\b(subsp|ssp|var|f|sect|agg|cv)\.\s/.test(x)) return true;        // Rangkürzel
+        if (/^[A-Z][a-z]+\s+[×x]?[a-z-]{3,}(\s|$)/.test(x)) return true;        // Gattung + Epitheton
+        if (!/[a-zäöüß]/.test(x)) return true;                                   // „UEB 32642"
+        return false;
+      };
+
+      let germanName = siehtBotanischAus(t.germanName) ? null : t.germanName;
+      let germanNameQuelle = germanName ? t.germanNameQuelle : null;
       if (!germanName && t.rang === 'cultivar' && t.elternGermanName) {
         const epi = /['\u2018\u2019\u02bd]([^'\u2018\u2019\u02bd]+)['\u2018\u2019\u02bd]/.exec(t.scientificName);
         if (epi) {
