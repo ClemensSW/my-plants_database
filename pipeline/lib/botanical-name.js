@@ -129,4 +129,50 @@ const istBrauchbarerName = (name) => {
   return true;
 };
 
-module.exports = { stripAuthorship, istBrauchbarerName };
+/** Vergleichsform: ohne Akzente, ohne Sonderzeichen, klein. */
+const vergleichbar = (s) =>
+  String(s ?? '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
+/** Das unterscheidende Epitheton: der Sortenname oder das Wort hinter der Rangmarke. */
+const eigenesEpitheton = (wissName) => {
+  const s = String(wissName ?? '');
+  const sorte = /['\u2018\u2019\u02bd\u02bc]([^'\u2018\u2019\u02bd\u02bc]+)['\u2018\u2019\u02bd\u02bc]/.exec(s);
+  if (sorte) return sorte[1];
+  const rang = /\b(?:subsp|ssp|var|f)\.\s+(\S+)/.exec(s);
+  return rang ? rang[1] : null;
+};
+
+/** Der Name des Elterntaxons: alles VOR der Rangmarke oder dem Sortennamen. */
+const elternName = (wissName) =>
+  String(wissName ?? '').split(/\s*(?:\b(?:subsp|ssp|var|f)\.|['\u2018\u2019\u02bd\u02bc])/)[0].trim();
+
+/**
+ * Gehoert diese Commons-Kategorie einem ANDEREN Taxon — der Art oder einer Schwester?
+ *
+ * Wikidatas `P373` zeigt bei manchen Unterarten auf die Kategorie der Art. Deren Bilder zeigen
+ * dann nicht die Unterart, sondern die Art — und mehrere Unterarten bekommen dieselben Fotos.
+ *
+ * Die Regel hat ZWEI Bedingungen, und beide braucht es:
+ *
+ *   1. Die Kategorie nennt das eigene Epitheton nicht, UND
+ *   2. sie beginnt mit dem Namen des Elterntaxons.
+ *
+ * ⚠️ Ohne Bedingung 2 waere die Regel zu scharf: `Cedrus atlantica ʽGlauca Pendula’ →
+ * „Cedre pleureur"` und `Musa acuminata ‘Lacatan’ → „Lakatan banana"` nennen das Epitheton auch
+ * nicht — sie tragen einen volkstuemlichen Namen und sind richtig.
+ */
+const kategorieGehoertFremdem = (wissName, kategorie) => {
+  if (!kategorie) return false;
+  const epi = eigenesEpitheton(wissName);
+  if (!epi) return false;
+  const k = vergleichbar(kategorie);
+  if (k.includes(vergleichbar(epi))) return false;
+  return k.startsWith(vergleichbar(elternName(wissName)));
+};
+
+module.exports = { stripAuthorship, istBrauchbarerName, kategorieGehoertFremdem, eigenesEpitheton, elternName };

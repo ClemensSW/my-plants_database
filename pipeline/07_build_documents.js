@@ -40,7 +40,7 @@ const path = require('path');
 const { DIRS, FILES, ensureDirs, requireFiles, rel } = require('./lib/paths');
 const { buildSearchNames, squash } = require('./lib/search-normalize');
 const { loadLookup } = require('./lib/gbif-key-resolver');
-const { stripAuthorship, istBrauchbarerName } = require('./lib/botanical-name');
+const { stripAuthorship, istBrauchbarerName, kategorieGehoertFremdem } = require('./lib/botanical-name');
 const { organAusDateiname, istPflanzenfoto } = require('./lib/organ-aus-dateiname');
 const { commonsOriginalUrl } = require('./lib/commons-url');
 
@@ -289,8 +289,23 @@ async function main() {
      *
      * Die vollen Zitierungen bleiben in `synonyms` stehen; gekuerzt wird nur, was in die Suche geht.
      */
-    const searchNames = buildSearchNames([
-      ...germanNames,
+    /**
+     * 🔴 Deutsche Namen ZUERST — und der Katalog sagt, wie viele es sind.
+     *
+     * Die Trefferklasse `WORT_ENDET` ist für das deutsche Kompositum gebaut: „Stiel-eiche" IST
+     * eine Eiche, weil das Grundwort hinten steht. Bei einem LATEINISCHEN Wort ist dasselbe
+     * Muster reiner Zufall — `Sambucus monstrosa` endet auf „rosa", ohne jede Verwandtschaft.
+     *
+     * Gemessen am 24.08.2026: Von 407 Treffern für „Rosa" waren nur 100 echte Worttreffer; 200
+     * kamen über `WORT_ENDET` an lateinischen Epitheta zustande. Am Gerät stand deshalb der
+     * Holunder in der Rosensuche.
+     *
+     * Statt einer zweiten Liste ein Zählwert: Die ersten `searchNamesDeCount` Einträge sind
+     * deutsch, der Rest botanisch. Das kostet eine Zahl je Pflanze statt eines zweiten Feldes,
+     * und eine ältere App-Fassung ignoriert sie einfach.
+     */
+    const deutscheNamen = buildSearchNames(germanNames.filter(Boolean));
+    const botanischeNamen = buildSearchNames([
       sp.canonicalName,
       // ⚠️ Auch hier — und zwar VOR ALLEM hier. Der wissenschaftliche Name ist der Haupttraeger
       // der Autorenangabe: `Lotus alpinus (Ser.) Schleich. ex Ramond`. Genau dieser Eintrag, nicht
@@ -298,7 +313,9 @@ async function main() {
       // meist identisch mit `canonicalName` — das Set wirft die Dublette weg.
       stripAuthorship(sp.scientificName),
       ...synonyms.map(stripAuthorship),
-    ].filter(Boolean));
+    ].filter(Boolean)).filter((n) => !deutscheNamen.includes(n));
+    const searchNames = [...deutscheNamen, ...botanischeNamen];
+    const searchNamesDeCount = deutscheNamen.length;
 
     /**
      * Das Altfeld — ABGELEITET, nicht zweitgebaut.
@@ -348,7 +365,8 @@ async function main() {
       germanName: germanNames[0] || de?.primary || wikidata[0],   // Altfeld — bleibt gefüllt
       germanNames,                                    // NEU: Rangfolge erhalten
       synonyms,                                       // NEU
-      searchNames,                                    // NEU — mit Wortgrenzen, fuer die Rangfolge
+      searchNames,
+      searchNamesDeCount,                                    // NEU — mit Wortgrenzen, fuer die Rangfolge
       searchTerms,                                    // Altfeld, aus searchNames abgeleitet
       botanicalFamily: sp.family || null,
       germanFamily: familyNames[sp.familyKey]?.germanFamily || null,
@@ -448,7 +466,7 @@ async function main() {
   // `searchTerms` ihrer Art und ergaenzt das Sortenepitheton. So faellt keine Sorte durch, ohne
   // dass ein Name erfunden wird.
   const sortenStats = { gelesen: 0, mitBildern: 0, geschrieben: 0, jeRang: {},
-                        namenQuelle: {}, medien: 0, mitOrgan: 0, keinFoto: 0, mitEive: 0, organQuellen: {} };
+                        namenQuelle: {}, medien: 0, mitOrgan: 0, keinFoto: 0, mitEive: 0, fremdeKategorie: 0, organQuellen: {} };
   const commonsBilder = new Map();   // plantKey -> [zeile]
   if (fs.existsSync(FILES.commonsImages)) {
     for await (const b of readNdjson(FILES.commonsImages)) {
@@ -474,6 +492,29 @@ async function main() {
        * dem Filter, kaeme sie mit `imagesCount: 1` in den Katalog und haette keine einzige
        * Medienzeile: eine graue Kachel mit einer Zahl, die luegt.
        */
+      /**
+       * 🔴 Gehoert die Commons-Kategorie ueberhaupt DIESEM Taxon?
+       *
+       * Wikidatas `P373` zeigt bei manchen Unterarten auf die Kategorie der ART oder sogar einer
+       * SCHWESTER-Unterart. Am Geraet sah das so aus, als haetten mehrere Narzissen-Unterarten
+       * dieselben Bilder — und genau das war es auch:
+       *
+       *     Narcissus pseudonarcissus subsp. moschatus  →  Category:Narcissus pseudonarcissus
+       *     Narcissus pseudonarcissus subsp. leonensis  →  Category:Narcissus pseudonarcissus
+       *     Pinus nigra subsp. laricio                  →  Category:Pinus nigra subsp. salzmannii
+       *     Sassafras albidum var. molle                →  Category:Sassafras albidum (flowers)
+       *
+       * Die Regel: Nennt die Kategorie das EIGENE Epitheton nicht UND beginnt sie mit dem Namen
+       * des Elterntaxons, dann sind es fremde Bilder. Gemessen: 63 von 2.500 (2,5 %).
+       *
+       * ⚠️ Sie darf nicht schaerfer sein. `Cedrus atlantica ʽGlauca Pendula’ → „Cedre pleureur"`
+       * und `Musa acuminata ‘Lacatan’ → „Lakatan banana"` nennen das Epitheton auch nicht — aber
+       * sie beginnen nicht mit dem Elternnamen, und sie sind richtig.
+       */
+      if (kategorieGehoertFremdem(t.scientificName, t.commonsCategory)) {
+        sortenStats.fremdeKategorie++;
+        continue;
+      }
       const rohBilder = commonsBilder.get(t.plantKey) || [];
       const bilder = rohBilder.filter((b) => istPflanzenfoto(b.commonsFile));
       sortenStats.keinFoto += rohBilder.length - bilder.length;
@@ -555,8 +596,14 @@ async function main() {
       sortenStats.namenQuelle[germanNameQuelle] = (sortenStats.namenQuelle[germanNameQuelle] || 0) + 1;
 
       // Suchbegriffe: die der Art (damit „Spitz-Ahorn" die Sorten findet) plus der eigene Name.
-      const eigeneNamen = buildSearchNames([germanName, stripAuthorship(t.scientificName)].filter(Boolean));
-      const searchNames = [...new Set([...(t.elternSearchTerms || []), ...eigeneNamen])];
+      // Dieselbe Trennung wie bei den Arten: deutsch vorn, botanisch hinten, mit Zaehlwert.
+      // Die geerbten Suchbegriffe der Art sind deutsch — ueber sie findet „Spitz-Ahorn" die Sorte.
+      const deutscheNamen = buildSearchNames([germanName].filter(Boolean));
+      const geerbt = (t.elternSearchTerms || []).filter((n) => !deutscheNamen.includes(n));
+      const botanischeNamen = buildSearchNames([stripAuthorship(t.scientificName)])
+        .filter((n) => !deutscheNamen.includes(n) && !geerbt.includes(n));
+      const searchNames = [...deutscheNamen, ...geerbt, ...botanischeNamen];
+      const searchNamesDeCount = deutscheNamen.length + geerbt.length;
       const searchTerms = [...new Set(searchNames.map((n) => n.replace(/ /g, '')))];
 
       /**
@@ -595,6 +642,7 @@ async function main() {
         germanNames: [germanName],
         synonyms: [],
         searchNames,
+        searchNamesDeCount,
         searchTerms,
         botanicalFamily: t.botanicalFamily || null,
         germanFamily: t.germanFamily || null,
@@ -685,6 +733,7 @@ async function main() {
     log(`➜  Medienzeilen:      ${fmt(sortenStats.medien)} · davon mit Organ ${fmt(sortenStats.mitOrgan)}`);
     log(`   kein Pflanzenfoto:  ${fmt(sortenStats.keinFoto)} verworfen (Tafeln, Karten, Wappen)`);
     log(`   EIVE von der Art geerbt: ${fmt(sortenStats.mitEive)}`);
+    log(`   fremde Kategorie:   ${fmt(sortenStats.fremdeKategorie)} verworfen (Bilder der Art oder einer Schwester)`);
   }
   console.log();
   log(`${rel(FILES.buildPlants)} · ${rel(FILES.buildPlantMedias)}`);
