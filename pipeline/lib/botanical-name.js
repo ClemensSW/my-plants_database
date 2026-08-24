@@ -46,11 +46,48 @@ const stripAuthorship = (name) => {
   if (teile.length <= 1) return teile.join(' ');
 
   const behalten = [teile[0]];
+  let nachRangmarke = false;
   for (const teil of teile.slice(1)) {
     // Das Hybridzeichen kommt freistehend (`Platanus × hispanica`) und angehängt (`Rosa ×alba`)
     // vor und ist in beiden Formen kein Autor.
     if (teil === '×' || teil === 'x') {
       behalten.push(teil);
+      continue;
+    }
+    /**
+     * 🔴 Das Sortenepitheton — und es kommt in VIER Schreibweisen vor.
+     *
+     * Wikidata benutzt sie durcheinander, gemessen an 2.410 Taxa:
+     *
+     *     U+2019  ’   1.324×      U+02BD  ʽ   1.137×
+     *     U+0027  '     209×      U+2018  ‘     164×
+     *
+     * Eine Regel, die nur `'` kennt, hält `ʽFastigiata’` für den AUTOR und wirft ihn weg. Aus
+     * `Quercus robur ʽFastigiata’` wurde `Quercus robur` — die Säuleneiche stand als gewöhnliche
+     * Stieleiche im Katalog, und ebenso 1.395 von 1.397 Sorten. Am Gerät gesehen am 24.08.2026.
+     */
+    if (/^['‘’ʽʼ`´]/.test(teil) || /['‘’ʽʼ`´]$/.test(teil)) {
+      behalten.push(teil);
+      // Alles bis zum schliessenden Zeichen gehört dazu: `‘Calebasse Bosc’` sind zwei Wörter.
+      if (!/['‘’ʽʼ`´]$/.test(teil) || teil.length === 1) nachRangmarke = false;
+      continue;
+    }
+    /**
+     * ⚠️ Nach einer Rangmarke steht IMMER ein Epitheton, auch wenn es grossgeschrieben ist.
+     *
+     * `Malus domestica var. Opal` — „Opal" ist eine Sorte, die jemand als Varietät eingetragen
+     * hat. Ohne diese Ausnahme bricht die Regel dort ab und liefert `Malus domestica var.`:
+     * einen Namen, der mit einer Rangmarke ENDET und nichts dahinter hat. Drei Fälle im Bestand,
+     * und alle drei standen so in der App.
+     */
+    if (nachRangmarke) {
+      behalten.push(teil);
+      nachRangmarke = false;
+      continue;
+    }
+    if (/^(subsp|ssp|var|f|sect|agg|cv|ser|subg)\.$/.test(teil)) {
+      behalten.push(teil);
+      nachRangmarke = true;
       continue;
     }
     const kern = teil.replace(/^[×x]/, '');

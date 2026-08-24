@@ -200,6 +200,13 @@ async function main() {
   // ── plants.ndjson schreiben ────────────────────────────────────────────────
   const plantsOut = fs.createWriteStream(FILES.buildPlants, { encoding: 'utf8', flags: 'w' });
   const selected = new Set();
+  /**
+   * Was eine Sorte von ihrer Art erbt. Wird beim Schreiben der Arten gefuellt und weiter unten
+   * gelesen — deshalb laufen die Sorten NACH den Arten.
+   *
+   * Nur die Felder, die wirklich zur Art gehoeren und nicht zur Auslese.
+   */
+  const artDaten = new Map();
   const stats = {
     speciesSeen: 0, withGermanName: 0, withImages: 0, selected: 0,
     withEive: 0, withLegacyEcology: 0, withSynonyms: 0, withGrowthForm: 0, withGermanFamily: 0,
@@ -371,6 +378,9 @@ async function main() {
 
     plantsOut.write(JSON.stringify(doc) + '\n');
     selected.add(sp.taxonKey);
+    if (doc.eive || doc.ecology) {
+      artDaten.set(sp.taxonKey, { eive: doc.eive, ecology: doc.ecology });
+    }
     stats.selected++;
   }
   await new Promise((r) => plantsOut.end(r));
@@ -438,7 +448,7 @@ async function main() {
   // `searchTerms` ihrer Art und ergaenzt das Sortenepitheton. So faellt keine Sorte durch, ohne
   // dass ein Name erfunden wird.
   const sortenStats = { gelesen: 0, mitBildern: 0, geschrieben: 0, jeRang: {},
-                        namenQuelle: {}, medien: 0, mitOrgan: 0, keinFoto: 0, organQuellen: {} };
+                        namenQuelle: {}, medien: 0, mitOrgan: 0, keinFoto: 0, mitEive: 0, organQuellen: {} };
   const commonsBilder = new Map();   // plantKey -> [zeile]
   if (fs.existsSync(FILES.commonsImages)) {
     for await (const b of readNdjson(FILES.commonsImages)) {
@@ -501,10 +511,40 @@ async function main() {
 
       let germanName = siehtBotanischAus(t.germanName) ? null : t.germanName;
       let germanNameQuelle = germanName ? t.germanNameQuelle : null;
-      if (!germanName && t.rang === 'cultivar' && t.elternGermanName) {
-        const epi = /['\u2018\u2019\u02bd]([^'\u2018\u2019\u02bd]+)['\u2018\u2019\u02bd]/.exec(t.scientificName);
+
+      /** Das Epitheton in den vier Schreibweisen, die Wikidata benutzt. */
+      const sortenEpitheton = (n) => {
+        const m = /['\u2018\u2019\u02bd\u02bc]([^'\u2018\u2019\u02bd\u02bc]+)['\u2018\u2019\u02bd\u02bc]/.exec(String(n));
+        return m ? m[1] : null;
+      };
+      /** Rangmarke plus Epitheton: `subsp. concolor`, `var. suentelensis`, `f. purpurea`. */
+      const rangTeil = (n) => {
+        const m = /\b((?:subsp|ssp|var|f)\.\s+\S+)/.exec(String(n));
+        return m ? m[1] : null;
+      };
+      /**
+       * 🔴 Zusammensetzen — fuer ALLE Raenge, nicht nur fuer Sorten.
+       *
+       * Die erste Fassung setzte nur bei Sorten zusammen, mit der Begruendung, „Rotbuche
+       * f. pendula" sei ein Mischmasch aus zwei Sprachen. Am Geraet stand dann bei 930 Pflanzen
+       * der nackte botanische Name als deutscher Name: „Abies concolor subsp. concolor" statt
+       * „Kolorado Tanne subsp. concolor".
+       *
+       * Der Einwand von Clemens ist der richtige: Der Handel schreibt es genau so. Eine
+       * Baumschule fuehrt „Kolorado-Tanne subsp. concolor", nicht den lateinischen Namen — und
+       * ein Azubi, der „Kolorado" sucht, soll die Unterart mitfinden.
+       *
+       * Sorte:              <dt. Artname> 'Epitheton'
+       * Unterart/Varietaet: <dt. Artname> subsp. epitheton
+       */
+      if (!germanName && t.elternGermanName) {
+        const epi = sortenEpitheton(t.scientificName);
+        const rang = rangTeil(t.scientificName);
         if (epi) {
-          germanName = `${t.elternGermanName} '${epi[1]}'`;
+          germanName = `${t.elternGermanName} '${epi}'`;
+          germanNameQuelle = 'zusammengesetzt';
+        } else if (rang) {
+          germanName = `${t.elternGermanName} ${rang}`;
           germanNameQuelle = 'zusammengesetzt';
         }
       }
@@ -519,8 +559,27 @@ async function main() {
       const searchNames = [...new Set([...(t.elternSearchTerms || []), ...eigeneNamen])];
       const searchTerms = [...new Set(searchNames.map((n) => n.replace(/ /g, '')))];
 
+      /**
+       * 🔴 Die Zeigerwerte erbt die Sorte von ihrer Art — sie sind eine ARTEIGENSCHAFT.
+       *
+       * EIVE beschreibt, wo eine Sippe in der Natur vorkommt: Licht, Wärme, Feuchte, Boden-pH,
+       * Stickstoff. Eine Auslese ändert daran nichts — eine Blutbuche steht auf denselben
+       * Standorten wie die Rotbuche, sie ist nur rot. Ohne das Erben hätte keine der 2.410 neuen
+       * Pflanzen einen Standort-Quiztyp, und zwar lautlos: `buildSoloLocationRound` gibt bei
+       * fehlenden Werten `null` zurück, und die Runde fällt einfach aus.
+       *
+       * ⚠️ Was NICHT geerbt wird: `handbook` (der Fließtext beschreibt die Art, nicht die Sorte)
+       * und `growthForm` (eine Kugel-Robinie ist kein Baum wie ihre Art — genau dafür wurde sie
+       * ausgelesen).
+       */
+      const elternPflanze = artDaten.get(t.parentPlantKey);
+
       sortenStats.jeRang[t.rang] = (sortenStats.jeRang[t.rang] || 0) + 1;
+      if (elternPflanze?.eive) sortenStats.mitEive++;
       plantsAppend.write(JSON.stringify({
+        eive: elternPflanze?.eive ?? undefined,
+        ecology: elternPflanze?.ecology ?? undefined,
+        eiveQuelle: elternPflanze?.eive ? 'geerbt' : undefined,
         // 🔴 KEIN taxonKey. GBIF fuehrt diese Taxa nicht (oder nur als Synonym) — ein Schluessel
         // hier waere eine Zahl, auf die GBIF mit 404 antwortet.
         taxonKey: null,
@@ -625,6 +684,7 @@ async function main() {
     log(`   Namensquelle:      ${Object.entries(sortenStats.namenQuelle).map(([k, v]) => `${k} ${fmt(v)}`).join(' · ')}`);
     log(`➜  Medienzeilen:      ${fmt(sortenStats.medien)} · davon mit Organ ${fmt(sortenStats.mitOrgan)}`);
     log(`   kein Pflanzenfoto:  ${fmt(sortenStats.keinFoto)} verworfen (Tafeln, Karten, Wappen)`);
+    log(`   EIVE von der Art geerbt: ${fmt(sortenStats.mitEive)}`);
   }
   console.log();
   log(`${rel(FILES.buildPlants)} · ${rel(FILES.buildPlantMedias)}`);
