@@ -323,6 +323,16 @@ async function main() {
 
     const doc = {
       taxonKey: sp.taxonKey,
+      /**
+       * Der quellenunabhaengige Schluessel.
+       *
+       * Fuer eine GBIF-Art ist er der `taxonKey` selbst — die Baender fangen erst bei 10⁹ an.
+       * Eine Sorte, die spaeter aus Wikidata kommt, bekommt `1_000_000_000 + Q-Nummer` und
+       * `taxonKey: null`. Siehe `plant-media.schema.ts` im Backend.
+       */
+      plantKey: sp.taxonKey,
+      /** Bei einer Art gibt es kein Elterntaxon im Katalog. Sorten tragen hier ihre Art. */
+      parentPlantKey: null,
       rang,
       scientificName: sp.scientificName,
       canonicalName: sp.canonicalName,
@@ -383,6 +393,8 @@ async function main() {
     const occurrenceId = Number(img.observationId);
     mediaOut.write(JSON.stringify({
       taxonKey: key,
+      // Derselbe Wert, anderer Schluesselraum — siehe oben. Der Import verknuepft hierueber.
+      plantKey: key,
       species: img.species,
       organ: img.organ,
       occurrenceId: Number.isFinite(occurrenceId) ? occurrenceId : null,

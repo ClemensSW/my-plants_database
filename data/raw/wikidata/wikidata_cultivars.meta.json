@@ -1,0 +1,19 @@
+{
+  "step": "10_fetch_wikidata_cultivars",
+  "finishedAt": "2026-08-24T09:48:37.896Z",
+  "regel": "P171-Kinder unserer Arten, Rang AUS DEM NAMEN, ein Elterntaxon, Name nur wenn != P225",
+  "result": {
+    "abgefragt": 60,
+    "kinder": 119,
+    "geschrieben": 117,
+    "verworfen": 2,
+    "mitCommons": 12,
+    "mitDeutschemNamen": 1,
+    "jeRang": {
+      "cultivar": 30,
+      "subspecies": 37,
+      "variety": 47,
+      "form": 3
+    }
+  }
+}

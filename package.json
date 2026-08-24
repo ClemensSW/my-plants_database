@@ -32,7 +32,10 @@
     "test:filter": "node legacy/tests/04_filter_species_test.js",
     "test:multimedia": "node legacy/tests/05_collect_multimedia_test.js",
     "test:all": "npm run test:fetch && npm run test:enrich && npm run test:wikidata && npm run test:filter && npm run test:multimedia",
-    "test": "npm run test:all"
+    "test": "npm run test:all",
+    "pipeline:sorten": "node pipeline/10_fetch_wikidata_cultivars.js",
+    "pipeline:commons": "node pipeline/11_fetch_commons_images.js",
+    "test:organ": "node pipeline/tests/organ-aus-dateiname_test.js"
   },
   "keywords": [
     "gbif",
