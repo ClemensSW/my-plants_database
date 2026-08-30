@@ -199,7 +199,8 @@ function baueDatensaetze(zeilen, { istAbschnitt, istGattung, istRauschen, endeBe
      * bleiben; alles andere mit Punkt ist Text.
      */
     const zweites = frei ? (z.trim().split(/\s+/)[1] || '') : '';
-    if (frei && /\.$/.test(zweites) && !RANGMARKEN.has(zweites.toLowerCase())) {
+    const deutschesWort = DEUTSCHE_FUELLWOERTER.has(zweites.toLowerCase().replace(/[.,]+$/, ''));
+    if (frei && (deutschesWort || (/\.$/.test(zweites) && !RANGMARKEN.has(zweites.toLowerCase())))) {
       if (offen) { offen.text = `${offen.text} ${z.trim()}`.replace(/\s+/g, ' '); continue; }
     }
     if (frei) {
@@ -261,6 +262,20 @@ function baueDatensaetze(zeilen, { istAbschnitt, istGattung, istRauschen, endeBe
  * sind. Ein Azubi liest sie auch ohne Komma — er kennt die Regel.
  */
 const RANGMARKEN = new Set(['var.', 'subsp.', 'ssp.', 'f.', 'cv.', 'sect.']);
+
+/**
+ * Deutsche Funktionswörter — sie entlarven eine Zeile als Fliesstext.
+ *
+ * 🔴 `Form des Kriech-Wacholders` sieht formal aus wie „Gattung + Epitheton": grosses Wort,
+ * kleines Wort. Es ist aber die Fortsetzung eines deutschen Namens. Ohne diese Liste eröffnete
+ * `Form` einen Gattungsblock, und die Sorten darunter hiessen anschliessend
+ * `Form scopulorum 'Skyrocket'` statt `Juniperus scopulorum 'Skyrocket'` — zehn Einträge mit
+ * einem deutschen Wort als Gattung. Dieselbe Fehlerklasse wie `Garten-Goldglöckchen bzw. …`.
+ */
+const DEUTSCHE_FUELLWOERTER = new Set([
+  'des', 'der', 'die', 'das', 'dem', 'den', 'von', 'vom', 'mit', 'und', 'oder', 'bzw', 'zur',
+  'zum', 'im', 'in', 'für', 'als', 'aus', 'bei', 'auf', 'ist', 'sind', 'wie', 'zu', 'am',
+]);
 /**
  * Die Wörter, an denen ein GROSS geschriebener Namensteil trotzdem botanisch ist.
  *

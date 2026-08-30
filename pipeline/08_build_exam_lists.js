@@ -54,6 +54,7 @@ const { vergleichsname, zeilenZuListe, verschmelzeAufloesungen, sortiere } = req
 const OUT_DIR = path.join(DIRS.examLists, 'gartenbau/garten-und-landschaftsbau/national');
 const QUELLE_GESAMT = path.join(OUT_DIR, 'references/augala-pflanzen-428.csv');
 const QUELLE_KURSE = path.join(DIRS.reference, 'galabau_pflanzen.json');
+const QUELLE_DUMP = path.join(OUT_DIR, 'references/augala-appall.json');
 
 const WRITE = process.argv.includes('--write');
 const fmt = (n) => Number(n).toLocaleString('de-DE');
@@ -160,6 +161,44 @@ async function main() {
   const vorVerschmelzung = liste.length;
   const bereinigt = verschmelzeAufloesungen(liste);
 
+  /*
+   * ── Veraltete Namen aus AuGaLas eigener Datenbank ────────────────────────────────────────────
+   *
+   * `augala-appall.json` führt eine Tabelle `veraltetenamen`: 293 Namenspaare „so hiess sie
+   * früher" → „so heisst sie heute", 140 davon zu Pflanzen der Prüfungsliste.
+   *
+   * 🔴 Das ist genau die Auskunft, die der Azubi braucht und die aus dem PDF nicht hervorgeht.
+   * Sein Ausbilder sagt `Cornus alba 'Argenteomarginata'`, die Liste sagt `'Elegantissima'` —
+   * ohne diese Paare findet er in der App nichts. Sie landen in `alsoKnownAs` und sind damit
+   * suchbar, ohne den angezeigten Namen zu verändern.
+   *
+   * ⚠️ AuGaLas Sicht auf „veraltet" ist nicht die des Katalogs. Beide Richtungen werden geprüft:
+   * Manchmal ist der Katalogname der, den AuGaLa für veraltet hält (`Buxus sempervirens` →
+   * `B. sempervirens var. arborescens`), und dann ist das Paar trotzdem ein Suchweg.
+   */
+  const veraltete = new Map();
+  if (fs.existsSync(QUELLE_DUMP)) {
+    const dump = JSON.parse(fs.readFileSync(QUELLE_DUMP, 'utf8'));
+    const nachId = new Map((dump.pflanzen || []).map((p) => [p.id, p]));
+    for (const v of dump.veraltetenamen || []) {
+      const heutige = nachId.get(v.pflId);
+      if (!heutige?.nameLatein || !v.nameLateinVeraltet) continue;
+      for (const schluessel of [vergleichsname(heutige.nameLatein), vergleichsname(v.nameLateinVeraltet)]) {
+        if (!schluessel) continue;
+        if (!veraltete.has(schluessel)) veraltete.set(schluessel, new Set());
+        veraltete.get(schluessel).add(v.nameLateinVeraltet);
+      }
+    }
+    log(`AuGaLa-Datenbank: ${fmt(veraltete.size)} Schlüssel mit veralteten Namen`);
+  }
+  for (const e of bereinigt) {
+    const alt = veraltete.get(e.schluessel);
+    if (!alt) continue;
+    e.alsoKnownAs = [...new Set([...(e.alsoKnownAs || []), ...alt])].filter(
+      (n) => vergleichsname(n) !== e.schluessel,
+    );
+  }
+
   // ── Kurszugehörigkeit ───────────────────────────────────────────────────────
   //
   // ⚠️ Merkmal, KEINE Sortierachse. Und die Quelle ist schwach: `galabau_pflanzen.json` ist selbst
@@ -207,6 +246,23 @@ async function main() {
     matchedVia: e.matchedVia,
     matchedName: e.matchedName,
     alsoKnownAs: e.alsoKnownAs || [],
+    /*
+     * 🔴 Immer `false` — und das ist eine Aussage, keine Lücke.
+     *
+     * Die AuGaLa-Liste kennt KEINE Zwischenprüfungsmarke: null Treffer auf „Zwischenprüfung",
+     * null `ZP` im ganzen Dokument. Die sechs NRW-Listen haben sie (112 bis 74 Pflanzen je
+     * Liste), die bundesweite nicht.
+     *
+     * Das Feld steht hier trotzdem, damit alle sieben Listen dieselbe Form haben — eine Liste,
+     * der ein Feld fehlt, zwingt jede lesende Stelle zu einer Fallunterscheidung. Die Sortierung
+     * ist dieselbe wie überall; sie fällt hier nur auf die Bekanntheit zurück, weil keine Pflanze
+     * markiert ist.
+     *
+     * ⚠️ Die überbetrieblichen Kurse 01/07/12 wären der nächstliegende Ersatz (Kurs 01 liegt im
+     * ersten Ausbildungsjahr). Sie gelten aber nur für Nordrhein-Westfalen und taugen deshalb
+     * nicht als Reihenfolge einer bundesweiten Liste.
+     */
+    zwischenpruefung: false,
     courses: (e.courses || []).sort(),
     imagesCount: e.imagesCount,
   }));
