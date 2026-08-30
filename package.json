@@ -39,7 +39,8 @@
     "pipeline:wikidata": "node pipeline/09_fetch_wikidata_names.js",
     "pipeline:examlists": "node pipeline/08_build_exam_lists.js",
     "test:legacy": "npm run test:fetch && npm run test:enrich && npm run test:wikidata && npm run test:filter && npm run test:multimedia",
-    "test:pruefungsliste": "node pipeline/tests/exam-liste_test.js"
+    "test:pruefungsliste": "node pipeline/tests/exam-liste_test.js",
+    "pipeline:lwk-nrw": "node pipeline/12_build_lwk_nrw_lists.js"
   },
   "keywords": [
     "gbif",

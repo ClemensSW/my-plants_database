@@ -1,0 +1,17 @@
+{
+  "_kommentar": "Die Herkunft dieser Ausgabe — eine Zeile je Frage, die man in zwei Jahren stellt: woher, wann geholt, und ist es noch dieselbe Datei?",
+  "herausgeber": "Landwirtschaftskammer Nordrhein-Westfalen",
+  "ort": "Münster",
+  "auflage": "5. Auflage, Januar 2006",
+  "geltungsbereich": {
+    "typ": "bundesland",
+    "bundesland": "north-rhine-westphalia",
+    "begruendung": "Das Vorwort nennt ausdrücklich die Landwirtschaftskammer Nordrhein-Westfalen als Herausgeberin. Andere Bundesländer geben eigene Listen heraus — siehe RECHERCHE.md."
+  },
+  "url": "https://www.landwirtschaftskammer.de/bildung/pdf/gb-pflanzenliste-friedhof.pdf",
+  "uebersicht": "https://www.landwirtschaftskammer.de/bildung/gaertner/formulare/texte/index.htm",
+  "abgerufen": "2026-08-30",
+  "datei": "gb-pflanzenliste-friedhof.pdf",
+  "sha256": "e4ff1f62e659861a1d9a1bedf217d8101a6ad2d949d03b22336a1d346d0edd80",
+  "_auflage_hinweis": "Am Dokument abgelesen, nicht vom Abrufdatum abgeleitet. Die Landwirtschaftskammer führt keine Jahreszahl im Dateinamen — ohne diese Angabe wäre der Stand nicht feststellbar."
+}

@@ -1,0 +1,17 @@
+{
+  "_kommentar": "Die Herkunft dieser Ausgabe — eine Zeile je Frage, die man in zwei Jahren stellt: woher, wann geholt, und ist es noch dieselbe Datei?",
+  "herausgeber": "Landwirtschaftskammer Nordrhein-Westfalen",
+  "ort": "Münster",
+  "auflage": "Auflage: September 2006",
+  "geltungsbereich": {
+    "typ": "bundesland",
+    "bundesland": "north-rhine-westphalia",
+    "begruendung": "Das Vorwort nennt ausdrücklich die Landwirtschaftskammer Nordrhein-Westfalen als Herausgeberin. Andere Bundesländer geben eigene Listen heraus — siehe RECHERCHE.md."
+  },
+  "url": "https://www.landwirtschaftskammer.de/bildung/pdf/gb-pflanzenliste-staudengaertnerei.pdf",
+  "uebersicht": "https://www.landwirtschaftskammer.de/bildung/gaertner/formulare/texte/index.htm",
+  "abgerufen": "2026-08-30",
+  "datei": "gb-pflanzenliste-staudengaertnerei.pdf",
+  "sha256": "a0f34a2acd8c428dff335743c263eb2058121207fdfdfbe64d416bc631121bbc",
+  "_auflage_hinweis": "Am Dokument abgelesen, nicht vom Abrufdatum abgeleitet. Die Landwirtschaftskammer führt keine Jahreszahl im Dateinamen — ohne diese Angabe wäre der Stand nicht feststellbar."
+}

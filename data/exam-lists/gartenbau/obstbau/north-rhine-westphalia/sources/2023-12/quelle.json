@@ -1,0 +1,17 @@
+{
+  "_kommentar": "Die Herkunft dieser Ausgabe — eine Zeile je Frage, die man in zwei Jahren stellt: woher, wann geholt, und ist es noch dieselbe Datei?",
+  "herausgeber": "Landwirtschaftskammer Nordrhein-Westfalen",
+  "ort": "Münster",
+  "auflage": "Auflage: Dezember 2023",
+  "geltungsbereich": {
+    "typ": "bundesland",
+    "bundesland": "north-rhine-westphalia",
+    "begruendung": "Das Vorwort nennt ausdrücklich die Landwirtschaftskammer Nordrhein-Westfalen als Herausgeberin. Andere Bundesländer geben eigene Listen heraus — siehe RECHERCHE.md."
+  },
+  "url": "https://www.landwirtschaftskammer.de/bildung/pdf/gb-pflanzenliste-obstbau.pdf",
+  "uebersicht": "https://www.landwirtschaftskammer.de/bildung/gaertner/formulare/texte/index.htm",
+  "abgerufen": "2026-08-30",
+  "datei": "gb-pflanzenliste-obstbau.pdf",
+  "sha256": "4360e54b137aaf6e1c0f7889c1d9b8d0a44e0562061955c58f0912075ec74305",
+  "_auflage_hinweis": "Am Dokument abgelesen, nicht vom Abrufdatum abgeleitet. Die Landwirtschaftskammer führt keine Jahreszahl im Dateinamen — ohne diese Angabe wäre der Stand nicht feststellbar."
+}
