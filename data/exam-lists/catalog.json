@@ -101,43 +101,115 @@
               "id": "baumschule",
               "displayName": { "de": "Baumschule", "en": "Tree Nursery" },
               "frontendCategoryId": "baumschule",
-              "available": false,
-              "lists": []
+              "available": true,
+              "lists": [
+                {
+                  "id": "baumschule-nrw",
+                  "displayName": { "de": "Pflanzenliste Baumschule", "en": "Tree Nursery Plant List" },
+                  "description": { "de": "Pflanzenliste der Landwirtschaftskammer NRW für die Ausbildung in den Baumschulen.", "en": "Plant list of the North Rhine-Westphalia chamber of agriculture." },
+                  "file": "gartenbau/baumschule/north-rhine-westphalia/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "baumschule"
+                }
+              ]
             },
             {
               "id": "friedhofsgaertnerei",
               "displayName": { "de": "Friedhofsgärtnerei", "en": "Cemetery Horticulture" },
               "frontendCategoryId": "friedhofsgaertnerei",
-              "available": false,
-              "lists": []
+              "available": true,
+              "lists": [
+                {
+                  "id": "friedhofsgaertnerei-nrw",
+                  "displayName": { "de": "Pflanzenliste Friedhofsgärtnerei", "en": "Cemetery Horticulture Plant List" },
+                  "description": { "de": "Pflanzenliste der Landwirtschaftskammer NRW für die Ausbildung in der Friedhofsgärtnerei.", "en": "Plant list of the North Rhine-Westphalia chamber of agriculture." },
+                  "file": "gartenbau/friedhofsgaertnerei/north-rhine-westphalia/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "friedhofsgaertnerei"
+                }
+              ]
             },
             {
               "id": "gemuesebau",
               "displayName": { "de": "Gemüsebau", "en": "Vegetable Growing" },
               "frontendCategoryId": "gemuesebau",
-              "available": false,
-              "lists": []
+              "available": true,
+              "lists": [
+                {
+                  "id": "gemuesebau-nrw",
+                  "displayName": { "de": "Pflanzenliste Gemüsebau", "en": "Vegetable Growing Plant List" },
+                  "description": { "de": "Pflanzenliste der Landwirtschaftskammer NRW für die Fachrichtung Gemüsebau.", "en": "Plant list of the North Rhine-Westphalia chamber of agriculture." },
+                  "file": "gartenbau/gemuesebau/north-rhine-westphalia/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "gemuesebau"
+                }
+              ]
             },
             {
               "id": "obstbau",
               "displayName": { "de": "Obstbau", "en": "Fruit Growing" },
               "frontendCategoryId": "obstbau",
-              "available": false,
-              "lists": []
+              "available": true,
+              "lists": [
+                {
+                  "id": "obstbau-nrw",
+                  "displayName": { "de": "Pflanzenliste Obstbau", "en": "Fruit Growing Plant List" },
+                  "description": { "de": "Pflanzenliste der Landwirtschaftskammer NRW für die Fachrichtung Obstbau.", "en": "Plant list of the North Rhine-Westphalia chamber of agriculture." },
+                  "file": "gartenbau/obstbau/north-rhine-westphalia/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "obstbau"
+                }
+              ]
             },
             {
               "id": "staudengaertnerei",
               "displayName": { "de": "Staudengärtnerei", "en": "Perennial Nursery" },
               "frontendCategoryId": "staudengaertnerei",
-              "available": false,
-              "lists": []
+              "available": true,
+              "lists": [
+                {
+                  "id": "staudengaertnerei-nrw",
+                  "displayName": { "de": "Pflanzenliste Staudengärtnerei", "en": "Perennial Nursery Plant List" },
+                  "description": { "de": "Pflanzenliste der Landwirtschaftskammer NRW für die Fachrichtung Staudengärtnerei.", "en": "Plant list of the North Rhine-Westphalia chamber of agriculture." },
+                  "file": "gartenbau/staudengaertnerei/north-rhine-westphalia/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "staudengaertnerei"
+                }
+              ]
             },
             {
               "id": "zierpflanzenbau",
               "displayName": { "de": "Zierpflanzenbau", "en": "Ornamental Plant Growing" },
               "frontendCategoryId": "zierpflanzenbau",
-              "available": false,
-              "lists": []
+              "available": true,
+              "lists": [
+                {
+                  "id": "zierpflanzenbau-nrw",
+                  "displayName": { "de": "Pflanzenliste Zierpflanzenbau", "en": "Ornamental Plant Growing Plant List" },
+                  "description": { "de": "Pflanzenliste der Landwirtschaftskammer NRW für die Ausbildung im Zierpflanzenbau.", "en": "Plant list of the North Rhine-Westphalia chamber of agriculture." },
+                  "file": "gartenbau/zierpflanzenbau/north-rhine-westphalia/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "zierpflanzenbau"
+                }
+              ]
             }
           ]
         }
