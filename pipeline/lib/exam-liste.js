@@ -146,6 +146,43 @@ function zeilenZuListe(zeilen) {
 }
 
 /**
+ * Einen Namen im Katalog suchen — mit den Schreibweisen, die dieselbe Pflanze meinen.
+ *
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ * DREI ANLÄUFE, WEIL DREI SCHREIBWEISEN ÜBLICH SIND
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ *
+ * 🔴 Diese drei Wege sind kein Entgegenkommen, sondern eine Korrektur: Ohne sie sahen 60 Einträge
+ * im Bericht aus wie Katalog-Lücken, obwohl die Pflanze längst da ist.
+ *
+ *  1. **Wie geschrieben.**
+ *  2. **Ohne Kreuzungszeichen.** GBIF führt Hybriden unter ihrem `canonicalName` OHNE das `×`:
+ *     `Forsythia intermedia`, nicht `Forsythia × intermedia`. Die Prüfungslisten schreiben es,
+ *     wie es sich gehört. 52 Einträge scheiterten allein daran — `Magnolia x soulangeana`,
+ *     `Platanus x hispanica`, `Tilia x euchlora`.
+ *  3. **`ssp.` als `subsp.`** Beides ist die gebräuchliche Abkürzung für dieselbe Rangstufe; die
+ *     Listen benutzen die kurze, der Katalog die lange.
+ *
+ * ⚠️ Was hier bewusst NICHT passiert: eine unscharfe Suche über die Zeichenähnlichkeit. Sie
+ * ordnete beim Ausprobieren `Lonicera pileata` der `Lonicera canadensis` zu und `Potentilla
+ * spinosa` der `Potentilla inclinata` — verschiedene Arten. Ein falscher Treffer in einer
+ * Prüfungsliste ist schlimmer als eine sichtbare Lücke.
+ */
+function sucheImKatalog(index, botanicalName) {
+  const wege = [
+    botanicalName,
+    botanicalName.replace(/\s+[x×]\s+/g, ' '),
+    botanicalName.replace(/\bssp\./g, 'subsp.'),
+    botanicalName.replace(/\s+[x×]\s+/g, ' ').replace(/\bssp\./g, 'subsp.'),
+  ];
+  for (const weg of wege) {
+    const treffer = index.get(vergleichsname(weg));
+    if (treffer) return treffer;
+  }
+  return null;
+}
+
+/**
  * Zwei Prüfungszeilen, eine Pflanze — zusammenlegen.
  *
  * 🔴 Das passiert erst NACH der Auflösung und lässt sich vorher nicht sehen. `Crocus albiflorus`
@@ -267,4 +304,4 @@ function sortiere(eintraege) {
   return flach.map((e, i) => ({ ...e, sortIndex: i }));
 }
 
-module.exports = { vergleichsname, anzeigename, istBinomen, istPlatzhalter, zeileZuEintraegen, zeilenZuListe, verschmelzeAufloesungen, sortiere };
+module.exports = { vergleichsname, anzeigename, istBinomen, istPlatzhalter, zeileZuEintraegen, zeilenZuListe, sucheImKatalog, verschmelzeAufloesungen, sortiere };

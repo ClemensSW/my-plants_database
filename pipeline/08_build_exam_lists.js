@@ -49,7 +49,7 @@ const readline = require('readline');
 
 const { DIRS, FILES, requireFiles, rel } = require('./lib/paths');
 const { stripAuthorship } = require('./lib/botanical-name');
-const { vergleichsname, zeilenZuListe, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
+const { vergleichsname, zeilenZuListe, sucheImKatalog, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
 
 const OUT_DIR = path.join(DIRS.examLists, 'gartenbau/garten-und-landschaftsbau/national');
 const QUELLE_GESAMT = path.join(OUT_DIR, 'references/augala-pflanzen-428.csv');
@@ -134,7 +134,8 @@ async function main() {
 
   const wege = {};
   for (const e of liste) {
-    const treffer = index.get(e.schluessel);
+    // Drei Schreibweisen, eine Pflanze — siehe `sucheImKatalog`.
+    const treffer = sucheImKatalog(index, e.botanicalName);
     if (treffer) {
       e.plantKey = treffer.plantKey;
       e.imagesCount = treffer.imagesCount;

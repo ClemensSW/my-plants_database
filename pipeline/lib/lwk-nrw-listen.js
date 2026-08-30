@@ -69,6 +69,24 @@ const trenneAutor = (rest) => {
  */
 const ohneSeitenvorschub = (s) => String(s ?? '').replace(/\f/g, '');
 
+/**
+ * Alle Strichvarianten auf den gewöhnlichen Bindestrich bringen.
+ *
+ * 🔴 Die Listen setzen Gattungszeilen mal mit Bindestrich (`Acer - Ahorn`), mal mit
+ * GEDANKENSTRICH (`Asplénium – Streifenfarn`, U+2013). Gemessen: 18 · 19 · 72 Gedankenstriche in
+ * den drei Gattungsblock-Listen, gegen 189 · 200 · 239 Bindestriche.
+ *
+ * Eine Regel, die nur `-` kennt, übersieht diese Gattungszeilen — und dann erben die Arten
+ * darunter die VORIGE Gattung. So wurde aus `Liriodendron tulipifera` ein
+ * `Liquidambar tulipifera`, aus `Asplenium scolopendrium` ein `Aruncus scolopendrium` und aus
+ * `Ficus benjamina` ein `Dracaena benjamina`.
+ *
+ * ⚠️ Das ist die heimtückischste Fehlerklasse in diesen Dateien: Es entsteht kein Ausfall, den
+ * ein Bericht meldet, sondern ein NAME, der es nicht gibt — und der aussieht, als hätte der
+ * Katalog eine Lücke.
+ */
+const einheitlicheStriche = (s) => String(s ?? '').replace(/[\u2010-\u2015\u2212]/g, '-');
+
 const saeubere = (s) => String(s ?? '').replace(/\s+/g, ' ').replace(/\s+'/g, " '").trim();
 
 /**
@@ -123,7 +141,8 @@ function baueDatensaetze(zeilen, { istAbschnitt, istGattung, istRauschen, endeBe
   let offen = null;
   const schliessen = () => { if (offen) { saetze.push(offen); offen = null; } };
 
-  for (const z of zeilen) {
+  for (let idx = 0; idx < zeilen.length; idx++) {
+    const z = zeilen[idx];
     /*
      * Der Anhang ist keine Pflanzenliste. Die Baumschulliste hängt hinter die Pflanzen die
      * „Gütebestimmungen" — und die sind ebenfalls in Strichlisten gesetzt (`- Anzuchtform,`,
@@ -148,7 +167,7 @@ function baueDatensaetze(zeilen, { istAbschnitt, istGattung, istRauschen, endeBe
      */
     if (/^\s*(?:ZP|Zp|\+|\s)*\d+(\.\d+)*\.?\s+\S/.test(z) && !/-/.test(z.split(/\s+/)[0] || '')) { schliessen(); continue; }
 
-    const gattung = istGattung(z);
+    const gattung = istGattung(z, zeilen[idx + 1]);
     if (gattung) { schliessen(); saetze.push({ art: 'gattung', wert: gattung }); continue; }
 
     /*
@@ -356,7 +375,7 @@ function leseGattungsblock(text, { abschnitte, endeBei = null }) {
    * jede Mustererkennung an ihnen. Für die deutschen Namen gefahrlos: gestrichen werden nur Akut
    * und Gravis, Umlaute (U+0308) und ß bleiben.
    */
-  const zeilen = entferneBetonung(ohneSeitenvorschub(text)).split('\n');
+  const zeilen = einheitlicheStriche(entferneBetonung(ohneSeitenvorschub(text))).split('\n');
 
   const istAbschnitt = (z) => {
     const m = /^\s*\d+\.\s+([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß\s\-(),.]+?)\s*$/.exec(z);
@@ -368,20 +387,34 @@ function leseGattungsblock(text, { abschnitte, endeBei = null }) {
    * Gattungszeile. Nach dem grossen Anfangsbuchstaben müssen KLEINE folgen — ohne diese Bedingung
    * war `ZP   - deodara, …` eine Gattungszeile mit der Gattung „ZP".
    */
-  const istGattung = (z) => {
+  const familieDrin = (t) => /[A-ZÄÖÜ][a-zäöü]+[aá]ceae/.test(t || '');
+  const istGattung = (z, naechste) => {
     const t = z.trim();
     if (t.startsWith('-')) return null;
-    const m = /^([A-ZÄÖÜ][a-zäöüß-]{2,})\s*-\s*(.+)$/.exec(t);
     /*
-     * 🔴 Ein KOMMA muss folgen. Eine Gattungszeile lautet „Acer - Ahorn, Aceraceae" — Name,
-     * deutscher Name, Familie. Ohne diese Bedingung war `Rhododendron-Hybride ‘Beethoven’` eine
-     * Gattungszeile (Gattung „Rhododendron", Rest „Hybride ‘Beethoven’") und verschwand als
-     * Eintrag — mit ihr die beiden Sorten, die auf ihr aufbauen.
+     * ⚠️ Ein führendes `x` gehört zur GATTUNG, nicht zur Zeile davor. `x Fatshedera - Efeuaralie,
+     * Araliaceae` ist eine Hybridgattung — die Liste erklärt das Zeichen selbst. Ohne diese
+     * Ausnahme blieb die vorige Gattung offen, und die Efeuaralie hiess `Dracaena lizei`.
      *
-     * Die Familie darf in der nächsten Zeile stehen (`Buddleja - Sommerflieder/…,` mit
-     * `Buddlejaceae` darunter), das Komma steht immer.
+     * 🔴 Und das erste Zeichen darf klein sein. `pdftotext` liest das grosse `I` dieser Schrift
+     * als kleines `l`: In der Baumschulliste steht `llex - Hülse/Stechpalme, Aquifoliáceae`.
+     * Ohne diese Ausnahme blieb `Hypericum` offen, und die Stechpalme hiess
+     * `Hypericum aquifolium` — ein Name, den es nicht gibt, der aber wie eine Katalog-Lücke
+     * aussieht.
      */
-    return m && m[2].includes(',') ? m[1] : null;
+    const m = /^(?:[x×]\s+)?([A-ZÄÖÜl][A-Za-zäöüß-]{2,})\s*-\s*(.+)$/.exec(t);
+    if (!m) return null;
+    /*
+     * Erkannt wird eine Gattungszeile an Komma ODER Familie — die Familie darf in der nächsten
+     * Zeile stehen.
+     *
+     * ⚠️ Das Komma allein reicht nicht mehr als Bedingung: `Prúnus - Pflaume/Kirsche/Mandel/`
+     * bricht um, das Komma steht erst darunter. Mit der reinen Kommaregel blieb die vorige
+     * Gattung offen und die Zierkirsche hiess `Potentilla serrulata`.
+     */
+    if (!m[2].includes(',') && !familieDrin(m[2]) && !familieDrin(naechste)) return null;
+    // Das fehlgelesene `l` am Wortanfang ist in Wahrheit ein `I`.
+    return /^l/.test(m[1]) && familieDrin(m[2]) ? `I${m[1].slice(1)}` : m[1];
   };
   // Seitenzahlen, Spaltenüberschriften und der Impressumsblock am Fuß.
   const istRauschen = (z) =>

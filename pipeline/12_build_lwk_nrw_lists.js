@@ -32,7 +32,7 @@ const { execFileSync } = require('child_process');
 
 const { DIRS, FILES, requireFiles, rel } = require('./lib/paths');
 const { stripAuthorship } = require('./lib/botanical-name');
-const { vergleichsname, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
+const { vergleichsname, sucheImKatalog, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
 const L = require('./lib/lwk-nrw-listen');
 
 const WRITE = process.argv.includes('--write');
@@ -128,8 +128,11 @@ async function main() {
     const liste2 = [...nachName.values()];
 
     let synonym = 0;
+    let ohneKreuz = 0;
     for (const e of liste2) {
-      const treffer = index.get(e.schluessel);
+      // Drei Schreibweisen, eine Pflanze — siehe `sucheImKatalog`.
+      const treffer = sucheImKatalog(index, e.botanicalName);
+      if (treffer && !index.get(e.schluessel)) ohneKreuz++;
       e.plantKey = treffer?.plantKey ?? null;
       e.imagesCount = treffer?.imagesCount ?? 0;
       e.matchedVia = treffer?.via ?? null;
@@ -160,7 +163,7 @@ async function main() {
     console.log(
       `  ${liste.fachrichtung.padEnd(20)} ${String(zeilen.length).padStart(4)} Einträge  ` +
       `${String(aufgeloest).padStart(4)} aufgelöst = ${String(prozent).padStart(3)} %  ` +
-      `(davon ${String(synonym).padStart(3)} über ein Synonym)  ` +
+      `(${String(synonym).padStart(3)} über Synonym, ${String(ohneKreuz).padStart(2)} ohne ×)  ` +
       `${String(verworfen.length).padStart(3)} Zeilen verworfen`,
     );
     bericht.push({ liste, zeilen, verworfen });
