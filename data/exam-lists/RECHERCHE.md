@@ -70,6 +70,35 @@ Stand gebaut wurde.
 
 ---
 
+## 🔴 `ZP` — die Zwischenprüfung, und warum sie die Sortierung trägt
+
+Vier der sechs Listen heben Pflanzen mit `ZP` (Staudengärtnerei: `Zp`) hervor. Die Listen erklären
+es selbst:
+
+> „Die mit ZP gekennzeichneten Pflanzennamen werden bei der **Zwischenprüfung** als
+> Pflanzenkenntnisse bevorzugt angesprochen."
+
+| Liste | markiert | von |
+|---|---|---|
+| Baumschule | 112 | 399 |
+| Zierpflanzenbau | 93 | 377 |
+| Staudengärtnerei | 89 | 301 |
+| Friedhofsgärtnerei | 74 | 386 |
+| Gemüsebau · Obstbau | — | keine Marke |
+
+Das ist die **einzige Angabe im ganzen Dokument, die etwas über den Zeitpunkt sagt** — und der
+Zeitpunkt wiegt für einen Azubi schwerer als die Häufigkeit: Wer im Frühjahr Zwischenprüfung hat,
+muss diese Pflanzen jetzt können. Deshalb sortiert die Liste seit dem 30.08.2026 **erst nach
+Prüfungszeitpunkt, dann nach Bekanntheit**.
+
+⚠️ Die Marke gilt für den BLOCK, nicht die einzelne Zeile: Ist die Art markiert und eine ihrer
+Sorten nicht, bleiben sie trotzdem beieinander — sonst stünde der Kugel-Ahorn am Listenende, weit
+weg vom Spitz-Ahorn.
+
+Gemüsebau und Obstbau kennen die Marke nicht; dort sortiert weiterhin allein die Bekanntheit.
+
+---
+
 ## Vier verschiedene Bauarten in sechs Dateien
 
 Die Listen sind nicht nach einem gemeinsamen Muster gesetzt. Wer einen Parser schreibt, braucht
@@ -116,6 +145,37 @@ Unterlagen: M27, M9 …
 ⚠️ Der Obstbau führt Sorten, Pollenspender, **Unterlagen** und Zwischenveredelungen. Unterlagen
 (`M9`, `Bittenfelder Sämling`) sind keine Pflanzen im Sinne des Katalogs — sie gehören nicht in die
 Lernliste und müssen ausdrücklich verworfen werden.
+
+**E — ohne Striche, mit Einrückung** (Anhang der Friedhofsgärtnerei)
+
+```
+Abies alba, Weiß-Tanne, Pinaceae
+     grandis, Große Küsten-Tanne          ← Art derselben Gattung
+     ‘Ellwoodii’, Lawsons Scheinzypresse  ← Sorte der vorigen Art
+```
+
+Die Wiederholung steckt hier in der Einrückung statt in einem Zeichen.
+
+### 🔴 Die Striche ERSETZEN, sie schachteln nicht
+
+Der Punkt, an dem zwei Anläufe gescheitert sind. **n Striche = die ersten n Namensteile des
+vorigen Eintrags**, danach folgt der neue Teil:
+
+```
+Chamaecyparis - Scheinzypresse, Cupressaceae
+      - lawsoniana          →  Chamaecyparis lawsoniana
+      - - ‘Columnaris’      →  Chamaecyparis lawsoniana ‘Columnaris’
+```
+
+Mit einer Ausnahme, die alles entscheidet: Endet der vorige Name selbst auf einem Sortennamen,
+wird der **ersetzt** und nicht behalten —
+
+```
+Rhododendron-Hybride ‘Beethoven’
+      - - ‘Vuyk’s Scarlet’  →  Rhododendron-Hybride ‘Vuyk’s Scarlet’
+```
+
+Sonst entsteht `Rhododendron-Hybride ‘Beethoven’ ‘Vuyk’s Scarlet’` — zwei Sorten in einem Namen.
 
 ---
 

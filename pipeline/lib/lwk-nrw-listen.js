@@ -103,25 +103,245 @@ const ohneSortenPlatzhalter = (s) =>
  * darunter eingerückt der Name). Solche Fortsetzungszeilen tragen kein `-` und beginnen tief
  * eingerückt — sie werden an den letzten Eintrag angehängt.
  */
-function leseGattungsblock(text, { abschnitte }) {
+/**
+ * Ein Datensatz aus mehreren Zeilen zusammensetzen.
+ *
+ * 🔴 Die Listen brechen einen Eintrag um, wo die Spalte zu Ende ist — nicht, wo der Eintrag zu
+ * Ende ist:
+ *
+ *     ZP    - pendula ‘Youngii’,
+ *              Hängeform der Sand-Birke/Hänge-Birke
+ *
+ * Zeilenweise gelesen ist die erste Zeile ein Name ohne deutsche Bezeichnung und die zweite
+ * Beiwerk. Erst zusammengesetzt ergibt sich der Eintrag. 32 der 120 Ausfälle waren genau das.
+ *
+ * Ein Datensatz beginnt bei einem `-` (mit den Marken davor) und läuft, bis der nächste beginnt,
+ * eine neue Gattung anfängt oder ein Abschnitt wechselt.
+ */
+function baueDatensaetze(zeilen, { istAbschnitt, istGattung, istRauschen, endeBei }) {
+  const saetze = [];
+  let offen = null;
+  const schliessen = () => { if (offen) { saetze.push(offen); offen = null; } };
+
+  for (const z of zeilen) {
+    /*
+     * Der Anhang ist keine Pflanzenliste. Die Baumschulliste hängt hinter die Pflanzen die
+     * „Gütebestimmungen" — und die sind ebenfalls in Strichlisten gesetzt (`- Anzuchtform,`,
+     * `- Stammbildner,`). Ohne diese Grenze werden Qualitätsmerkmale zu Prüfungspflanzen.
+     */
+    // ⚠️ Erst, wenn die Liste begonnen hat: „Gütebestimmungen" steht auch im Inhaltsverzeichnis
+    // auf Seite 1, und dort abzubrechen liefert null Einträge.
+    if (endeBei && saetze.some((x) => x.art === 'eintrag') && endeBei.test(z)) break;
+    if (!z.trim() || istRauschen(z)) continue;
+
+    const abschnitt = istAbschnitt(z);
+    if (abschnitt) { schliessen(); saetze.push({ art: 'abschnitt', wert: abschnitt }); continue; }
+
+    /*
+     * 🔴 JEDE nummerierte Überschrift beendet einen offenen Datensatz — auch eine, die kein
+     * bekannter Abschnitt ist.
+     *
+     * Die Friedhofsliste gliedert die Rhododendren in `2.2 Kleinblumige Sorten z.B.:`. Solche
+     * Zeilen sind keine Kategorie, aber sie sind eine Grenze. Ohne diese Regel hängte sich die
+     * Überschrift an den Eintrag davor, und die Sorte darunter fand ihre Basis nicht mehr —
+     * drei Rhododendron-Sorten fielen so heraus.
+     */
+    if (/^\s*(?:ZP|Zp|\+|\s)*\d+(\.\d+)*\.?\s+\S/.test(z) && !/-/.test(z.split(/\s+/)[0] || '')) { schliessen(); continue; }
+
+    const gattung = istGattung(z);
+    if (gattung) { schliessen(); saetze.push({ art: 'gattung', wert: gattung }); continue; }
+
+    /*
+     * 🔴 Die Striche stehen NICHT immer beieinander: Die Baumschulliste schreibt `- -`, die
+     * Friedhofsliste `-  -` mit Leerzeichen. Wer nur `-+` zählt, sieht dort EINEN Strich, hält
+     * die Sorte für eine Art und findet für sie keine Basis. 89 Ausfälle waren genau das.
+     */
+    const beginn = /^\s*((?:ZP|Zp|\+|[A-Z]\b|\s)*)((?:-\s*)+)(\S.*)$/.exec(z);
+    if (beginn) {
+      schliessen();
+      offen = {
+        art: 'eintrag',
+        marken: beginn[1] || '',
+        ebene: (beginn[2].match(/-/g) || []).length,
+        text: beginn[3].trim(),
+      };
+      continue;
+    }
+
+    /*
+     * 🔴 Ein Eintrag muss NICHT mit einem Strich beginnen.
+     *
+     * Die Friedhofsliste setzt innerhalb eines Gattungsblocks auch volle Namen frei:
+     * `Rhododendron-Hybride ‘Beethoven’`, `Rhododendron mölle ssp. mölle in Sorten`. Die Striche
+     * darunter beziehen sich dann auf DIESE Zeile. Wer sie als Fortsetzung liest, verliert nicht
+     * nur sie, sondern auch jede Sorte, die auf ihr aufbaut.
+     *
+     * Erkennbar am selben Merkmal wie überall: grossgeschriebenes erstes Wort, danach ein
+     * kleingeschriebenes, ein Hybridzeichen oder ein Anführungsstrich.
+     */
+    /*
+     * ⚠️ Nicht, solange eine Klammer offen steht. Die Listen brechen mitten in einem Synonym um:
+     *
+     *     Rhododendron molle ssp. molle in Sorten (syn.
+     *     Azalea mollis), Chines. Azalee
+     *
+     * Die zweite Zeile beginnt gross und hat ein kleines Wort dahinter — sie sähe aus wie ein
+     * eigener Eintrag und riss den deutschen Namen vom ersten ab.
+     */
+    const klammerOffen = offen && (offen.text.split('(').length > offen.text.split(')').length);
+    const frei = klammerOffen
+      ? null
+      : /^\s*(?:ZP|Zp|\+|\s)*([A-ZÄÖÜ][A-Za-zäöüß-]{2,})\s+(['‘’][^'‘’]|x\b|×|[a-zäöüß][a-zäöüß-]*(?:\b|$))/.exec(z);
+    /*
+     * ⚠️ Eine deutsche Abkürzung ist kein Artepitheton. `Garten-Goldglöckchen bzw. - Forsythie`
+     * sieht aus wie „Gattung + kleingeschriebenes Wort" — es ist aber die Fortsetzung eines
+     * deutschen Namens. Rangmarken (`ssp.`, `var.`) enden ebenfalls auf einem Punkt und müssen
+     * bleiben; alles andere mit Punkt ist Text.
+     */
+    const zweites = frei ? (z.trim().split(/\s+/)[1] || '') : '';
+    if (frei && /\.$/.test(zweites) && !RANGMARKEN.has(zweites.toLowerCase())) {
+      if (offen) { offen.text = `${offen.text} ${z.trim()}`.replace(/\s+/g, ' '); continue; }
+    }
+    if (frei) {
+      schliessen();
+      offen = { art: 'eintrag', marken: /ZP|Zp/.test(z.slice(0, z.indexOf(frei[1]))) ? 'ZP' : '', ebene: 1, text: z.replace(/^\s*(?:ZP|Zp|\+|\s)*/, '').trim(), vollerName: true };
+      continue;
+    }
+
+    /*
+     * 🔴 Der Anhang der Friedhofsliste („Schnittgrün und Beiwerk") setzt OHNE Striche:
+     *
+     *     Abies alba, Weiß-Tanne, Pinaceae
+     *          grandis, Große Küsten-Tanne          ← Art derselben Gattung
+     *          ‘Ellwoodii’, Lawsons Scheinzypresse  ← Sorte der vorigen Art
+     *
+     * Die Wiederholung steckt hier in der Einrückung statt in einem Zeichen. 28 Einträge — fast
+     * das ganze Kapitel — gingen dadurch verloren.
+     *
+     * Erkennbar ist es eng genug, um nicht mit Fliesstext zu kollidieren: ein EINZELNES
+     * kleingeschriebenes Wort oder ein Sortenname in Anführungsstrichen, gefolgt von einem Komma.
+     */
+    const fortsetzung = /^\s*(?:ZP|Zp|\+|\s)*((?:[a-zäöüß][a-zäöüß-]+|['‘’][^'‘’]+['‘’])[^,]{0,40}),\s*\S/.exec(z);
+    if (fortsetzung && offen && !klammerOffen) {
+      schliessen();
+      offen = { art: 'eintrag', marken: /ZP|Zp/.test(z) ? 'ZP' : '', ebene: /^['‘’]/.test(fortsetzung[1]) ? 2 : 1, text: z.replace(/^\s*(?:ZP|Zp|\+|\s)*/, '').trim(), einrueckung: true };
+      continue;
+    }
+
+    // Alles andere ist Fortsetzung — aber nur, solange ein Eintrag offen ist.
+    if (offen) offen.text = `${offen.text} ${z.trim()}`.replace(/\s+/g, ' ');
+  }
+  schliessen();
+  return saetze;
+}
+
+/**
+ * Botanischen und deutschen Namen trennen — nach der Grammatik, die die Liste selbst angibt.
+ *
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ * DIE REGELN STEHEN IM DOKUMENT, NICHT IN EINER VERMUTUNG
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ *
+ * Unter „Schreibweise der Pflanzennamen" erklärt jede Liste ihre eigene Grammatik:
+ *
+ *   · „Der Gattungsname wird stets mit großem Anfangsbuchstaben geschrieben, der **Artname
+ *     klein**."
+ *   · „Die Namen der **Sorten** werden stets mit großem Anfangsbuchstaben geschrieben und in
+ *     einfache, hochgestellte **Anführungsstriche** gesetzt."
+ *   · Varietäten tragen `var.`, Kreuzungen ein `x`.
+ *   · „Werden **Gruppen von Hybriden** zusammengefasst, so wird der Artname — abweichend von dem
+ *     oben Gesagten — **groß** geschrieben." (`Rhododendron Repens-Gruppe`, `Clematis-Hybriden`,
+ *     `Clematis Cultivaris in Sorten`)
+ *
+ * Daraus folgt eine Trennung, die kein Komma braucht: Der botanische Teil läuft, solange die
+ * Wörter kleingeschrieben, in Anführungsstrichen, Rangmarken oder Gruppenwörter sind. Beim ersten
+ * gewöhnlichen grossgeschriebenen Wort beginnt der deutsche Name.
+ *
+ * 🔴 Das ist der Grund, warum die 76 Zeilen ohne Komma („- mollis Chinesiche Zaubernuß") lesbar
+ * sind. Ein Azubi liest sie auch ohne Komma — er kennt die Regel.
+ */
+const RANGMARKEN = new Set(['var.', 'subsp.', 'ssp.', 'f.', 'cv.', 'sect.']);
+/**
+ * Die Wörter, an denen ein GROSS geschriebener Namensteil trotzdem botanisch ist.
+ *
+ * Die Liste erklärt es selbst: „Werden Gruppen von Hybriden zusammengefasst, so wird der Artname
+ * — abweichend von dem oben Gesagten — groß geschrieben." Sie schreibt dabei mal `Hybride`, mal
+ * `Hybriden`, mal `Cultivars`, mal `Cultivaris`; der Wortstamm trägt, die Endung nicht.
+ */
+const GRUPPENWORT = /(gruppe|hybrid|cultivar|sorten)/i;
+
+function trenneNamen(text) {
+  const woerter = text.split(/\s+/).filter(Boolean);
   /*
-   * 🔴 Die Betonungszeichen fallen ZUERST, für die ganze Datei.
-   *
-   * Sonst scheitert jede Mustererkennung an ihnen: `Ailánthus` ist für einen Ausdruck über
-   * `[A-Za-z]` kein Gattungsname, und die Zeile wird zur Artzeile der VORIGEN Gattung. Beim
-   * ersten Lauf hiess der Götterbaum deshalb `Aesculus altissima` — die Gattung blieb bei
-   * Aesculus stehen, weil `Ailánthus` nie als Gattungszeile erkannt wurde.
-   *
-   * Für die deutschen Namen ist das gefahrlos: Gestrichen werden nur Akut und Gravis (U+0301,
-   * U+0300). Umlaute sind U+0308 und bleiben, ebenso das ß.
+   * 🔴 Manche Zeilen wiederholen die Gattung, statt nur das Epitheton zu nennen —
+   * `Chrysanthemum x grandiflorum in Sorten`. Erkennbar daran, dass auf ein grossgeschriebenes
+   * erstes Wort ein kleingeschriebenes oder ein Hybridzeichen folgt: Ein deutscher Name fängt
+   * nicht so an.
+   */
+  const vollerName =
+    woerter.length >= 2 &&
+    /^[A-ZÄÖÜ][a-zäöüß]{2,}$/.test(woerter[0].replace(/[,;]+$/, '')) &&
+    /^([a-zäöüß]|x$|×$)/.test(woerter[1]);
+  const bot = [];
+  let i = 0;
+  let nachRangmarke = false;
+
+  while (i < woerter.length) {
+    const w = woerter[i];
+    if (i === 0 && vollerName) { bot.push(w.replace(/[,;]+$/, '')); i++; if (/,$/.test(w)) break; continue; }
+    const nackt = w.replace(/[,;]+$/, '');
+    const endetMitKomma = /,$/.test(w);
+
+    const istKlein = /^[a-zäöüß]/.test(nackt);
+    const istHybridzeichen = nackt === 'x' || nackt === '×';
+    const istRangmarke = RANGMARKEN.has(nackt.toLowerCase());
+    const istSorte = /^['‘’]/.test(nackt) || (bot.length > 0 && /['‘’]$/.test(nackt) && /['‘’]/.test(bot.join(' ')));
+    const istGruppe = GRUPPENWORT.test(nackt);
+
+    if (istKlein || istHybridzeichen || istRangmarke || istSorte || istGruppe || nachRangmarke) {
+      bot.push(nackt);
+      nachRangmarke = istRangmarke;
+      i++;
+      // Ein Komma beendet den botanischen Teil — dahinter steht der deutsche Name.
+      if (endetMitKomma) break;
+      continue;
+    }
+
+    /*
+     * Ein grossgeschriebenes Wort. Zwei Fälle:
+     *   · Es steht in Anführungsstrichen oder eröffnet sie → Sortenname, gehört dazu.
+     *   · Sonst beginnt hier der deutsche Name.
+     */
+    if (/^['‘’]/.test(w) || (i + 1 < woerter.length && /['‘’]/.test(woerter[i + 1]) && /['‘’]/.test(w))) {
+      bot.push(nackt); i++; continue;
+    }
+    break;
+  }
+
+  let rest = woerter.slice(i).join(' ').replace(/^[,;]\s*/, '').trim();
+  const { deutsch } = trenneAutor(rest);
+  return { botanisch: saeubere(bot.join(' ')), deutsch: saeubere(deutsch) };
+}
+
+/**
+ * BAUART A — Gattungsblock.
+ *
+ *     1. LAUBGEHÖLZE                              ← Abschnitt
+ *     Ácer - Ahorn, Aceráceae                     ← Gattung eröffnet den Block
+ *           - campéstre, Feld-Ahorn               ← Art, erbt die Gattung
+ *           - - ‘Columnáris’, Lawsons-Scheinzypresse   ← Sorte der vorigen ART
+ *     + - - - ‘Scarlet Wonder’, Flacher Rhododendron  ← Sorte der vorigen UNTERART
+ *
+ * 🔴 Die Zahl der Striche ist die Verschachtelungstiefe. Zwei Striche hatte ich erkannt, drei
+ * nicht — die zehn Ausfälle „Sorte ohne vorhergehende Art" waren alle dritte Ebene.
+ */
+function leseGattungsblock(text, { abschnitte, endeBei = null }) {
+  /*
+   * Betonungszeichen und Seitenvorschub fallen ZUERST, für die ganze Datei — sonst scheitert
+   * jede Mustererkennung an ihnen. Für die deutschen Namen gefahrlos: gestrichen werden nur Akut
+   * und Gravis, Umlaute (U+0308) und ß bleiben.
    */
   const zeilen = entferneBetonung(ohneSeitenvorschub(text)).split('\n');
-  const aus = [];
-  const verworfen = [];
-  let gattung = null;
-  let letzteArt = null;
-  let kategorie = null;
-  let aktiv = false;
 
   const istAbschnitt = (z) => {
     const m = /^\s*\d+\.\s+([A-ZÄÖÜ][A-ZÄÖÜa-zäöüß\s\-(),.]+?)\s*$/.exec(z);
@@ -129,78 +349,120 @@ function leseGattungsblock(text, { abschnitte }) {
     const name = saeubere(m[1]);
     return abschnitte.some((a) => name.toUpperCase().startsWith(a.toUpperCase())) ? name : null;
   };
-
-  for (let i = 0; i < zeilen.length; i++) {
-    const roh = zeilen[i];
-    const z = roh.replace(/\s+$/, '');
-    if (!z.trim()) { letzteArt = null; continue; }
-
-    const abschnitt = istAbschnitt(z);
-    if (abschnitt) { kategorie = abschnitt; aktiv = true; gattung = null; letzteArt = null; continue; }
-    if (!aktiv) continue;
-
-    // Seitenzahlen, Kopf- und Fusszeilen
-    if (/^\s*\d+\s*$/.test(z) || /^\s*Notizen\s*$/.test(z)) continue;
-
+  /*
+   * Gattungszeile. Nach dem grossen Anfangsbuchstaben müssen KLEINE folgen — ohne diese Bedingung
+   * war `ZP   - deodara, …` eine Gattungszeile mit der Gattung „ZP".
+   */
+  const istGattung = (z) => {
+    const t = z.trim();
+    if (t.startsWith('-')) return null;
+    const m = /^([A-ZÄÖÜ][a-zäöüß-]{2,})\s*-\s*(.+)$/.exec(t);
     /*
-     * Gattungszeile: „Acer - Ahorn, Aceraceae"
+     * 🔴 Ein KOMMA muss folgen. Eine Gattungszeile lautet „Acer - Ahorn, Aceraceae" — Name,
+     * deutscher Name, Familie. Ohne diese Bedingung war `Rhododendron-Hybride ‘Beethoven’` eine
+     * Gattungszeile (Gattung „Rhododendron", Rest „Hybride ‘Beethoven’") und verschwand als
+     * Eintrag — mit ihr die beiden Sorten, die auf ihr aufbauen.
      *
-     * ⚠️ Nach dem grossen Anfangsbuchstaben müssen KLEINE folgen. Ohne diese Bedingung war
-     * `ZP   - deodara, Himalaja-Zeder` eine Gattungszeile mit der Gattung „ZP" — und die
-     * Prüfungsmarke stand anschliessend im botanischen Namen.
+     * Die Familie darf in der nächsten Zeile stehen (`Buddleja - Sommerflieder/…,` mit
+     * `Buddlejaceae` darunter), das Komma steht immer.
      */
-    const g = /^([A-ZÄÖÜ][a-zäöüß-]{2,})\s*-\s*(.+)$/.exec(z.trim());
-    if (g && !z.trim().startsWith('-')) {
-      gattung = entferneBetonung(g[1]);
-      letzteArt = null;
-      continue;
+    return m && m[2].includes(',') ? m[1] : null;
+  };
+  // Seitenzahlen, Spaltenüberschriften und der Impressumsblock am Fuß.
+  const istRauschen = (z) =>
+    /^\s*\d+\s*$/.test(z) ||
+    /^\s*Notizen\s*$/.test(z) ||
+    /(Mail:|Internet:|www\.|@)/.test(z);
+
+  /*
+   * 🔴 Die Liste beginnt bei der ersten GATTUNGSZEILE MIT FAMILIE, nicht bei der ersten
+   * Überschrift.
+   *
+   * Das Inhaltsverzeichnis sieht aus wie die Liste: „Laubgehölze", „Nadelgehölze", „Rosen" —
+   * dieselben Wörter, dieselbe Nummerierung. Wer dort anfängt, liest elf Abschnitte und drei
+   * Sätze Vorwort als Pflanzen und bricht dann am Wort „Gütebestimmungen" ab, das ebenfalls im
+   * Verzeichnis steht. Genau das ist passiert: null Einträge aus einer 400-Pflanzen-Liste.
+   *
+   * Eine Zeile wie `Acer - Ahorn, Aceraceae` gibt es im Vorwort nicht. Sie ist der sichere Anfang.
+   */
+  const beginn = zeilen.findIndex((z) =>
+    /^[A-ZÄÖÜ][a-zäöüß-]{2,}\s*-\s*.+,\s*[A-ZÄÖÜ][a-zäöü]+aceae/.test(z.trim()),
+  );
+  const koerper = beginn >= 0 ? zeilen.slice(beginn) : zeilen;
+
+  const saetze = baueDatensaetze(koerper, { istAbschnitt, istGattung, istRauschen, endeBei });
+
+  const aus = [];
+  const verworfen = [];
+  let gattung = null;
+  let kategorie = null;
+  /** Der zuletzt gebaute vollständige Name — die Striche der nächsten Zeile beziehen sich darauf. */
+  const stand = { letzter: null };
+
+  for (const satz of saetze) {
+    if (satz.art === 'abschnitt') { kategorie = satz.wert; gattung = null; continue; }
+    if (satz.art === 'gattung') { gattung = satz.wert; stand[1] = null; stand[2] = null; continue; }
+    /*
+     * Ein Eintrag ohne offenen Gattungsblock ist kein Fehler, wenn er seinen Namen selbst nennt.
+     *
+     * Das Unkrautkapitel der Friedhofsliste steht so: `Cirsium arvense, Asteraceae …` — ohne
+     * Gattungszeile darüber, weil jede Zeile eine andere Gattung hat. Hier noch einmal auf den
+     * vollen Namen zu prüfen ist billiger und sicherer, als im Zerleger jeden Weg abzudecken,
+     * über den so eine Zeile ankommen kann.
+     */
+    const nenntGattungSelbst =
+      satz.vollerName || /^[A-ZÄÖÜ][A-Za-zäöüß-]{2,}\s+([a-zäöüß]|x\b|×)/.test(satz.text);
+    if (!gattung && !nenntGattungSelbst) { verworfen.push({ zeile: satz.text, grund: 'keine Gattung offen' }); continue; }
+
+    const zp = /\bZP\b/i.test(satz.marken);
+    const text2 = ohneKlammern(satz.text);
+    const { botanisch: botTeil, deutsch } = trenneNamen(text2);
+    if (!botTeil) { verworfen.push({ zeile: satz.text, grund: 'kein botanischer Name' }); continue; }
+
+    // Ebene 1 hängt an der Gattung, tiefere am zuletzt gesehenen Namen der Ebene darüber.
+    /*
+     * ═══════════════════════════════════════════════════════════════════════════════════════════
+     * 🔴 DIE STRICHE ERSETZEN, SIE SCHACHTELN NICHT
+     * ═══════════════════════════════════════════════════════════════════════════════════════════
+     *
+     * Das ist der Punkt, den ich zweimal falsch hatte. Ein Strich steht nicht für „eine Ebene
+     * tiefer", sondern für „hier wiederholt sich, was oben steht". **n Striche = die ersten n
+     * Namensteile des vorigen Eintrags**, danach folgt der neue Teil:
+     *
+     *     Chamaecyparis - Scheinzypresse, Cupressaceae
+     *           - lawsoniana              →  Chamaecyparis lawsoniana
+     *           - - ‘Columnaris’          →  Chamaecyparis lawsoniana ‘Columnaris’
+     *
+     * ⚠️ Und die Ausnahme, an der die naive Fassung scheiterte: Endet der vorige Name selbst auf
+     * einem Sortennamen, wird der ERSETZT und nicht behalten —
+     *
+     *     Rhododendron-Hybride ‘Beethoven’
+     *           - - ‘Vuyk’s Scarlet’      →  Rhododendron-Hybride ‘Vuyk’s Scarlet’
+     *
+     * Sonst entstünde `Rhododendron-Hybride ‘Beethoven’ ‘Vuyk’s Scarlet’` — zwei Sorten in einem
+     * Namen. Deshalb: vom vorigen Namen erst die abschliessende Sorte abziehen, dann die ersten
+     * n Teile nehmen.
+     */
+    let basis;
+    if (satz.vollerName || (!gattung && nenntGattungSelbst)) {
+      basis = '';
+    } else if (satz.ebene === 1) {
+      basis = gattung;
+    } else {
+      const vorher = stand.letzter;
+      if (!vorher) { verworfen.push({ zeile: satz.text, grund: `keine Basis für Ebene ${satz.ebene}` }); continue; }
+      const ohneSorte = vorher.replace(/\s*['‘’][^'‘’]*['‘’]\s*$/, '').trim();
+      const teile = ohneSorte.split(/\s+/);
+      basis = teile.slice(0, Math.min(satz.ebene, teile.length)).join(' ');
     }
+    if (basis === null || basis === undefined) { verworfen.push({ zeile: satz.text, grund: `keine Basis für Ebene ${satz.ebene}` }); continue; }
 
-    // Artzeile: alles vor dem `-` sind Marker (ZP, +, Pflanzenzeichen)
-    const a = /^\s*([A-Z+\s]*)-\s*(.+)$/.exec(z);
-    if (!a) {
-      /*
-       * Fortsetzung des deutschen Namens aus der Vorzeile.
-       *
-       * ⚠️ NICHT alles anhängen, was eingerückt ist. Die Listen setzen auch Familiennamen und
-       * Gruppenüberschriften eingerückt; beim ersten Lauf hiess das Gänseblümchen deshalb
-       * „Gänseblümchen Asteraceae (Compositae)". Eine Zeile, die auf einen Familiennamen endet
-       * oder mit einem beginnt, gehört nicht zum Namen.
-       */
-      const istFamilie = /(^|\s)[A-ZÄÖÜ][a-zäöü]+aceae\b/.test(z);
-      if (aus.length && /^\s{6,}\S/.test(roh) && !istFamilie && !/^\s*[A-ZÄÖÜ]\w+\s*-/.test(z)) {
-        aus[aus.length - 1].deutsch = saeubere(`${aus[aus.length - 1].deutsch} ${z}`);
-      }
-      continue;
-    }
-    if (!gattung) { verworfen.push({ zeile: saeubere(z), grund: 'keine Gattung offen' }); continue; }
+    const botanisch = einheitlicheHochkommata(saeubere(`${basis} ${ohneSortenPlatzhalter(botTeil)}`));
+    stand.letzter = botanisch;
+    // Ein frei stehender Eintrag eröffnet seine Gattung für die eingerückten Zeilen darunter.
+    if (satz.vollerName) gattung = botanisch.split(/\s+/)[0];
 
-    const zp = /\bZP\b/.test(a[1]);
-    let inhalt = a[2].trim();
-
-    // „- - ‘Columnáris’, …" — Sorte der zuvor genannten Art
-    let sorteVonVoriger = false;
-    if (inhalt.startsWith('-')) {
-      inhalt = inhalt.replace(/^-\s*/, '');
-      sorteVonVoriger = true;
-    }
-
-    const komma = inhalt.indexOf(',');
-    if (komma < 0) { verworfen.push({ zeile: saeubere(z), grund: 'kein deutscher Name' }); continue; }
-    const botTeil = ohneSortenPlatzhalter(ohneKlammern(inhalt.slice(0, komma)));
-    const { deutsch } = trenneAutor(inhalt.slice(komma + 1).trim());
-
-    const basis = sorteVonVoriger ? letzteArt : `${gattung} ${entferneBetonung(botTeil)}`;
-    if (!basis) { verworfen.push({ zeile: saeubere(z), grund: 'Sorte ohne vorhergehende Art' }); continue; }
-
-    const botanisch = einheitlicheHochkommata(
-      saeubere(sorteVonVoriger ? `${basis} ${entferneBetonung(botTeil)}` : basis),
-    );
-    if (!sorteVonVoriger && !/'/.test(botTeil)) letzteArt = botanisch;
-
-    const dt = saeubere(deutsch);
-    if (!botanisch || !dt) { verworfen.push({ zeile: saeubere(z), grund: 'Name unvollständig' }); continue; }
-    aus.push({ botanisch, deutsch: dt, kategorie, zwischenpruefung: zp });
+    aus.push({ botanisch, deutsch, kategorie, zwischenpruefung: zp });
   }
 
   return { eintraege: aus, verworfen };
@@ -225,7 +487,29 @@ function leseDreizeiler(text) {
     const familie = zeilen[i].trim();
     if (!/^[A-ZÄÖÜ][a-zäöü]+aceae$/.test(familie)) continue;
 
-    const kopf = zeilen[i - 1];
+    /*
+     * 🔴 Der Kopf steht nicht immer direkt über der Familie.
+     *
+     *     Zp   Cimicifuga racemosa    VII-VIII   GR
+     *           - var. racemosa                      ← Zusatz zum Namen
+     *          Ranunculaceae
+     *          Juli-Silberkerze
+     *
+     * Zwei Einträge der Staudenliste tragen eine Zwischenzeile: einen Rangzusatz (`- var.
+     * racemosa`) oder ein Synonym (`(syn. Fallopia aubertii)`). Wer stur eine Zeile nach oben
+     * greift, liest die Zwischenzeile als Namen und verliert den Eintrag.
+     *
+     * Beide sind erkennbar: Ein Rangzusatz beginnt mit einem Strich, ein Synonym mit einer
+     * Klammer. Der Rangzusatz gehört an den Namen, das Synonym nicht.
+     */
+    let kopfIndex = i - 1;
+    let zusatz = '';
+    const istZwischenzeile = (t) => /^\s*-\s/.test(t) || /^\s*\(/.test(t);
+    while (kopfIndex > 0 && istZwischenzeile(zeilen[kopfIndex])) {
+      if (/^\s*-\s/.test(zeilen[kopfIndex])) zusatz = `${zeilen[kopfIndex].replace(/^\s*-\s*/, '').trim()} ${zusatz}`;
+      kopfIndex--;
+    }
+    const kopf = zeilen[kopfIndex];
     const deutsch = saeubere(zeilen[i + 1]);
     if (!deutsch || /aceae$/.test(deutsch)) { verworfen.push({ zeile: kopf.trim(), grund: 'kein deutscher Name' }); continue; }
 
@@ -234,7 +518,7 @@ function leseDreizeiler(text) {
     if (!m) { verworfen.push({ zeile: kopf.trim(), grund: 'botanischer Name nicht lesbar' }); continue; }
 
     aus.push({
-      botanisch: einheitlicheHochkommata(saeubere(m[2])),
+      botanisch: einheitlicheHochkommata(saeubere(`${m[2]} ${zusatz}`)),
       deutsch,
       familie,
       kategorie: null,

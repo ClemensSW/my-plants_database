@@ -271,11 +271,24 @@ async function main() {
   };
   console.log();
   schreibe('full.ndjson', zeilen);
+  /*
+   * 🔴 Die Kurslisten gehören NICHT neben die AuGaLa-Liste.
+   *
+   * Die AuGaLa-Liste gilt bundesweit (`national`). Die überbetrieblichen Kurse 01/07/12 richtet
+   * die Landwirtschaftskammer NRW aus — es sind Lehrgänge EINES Bundeslandes, und ihre Nummern
+   * gibt es nur dort. Sie lagen unter `national/` und behaupteten damit eine Reichweite, die sie
+   * nicht haben.
+   */
+  const nrw = path.join(DIRS.examLists, 'gartenbau/garten-und-landschaftsbau/north-rhine-westphalia');
+  fs.mkdirSync(nrw, { recursive: true });
   for (const kurs of ['01', '07', '12']) {
     // Die Kurslisten sind ABLEITUNGEN der Gesamtliste, keine eigenen Quellen mehr — mit derselben
     // Reihenfolge und denselben Schlüsseln. Bis die PDFs neu gezogen sind (Stufe A2), sind sie
     // unvollständig; sie stehen deshalb nicht in `catalog.json` als auswählbare Listen.
-    schreibe(`course-${kurs}.ndjson`, zeilen.filter((z) => z.courses.includes(kurs)));
+    const datei = path.join(nrw, `course-${kurs}.ndjson`);
+    const rows = zeilen.filter((z) => z.courses.includes(kurs));
+    fs.writeFileSync(datei, rows.map((r) => JSON.stringify(r)).join('\n') + '\n', 'utf8');
+    log(`  ${rel(datei)}: ${fmt(rows.length)}`);
   }
 }
 

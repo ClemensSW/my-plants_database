@@ -210,6 +210,26 @@ function verschmelzeAufloesungen(eintraege) {
  *
  * Alles ohne Auflösung trägt 0 und landet hinten, dort alphabetisch. Kein `Math.random`, kein
  * Zeitstempel: Zwei Läufe über dieselbe Eingabe müssen byteweise dasselbe ergeben.
+ *
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ * DIE ZWISCHENPRÜFUNG KOMMT ZUERST
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ *
+ * Vier der sechs NRW-Listen heben Pflanzen mit `ZP` hervor: „Die mit ZP gekennzeichneten
+ * Pflanzennamen werden bei der Zwischenprüfung als Pflanzenkenntnisse bevorzugt angesprochen."
+ * Das ist die einzige Angabe im ganzen Dokument, die etwas über den ZEITPUNKT sagt — und der
+ * Zeitpunkt ist für einen Azubi wichtiger als die Häufigkeit: Wer im Frühjahr Zwischenprüfung
+ * hat, muss diese Pflanzen JETZT können.
+ *
+ * Deshalb steht der Prüfungszeitpunkt vor der Bekanntheit. Innerhalb beider Gruppen gilt sie
+ * weiter.
+ *
+ * 🔴 Die Marke gilt für den BLOCK, nicht für die einzelne Zeile. Ist die Art für die
+ * Zwischenprüfung markiert und eine ihrer Sorten nicht, dürfen sie trotzdem nicht auseinander-
+ * gerissen werden — sonst steht der Kugel-Ahorn am Listenende, weit weg vom Spitz-Ahorn.
+ *
+ * Gemüsebau und Obstbau kennen keine Marke; dort ist die Gruppe leer und alles sortiert wie
+ * bisher nach Bekanntheit.
  */
 function sortiere(eintraege) {
   const bloecke = new Map();
@@ -225,6 +245,9 @@ function sortiere(eintraege) {
   const geordnet = [...bloecke.entries()]
     .map(([schluessel, mitglieder]) => ({
       schluessel,
+      // 0 = Zwischenprüfung, 1 = erst zur Abschlussprüfung. Ein einziges markiertes Mitglied
+      // zieht den ganzen Block nach vorn — er gehört zusammen.
+      pruefung: mitglieder.some((e) => e.zwischenpruefung) ? 0 : 1,
       rang: Math.max(0, ...mitglieder.map(bekanntheit)),
       mitglieder: mitglieder.sort((a, b) => {
         // Der Kopf des Blocks zuerst: die Art (oder Gattung), dann ihre Sorten.
@@ -232,7 +255,12 @@ function sortiere(eintraege) {
         return kopf(a) - kopf(b) || bekanntheit(b) - bekanntheit(a) || nachNamen(a, b);
       }),
     }))
-    .sort((a, b) => b.rang - a.rang || (a.schluessel < b.schluessel ? -1 : a.schluessel > b.schluessel ? 1 : 0));
+    .sort(
+      (a, b) =>
+        a.pruefung - b.pruefung ||
+        b.rang - a.rang ||
+        (a.schluessel < b.schluessel ? -1 : a.schluessel > b.schluessel ? 1 : 0),
+    );
 
   const flach = [];
   for (const block of geordnet) for (const e of block.mitglieder) flach.push(e);

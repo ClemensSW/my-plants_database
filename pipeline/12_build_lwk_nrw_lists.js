@@ -47,7 +47,9 @@ const log = (m) => console.log(`[${new Date().toISOString().slice(11, 19)}] ${m}
  */
 const LISTEN = [
   { fachrichtung: 'baumschule', ausgabe: '2009-08', datei: 'gb-pflanzenliste-baumschule.pdf', bauart: 'gattungsblock',
-    abschnitte: ['LAUBGEHÖLZE', 'NADELGEHÖLZE', 'ROSEN', 'OBSTGEHÖLZE', 'Kernobst', 'Steinobst', 'Beerenobst', 'Schalenobst', 'Schling', 'Stauden', 'Unkräuter'] },
+    abschnitte: ['LAUBGEHÖLZE', 'NADELGEHÖLZE', 'ROSEN', 'OBSTGEHÖLZE', 'Kernobst', 'Steinobst', 'Beerenobst', 'Schalenobst', 'Schling', 'Stauden', 'Unkräuter'],
+    // Hinter der Pflanzenliste stehen die Gütebestimmungen — ebenfalls in Strichlisten gesetzt.
+    endeBei: /Gütebestimmungen für Baumschulpflanzen/ },
   { fachrichtung: 'friedhofsgaertnerei', ausgabe: '2006-01', datei: 'gb-pflanzenliste-friedhof.pdf', bauart: 'gattungsblock',
     abschnitte: ['NADELGEHÖLZE', 'LAUBGEHÖLZE', 'STAUDEN', 'BEET', 'WICHTIGE', 'UNKRÄUTER'] },
   { fachrichtung: 'zierpflanzenbau', ausgabe: '2006-01', datei: 'gb-pflanzenliste-zierpflanzen.pdf', bauart: 'gattungsblock',
@@ -62,7 +64,7 @@ const BUNDESLAND = 'north-rhine-westphalia';
 function leseListe(eintrag, pdfPfad) {
   const text = execFileSync('pdftotext', ['-layout', pdfPfad, '-'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   switch (eintrag.bauart) {
-    case 'gattungsblock': return L.leseGattungsblock(text, { abschnitte: eintrag.abschnitte });
+    case 'gattungsblock': return L.leseGattungsblock(text, { abschnitte: eintrag.abschnitte, endeBei: eintrag.endeBei ?? null });
     case 'dreizeiler': return L.leseDreizeiler(text);
     case 'einzeiler': return L.leseEinzeiler(text);
     case 'obstbau': return L.leseObstbau(text);
