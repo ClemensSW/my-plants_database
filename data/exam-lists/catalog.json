@@ -1,6 +1,26 @@
 {
-  "version": "1.0",
-  "updatedAt": "2026-02-11",
+  "version": "2.0",
+  "updatedAt": "2026-08-30",
+
+  "_kommentar": [
+    "Das Verzeichnis aller Prüfungslisten. Vier Ebenen, damit spätere Quellen ohne Umbau",
+    "hineinpassen: Bereich → Fachgebiet → Fachrichtung → Liste.",
+    "",
+    "Der BEREICH ist neu (v2.0). Bisher begann die Struktur beim Fachgebiet, und damit hätte eine",
+    "Studienprüfungsliste keinen Platz gehabt, ohne dass alles darunter verrutscht. Ein Bereich",
+    "kostet heute nichts und erspart später eine Wanderung aller Kennungen.",
+    "",
+    "'available' sagt, ob die App eine Fachrichtung anbieten darf. Fachrichtungen ohne Liste",
+    "stehen hier trotzden drin — sie werden in der App ausgegraut gezeigt, damit sichtbar ist,",
+    "was kommt, statt dass sie fehlen und niemand weiß, ob sie geplant sind.",
+    "",
+    "🔴 Die AuGaLa-Liste gilt BUNDESWEIT ('scope.type': 'national'). Die Bundeslandauswahl bleibt",
+    "trotzdem im Weg des Nutzers: Je Bundesland gibt es eigene Zwischenprüfungs- und",
+    "überbetriebliche Listen, die später hier als 'scope.type': 'state' dazukommen. Wer die",
+    "Auswahl heute wegließe, müsste sie später nachträglich einführen — und dann sitzen Nutzer",
+    "auf einer Liste, von der niemand weiß, für welches Land sie gilt."
+  ],
+
   "states": [
     { "id": "bavaria", "name": { "de": "Bayern", "en": "Bavaria" } },
     { "id": "baden-wuerttemberg", "name": { "de": "Baden-Württemberg", "en": "Baden-Wuerttemberg" } },
@@ -19,47 +39,115 @@
     { "id": "schleswig-holstein", "name": { "de": "Schleswig-Holstein", "en": "Schleswig-Holstein" } },
     { "id": "thuringia", "name": { "de": "Thüringen", "en": "Thuringia" } }
   ],
-  "domains": [
+
+  "areas": [
     {
-      "id": "gartenbau",
-      "displayName": { "de": "Gartenbau", "en": "Horticulture" },
-      "professions": [
+      "id": "ausbildung",
+      "displayName": { "de": "Ausbildung", "en": "Vocational training" },
+      "domains": [
         {
-          "id": "garten-und-landschaftsbau",
-          "displayName": { "de": "Garten- und Landschaftsbau", "en": "Landscape Gardening" },
-          "frontendCategoryId": "garten-landschaftsbau",
-          "lists": [
+          "id": "gartenbau",
+          "displayName": { "de": "Gartenbau", "en": "Horticulture" },
+          "description": { "de": "Alle prüfungsrelevanten Arten - optimal vorbereitet!", "en": "Every plant the exam asks for." },
+          "professions": [
             {
-              "id": "galabau-full",
-              "displayName": { "de": "Gesamtliste", "en": "Full List" },
-              "file": "gartenbau/garten-und-landschaftsbau/national/full.ndjson",
-              "type": "full",
-              "scope": { "type": "national" }
+              "id": "garten-und-landschaftsbau",
+              "displayName": { "de": "Garten- und Landschaftsbau", "en": "Landscape Gardening" },
+              "frontendCategoryId": "garten-landschaftsbau",
+              "available": true,
+              "lists": [
+                {
+                  "id": "galabau-full",
+                  "displayName": { "de": "AuGaLa-Pflanzenliste", "en": "AuGaLa Plant List" },
+                  "description": {
+                    "de": "Die bundesweite Pflanzenliste des Ausbildungsförderwerks Garten-, Landschafts- und Sportplatzbau.",
+                    "en": "The nationwide plant list of the German landscape gardening training board."
+                  },
+                  "file": "gartenbau/garten-und-landschaftsbau/national/full.ndjson",
+                  "type": "full",
+                  "scope": { "type": "national" },
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "garten-landschaftsbau"
+                },
+                {
+                  "_kommentar": "Die drei überbetrieblichen Kurse. Noch NICHT auswählbar: Ihre heutige Quelle (data/reference/galabau_pflanzen.json) ist selbst sortenbereinigt, die belastbare Quelle sind die drei PDFs unter references/. Bis die neu gezogen sind, ist die Kurszugehörigkeit ein Hinweis, keine Zusage.",
+                  "id": "galabau-course-01",
+                  "displayName": { "de": "ÜBK-Kurs 01", "en": "Course 01" },
+                  "file": "gartenbau/garten-und-landschaftsbau/national/course-01.ndjson",
+                  "type": "course",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": false
+                },
+                {
+                  "id": "galabau-course-07",
+                  "displayName": { "de": "ÜBK-Kurs 07", "en": "Course 07" },
+                  "file": "gartenbau/garten-und-landschaftsbau/national/course-07.ndjson",
+                  "type": "course",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": false
+                },
+                {
+                  "id": "galabau-course-12",
+                  "displayName": { "de": "ÜBK-Kurs 12", "en": "Course 12" },
+                  "file": "gartenbau/garten-und-landschaftsbau/national/course-12.ndjson",
+                  "type": "course",
+                  "scope": { "type": "state", "state": "north-rhine-westphalia" },
+                  "available": false
+                }
+              ]
             },
             {
-              "id": "galabau-course-01",
-              "displayName": { "de": "AuGaLa-Kurs 01", "en": "AuGaLa Course 01" },
-              "file": "gartenbau/garten-und-landschaftsbau/national/course-01.ndjson",
-              "type": "course",
-              "scope": { "type": "national" }
+              "id": "baumschule",
+              "displayName": { "de": "Baumschule", "en": "Tree Nursery" },
+              "frontendCategoryId": "baumschule",
+              "available": false,
+              "lists": []
             },
             {
-              "id": "galabau-course-07",
-              "displayName": { "de": "AuGaLa-Kurs 07", "en": "AuGaLa Course 07" },
-              "file": "gartenbau/garten-und-landschaftsbau/national/course-07.ndjson",
-              "type": "course",
-              "scope": { "type": "national" }
+              "id": "friedhofsgaertnerei",
+              "displayName": { "de": "Friedhofsgärtnerei", "en": "Cemetery Horticulture" },
+              "frontendCategoryId": "friedhofsgaertnerei",
+              "available": false,
+              "lists": []
             },
             {
-              "id": "galabau-course-12",
-              "displayName": { "de": "AuGaLa-Kurs 12", "en": "AuGaLa Course 12" },
-              "file": "gartenbau/garten-und-landschaftsbau/national/course-12.ndjson",
-              "type": "course",
-              "scope": { "type": "national" }
+              "id": "gemuesebau",
+              "displayName": { "de": "Gemüsebau", "en": "Vegetable Growing" },
+              "frontendCategoryId": "gemuesebau",
+              "available": false,
+              "lists": []
+            },
+            {
+              "id": "obstbau",
+              "displayName": { "de": "Obstbau", "en": "Fruit Growing" },
+              "frontendCategoryId": "obstbau",
+              "available": false,
+              "lists": []
+            },
+            {
+              "id": "staudengaertnerei",
+              "displayName": { "de": "Staudengärtnerei", "en": "Perennial Nursery" },
+              "frontendCategoryId": "staudengaertnerei",
+              "available": false,
+              "lists": []
+            },
+            {
+              "id": "zierpflanzenbau",
+              "displayName": { "de": "Zierpflanzenbau", "en": "Ornamental Plant Growing" },
+              "frontendCategoryId": "zierpflanzenbau",
+              "available": false,
+              "lists": []
             }
           ]
         }
       ]
+    },
+    {
+      "_kommentar": "Platzhalter — belegt die Ebene, damit sie beim ersten echten Eintrag schon da ist.",
+      "id": "studium",
+      "displayName": { "de": "Studium", "en": "Higher education" },
+      "domains": []
     }
   ]
 }
