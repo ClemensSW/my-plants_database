@@ -31,14 +31,15 @@
     "test:wikidata": "node legacy/tests/03_enrich_wikidata_test.js",
     "test:filter": "node legacy/tests/04_filter_species_test.js",
     "test:multimedia": "node legacy/tests/05_collect_multimedia_test.js",
-    "test:all": "npm run test:aufloeser && npm run test:namen && npm run test:suchindex && npm run test:organ",
+    "test:all": "npm run test:aufloeser && npm run test:namen && npm run test:suchindex && npm run test:organ && npm run test:pruefungsliste",
     "test": "npm run test:all",
     "pipeline:sorten": "node pipeline/10_fetch_wikidata_cultivars.js",
     "pipeline:commons": "node pipeline/11_fetch_commons_images.js",
     "test:organ": "node pipeline/tests/organ-aus-dateiname_test.js",
     "pipeline:wikidata": "node pipeline/09_fetch_wikidata_names.js",
     "pipeline:examlists": "node pipeline/08_build_exam_lists.js",
-    "test:legacy": "npm run test:fetch && npm run test:enrich && npm run test:wikidata && npm run test:filter && npm run test:multimedia"
+    "test:legacy": "npm run test:fetch && npm run test:enrich && npm run test:wikidata && npm run test:filter && npm run test:multimedia",
+    "test:pruefungsliste": "node pipeline/tests/exam-liste_test.js"
   },
   "keywords": [
     "gbif",
