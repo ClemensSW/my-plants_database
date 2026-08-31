@@ -12,7 +12,7 @@
  */
 
 const {
-  vergleichsname, istBinomen, istPlatzhalter, zeileZuEintraegen, zeilenZuListe,
+  vergleichsname, istBinomen, istPlatzhalter, zeileZuEintraegen, ergaenzeElternarten, zeilenZuListe,
   verschmelzeAufloesungen, sortiere,
 } = require('../lib/exam-liste');
 
@@ -63,21 +63,64 @@ console.log('\nD — Regel 1: eine Art bleibt eine Zeile');
 
 console.log('\nE — Regel 2: eine Sorte bringt ihre Art mit');
 {
-  const e = zeileZuEintraegen({ botanisch: "Ajuga reptans 'Atropurpurea'", deutsch: 'Rotblättriger Kriechender Günsel', kategorie: 'Stauden' });
+  const e = zeilenZuListe([{ botanisch: "Ajuga reptans 'Atropurpurea'", deutsch: 'Rotblättriger Kriechender Günsel', kategorie: 'Stauden' }]);
   pruefe(e.length === 2, 'zwei Einträge — die Sorte und ihre Art');
   pruefe(e[0].rang === 'sorte' && e[0].parentBotanicalName === 'Ajuga reptans', 'die Sorte kennt ihre Art');
   pruefe(e[1].botanicalName === 'Ajuga reptans' && e[1].rang === 'art', 'die Art wird angelegt');
+  pruefe(e[1].kategorie === 'Stauden', 'sie erbt die Kategorie der Sorte');
   pruefe(
     e[1].germanName === null,
     '🔴 die Art bekommt KEINEN deutschen Namen — „Rotblättriger …" gehört der Sorte, nicht der Art',
   );
 }
 
+console.log('\nE2 — dieselbe Regel gilt für eine Unterart');
+{
+  const e = zeilenZuListe([{ botanisch: 'Armeria maritima subsp. elongata', deutsch: 'Sand-Grasnelke', kategorie: 'Stauden' }]);
+  pruefe(e.length === 2 && e[1].botanicalName === 'Armeria maritima', 'die Art kommt mit');
+}
+
+console.log('\nE3 — die Regel gilt für JEDE Liste, nicht nur für die AuGaLa-CSV');
+{
+  // Der Fall aus Kurs 01, gemeldet am 31.08.2026: die Kugelform ohne den Spitz-Ahorn.
+  const e = ergaenzeElternarten([
+    { botanicalName: "Acer platanoides 'Globosum'", germanName: 'Kugel-Ahorn', kategorie: 'Laubgehölze', rang: 'sorte', parentBotanicalName: null, zwischenpruefung: false },
+  ]);
+  pruefe(e.length === 2 && e[1].botanicalName === 'Acer platanoides', 'die Art wird ergänzt');
+  pruefe(e[0].parentBotanicalName === 'Acer platanoides', '🔴 und die Sorte kennt sie jetzt — sonst reisst `sortiere` beide auseinander');
+  pruefe(e[1].ergaenzt === true, 'sie ist als abgeleitet gekennzeichnet');
+}
+
+console.log('\nE4 — die Zwischenprüfungsmarke wird vererbt, aber nie überschrieben');
+{
+  const abgeleitet = ergaenzeElternarten([
+    { botanicalName: "Prunus laurocerasus 'Otto Luyken'", germanName: 'Kirschlorbeer', kategorie: 'x', rang: 'sorte', parentBotanicalName: null, zwischenpruefung: true },
+  ]);
+  pruefe(abgeleitet[1].zwischenpruefung === true, 'die abgeleitete Art erbt das ZP der Sorte');
+
+  const eigene = ergaenzeElternarten([
+    { botanicalName: 'Prunus laurocerasus', germanName: 'Kirschlorbeer', kategorie: 'x', rang: 'art', parentBotanicalName: null, zwischenpruefung: false },
+    { botanicalName: "Prunus laurocerasus 'Otto Luyken'", germanName: 'Otto Luyken', kategorie: 'x', rang: 'sorte', parentBotanicalName: null, zwischenpruefung: true },
+  ]);
+  pruefe(eigene.length === 2, 'eine vorhandene Art wird nicht doppelt angelegt');
+  pruefe(eigene[0].zwischenpruefung === false, '🔴 eine Zeile der Vorlage wird NICHT umgeschrieben');
+}
+
+console.log('\nE5 — ein kaputter Name bringt nichts mit');
+{
+  // `Hedera hibernica'` steht so in der Baumschulliste — ein verirrtes Hochkomma.
+  const e = ergaenzeElternarten([
+    { botanicalName: "Hedera hibernica'", germanName: 'Irischer Efeu', kategorie: 'x', rang: 'sorte', parentBotanicalName: null, zwischenpruefung: false },
+  ]);
+  pruefe(e.length === 1, 'kein zweiter Eintrag — sonst stünde dieselbe Pflanze zweimal in der Liste');
+}
+
 console.log('\nF — Regel 2 endet bei der Gattung');
 {
-  const e = zeileZuEintraegen({ botanisch: "Achillea 'Coronation Gold'", deutsch: 'Garten-Gold-Garbe', kategorie: 'Stauden' });
+  const e = zeilenZuListe([{ botanisch: "Achillea 'Coronation Gold'", deutsch: 'Garten-Gold-Garbe', kategorie: 'Stauden' }]);
   pruefe(e.length === 1, 'nur die Sorte — die Gattung Achillea wird NICHT zum Eintrag');
   pruefe(e[0].rang === 'sorte', 'und sie bleibt eine Sorte');
+  pruefe(e[0].parentBotanicalName === 'Achillea', '… kennt ihre Gattung aber, damit `sortiere` sie zusammenhält');
 }
 
 console.log('\nG — Regel 3: „Sorte" ist keine Sorte');
@@ -94,7 +137,7 @@ console.log('\nG — Regel 3: „Sorte" ist keine Sorte');
 console.log('\nH — die Asymmetrie zwischen F und G ist gewollt');
 pruefe(
   zeileZuEintraegen({ botanisch: "Dahlia 'Sorte'", deutsch: 'Dahlie' })[0].botanicalName === 'Dahlia' &&
-    zeileZuEintraegen({ botanisch: "Achillea 'Coronation Gold'", deutsch: 'x' }).every(e => e.botanicalName !== 'Achillea'),
+    zeilenZuListe([{ botanisch: "Achillea 'Coronation Gold'", deutsch: 'x' }]).every(e => e.botanicalName !== 'Achillea'),
   'die Gattung entsteht aus dem Platzhalter, nie aus einer echten Sorte',
 );
 

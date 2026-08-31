@@ -32,7 +32,7 @@
  * abfragt. Eine Regel, die beide Fälle gleich behandelt, ist in dem einen oder dem anderen falsch.
  */
 
-const { elternName, eigenesEpitheton } = require('./botanical-name');
+const { elternName, eigenesEpitheton, stripAuthorship } = require('./botanical-name');
 
 /**
  * Vergleichsform eines botanischen Namens.
@@ -101,18 +101,122 @@ function zeileZuEintraegen({ botanisch, deutsch, kategorie }) {
     }];
   }
 
-  // Regel 2: eine echte Sorte — und ihre Art dazu, sofern die Art eine Art ist.
-  const eintraege = [{
+  // Regel 2: eine echte Sorte. Ihre Art kommt in {@link ergaenzeElternarten} dazu — nicht hier,
+  // weil sie erst NACH dem Entdoppeln entschieden werden kann (siehe dort).
+  return [{
     botanicalName: name,
     germanName: deutsch || null,
     kategorie,
     rang: 'sorte',
     parentBotanicalName: eltern || null,
   }];
-  if (istBinomen(eltern)) {
-    eintraege.push({ botanicalName: eltern, germanName: null, kategorie, rang: 'art', parentBotanicalName: null });
+}
+
+/**
+ * Regel 2, angewandt auf eine fertige Liste: **zu jeder Sorte gehört ihre Art.**
+ *
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ * 🔴 DIESE REGEL GALT NUR FÜR DIE AUGALA-LISTE — UND DAS WAR EIN FEHLER
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════
+ *
+ * Sie stand in {@link zeileZuEintraegen} und damit auf dem Weg, den nur Schritt 08 nimmt. Die
+ * sechs NRW-Fachrichtungslisten (Schritt 12) und die drei ÜBK-Kurse (Schritt 13) lesen ihre PDFs
+ * selbst und kamen nie an ihr vorbei. Gemessen am 31.08.2026:
+ *
+ *     Baumschule 114 Sorten · Friedhofsgärtnerei 95 · Zierpflanzenbau 20
+ *     Kurs 01: 8 · Kurs 07: 13 · Kurs 12: 10        — und KEINE einzige mit Elternart
+ *
+ * Im Kurs 01 stand `Acer platanoides 'Globosum'` ohne `Acer platanoides`. Der Azubi lernt die
+ * Kugelform und hat den Spitz-Ahorn nie gesehen. Gemeldet von Clemens am 31.08.2026.
+ *
+ * Die Regel gehört deshalb hierher: an die Liste, nicht an die Zeile. Alle drei Bauschritte rufen
+ * jetzt dieselbe Funktion — eine Regel, eine Stelle.
+ *
+ * ## Warum erst nach dem Entdoppeln
+ *
+ * Steht die Art ohnehin auf dem Blatt, gewinnt IHRE Zeile: Sie trägt den deutschen Namen, den die
+ * Vorlage ihr gibt. Eine abgeleitete Art bekommt **keinen** — der deutsche Name der Zeile gehört
+ * der Sorte („Rotblättriger Kriechender Günsel" ist nicht `Ajuga reptans`). Ihren Namen holt sie
+ * sich beim Auflösen aus dem Katalog.
+ *
+ * ## Wo die Regel endet
+ *
+ * Bei der Gattung. `Achillea 'Coronation Gold'` bringt **kein** `Achillea` mit — eine Gattung ist
+ * kein Prüfungsinhalt und im Katalog nicht zu finden. Das betrifft 42 Einträge der AuGaLa-Liste,
+ * fast alle Stauden und Rosen. Die Asymmetrie zum Platzhalter `'Sorte'` ist gewollt; sie ist oben
+ * begründet.
+ *
+ * Und bei einem kaputten Namen: `Hedera hibernica'` (ein verirrtes Hochkomma in der
+ * Baumschulliste) hat kein geschlossenes Sortenepitheton, also keine Elternart. Die Alternative
+ * wäre, `Hedera hibernica` ein zweites Mal anzulegen — dieselbe Pflanze, zweimal in der Liste.
+ *
+ * ## 🔴 Was KEIN Name ist, wird auch keine Art
+ *
+ * Die NRW-Listen führen Zeilen wie `Deutzia Hybride 'Mont Rose'`, `Hosta Hybriden 'Halcyon'` und
+ * `Rhododendron-Hybride Kurume-Hybride 'Blaue Donau'`. Wörtlich genommen wäre die Elternart
+ * `Deutzia Hybride` — ein Eintrag, den es im Katalog nie geben wird und den niemand abfragt.
+ * Sieben davon in der Baumschul-, acht in der Friedhofsliste.
+ *
+ * `stripAuthorship` trennt sie sauber ab, weil botanische Epitheta klein und Zusätze gross
+ * geschrieben sind: `Deutzia Hybride` → `Deutzia` → eine Gattung → kein Eintrag. Aus
+ * `Rhododendron forrestii Repens-Gruppe` wird dabei die echte Art `Rhododendron forrestii`.
+ *
+ * ⚠️ Der Bindestrich rutscht daran vorbei: `Rhododendron-Hybride` ist EIN Wort, also unversehrt —
+ * und `istBinomen` hält es für zwei, weil `vergleichsname` den Bindestrich zu einem Leerzeichen
+ * macht. Deshalb die zusätzliche Bedingung, dass ein Artname ein Leerzeichen enthält.
+ *
+ * ⚠️ Bewusst NICHT gefiltert wird über den Katalog. `Coreopsis verticillata`, `Taxus x media` und
+ * `Hamamelis x intermedia` sind echte Arten, die wir nur (noch) nicht führen — sie gehören in die
+ * Liste und stehen dort gesperrt, wie jede andere Lücke auch. Der Filter trennt Namen von
+ * Nicht-Namen, nicht Vorhandenes von Fehlendem.
+ *
+ * ## Die Zwischenprüfungsmarke wird vererbt
+ *
+ * Ist die Sorte mit `ZP` markiert, ist es die abgeleitete Art auch. Sonst zeigte der ZP-Filter
+ * genau die Lücke wieder, die diese Regel schliesst: die Sorte ohne ihre Art. Eine Art, die
+ * SELBST auf dem Blatt steht, wird nie umgeschrieben — die Vorlage hat immer recht.
+ */
+function ergaenzeElternarten(liste) {
+  const nachName = new Map(liste.map((e) => [vergleichsname(e.botanicalName), e]));
+  const ergaenzt = [];
+
+  for (const e of liste) {
+    const epitheton = eigenesEpitheton(e.botanicalName);
+    if (!epitheton || istPlatzhalter(epitheton)) continue;
+
+    const eltern = anzeigename(stripAuthorship(elternName(e.botanicalName)));
+    if (!eltern) continue;
+
+    // Auch das ist Teil der Regel: Die Sorte muss wissen, zu wem sie gehört. Ohne diese Zeile
+    // bildet `sortiere` für jede Sorte einen eigenen Block und reisst sie von ihrer Art weg —
+    // deshalb steht sie VOR der Gattungsgrenze. `Rosa 'Nina Weibull'` bekommt keine eigene Art,
+    // gehört aber trotzdem zu den anderen Rosen.
+    e.parentBotanicalName = eltern;
+    if (!eltern.includes(' ') || !istBinomen(eltern)) continue;
+
+    const schluessel = vergleichsname(eltern);
+    const vorhanden = nachName.get(schluessel);
+    if (vorhanden) {
+      if (vorhanden.ergaenzt && e.zwischenpruefung) vorhanden.zwischenpruefung = true;
+      continue;
+    }
+
+    const art = {
+      schluessel,
+      botanicalName: eltern,
+      germanName: null,
+      kategorie: e.kategorie ?? null,
+      rang: 'art',
+      parentBotanicalName: null,
+      zwischenpruefung: !!e.zwischenpruefung,
+      /** Abgeleitet, nicht von der Vorlage — der Bericht zählt sie getrennt. */
+      ergaenzt: true,
+    };
+    nachName.set(schluessel, art);
+    ergaenzt.push(art);
   }
-  return eintraege;
+
+  return [...liste, ...ergaenzt];
 }
 
 /**
@@ -142,7 +246,7 @@ function zeilenZuListe(zeilen) {
       if (!vorhanden.kategorie && eintrag.kategorie) vorhanden.kategorie = eintrag.kategorie;
     }
   }
-  return [...nachName.values()];
+  return ergaenzeElternarten([...nachName.values()]);
 }
 
 /**
@@ -304,4 +408,4 @@ function sortiere(eintraege) {
   return flach.map((e, i) => ({ ...e, sortIndex: i }));
 }
 
-module.exports = { vergleichsname, anzeigename, istBinomen, istPlatzhalter, zeileZuEintraegen, zeilenZuListe, sucheImKatalog, verschmelzeAufloesungen, sortiere };
+module.exports = { vergleichsname, anzeigename, istBinomen, istPlatzhalter, zeileZuEintraegen, ergaenzeElternarten, zeilenZuListe, sucheImKatalog, verschmelzeAufloesungen, sortiere };

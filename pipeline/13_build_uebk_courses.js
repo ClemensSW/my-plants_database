@@ -35,7 +35,7 @@ const { execFileSync } = require('child_process');
 
 const { DIRS, FILES, requireFiles, rel } = require('./lib/paths');
 const { stripAuthorship } = require('./lib/botanical-name');
-const { vergleichsname, sucheImKatalog, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
+const { vergleichsname, ergaenzeElternarten, sucheImKatalog, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
 const { leseKurs } = require('./lib/uebk-kurse');
 const { searchVariants } = require('./lib/search-normalize');
 
@@ -119,8 +119,17 @@ async function main() {
         });
       }
     }
-    const liste = [...nachName.values()];
-    const doppelt = eintraege.length - liste.length;
+    const vorEltern = nachName.size;
+    /*
+     * 🔴 Zu jeder Sorte gehört ihre Art — dieselbe Regel wie in der AuGaLa-Liste.
+     *
+     * Sie stand in `zeileZuEintraegen` und damit nur auf dem Weg von Schritt 08. Hier kam nie
+     * eine Art dazu: Kurs 01 führte `Acer platanoides 'Globosum'` ohne `Acer platanoides`.
+     * Gemeldet von Clemens am 31.08.2026, Begründung in `lib/exam-liste.js`.
+     */
+    const liste = ergaenzeElternarten([...nachName.values()]);
+    const ergaenzteArten = liste.length - vorEltern;
+    const doppelt = eintraege.length - vorEltern;
 
     /*
      * 🔴 Die Prüfung, die der Nutzer ausdrücklich verlangt hat: Der KATALOGNAME gewinnt in der
@@ -144,6 +153,9 @@ async function main() {
         treffer && vergleichsname(treffer.canonicalName) !== vergleichsname(e.botanicalName)
           ? treffer.canonicalName
           : null;
+      // Eine ergänzte Art steht auf keinem Kursblatt und hat deshalb keinen deutschen Namen.
+      // Ihn gibt der Katalog — sonst stünde „Acer platanoides" ohne „Spitz-Ahorn" in der Liste.
+      if (!e.germanName && treffer?.germanName) e.germanName = treffer.germanName;
       if (e.matchedName) {
         abweichend++;
         const terme = new Set(treffer.searchTerms || []);
@@ -151,6 +163,11 @@ async function main() {
           nichtSuchbar.push(`${e.botanicalName} → ${e.matchedName}`);
         }
       }
+    }
+
+    // Der Anker, an dem die App eine gesperrte Sorte trotzdem einordnen kann — wie in Schritt 08.
+    for (const e of liste) {
+      e.parentPlantKey = e.parentBotanicalName ? (index.get(vergleichsname(e.parentBotanicalName))?.plantKey ?? null) : null;
     }
 
     const zeilen = sortiere(verschmelzeAufloesungen(liste)).map((e) => ({
@@ -161,7 +178,7 @@ async function main() {
       rang: e.rang,
       parentBotanicalName: e.parentBotanicalName,
       plantKey: e.plantKey,
-      parentPlantKey: null,
+      parentPlantKey: e.parentPlantKey ?? null,
       matchedVia: e.matchedVia,
       matchedName: e.matchedName,
       alsoKnownAs: e.alsoKnownAs || [],
@@ -177,7 +194,8 @@ async function main() {
       `  Kurs ${kurs.nummer}  ${String(zeilen.length).padStart(3)} Einträge  ` +
       `${String(aufgeloest).padStart(3)} aufgelöst = ${String(prozent).padStart(3)} %  ` +
       `${String(abweichend).padStart(2)} Namen weichen ab  ` +
-      `${String(verworfen.length).padStart(2)} verworfen  ${doppelt} Dubletten  ${sternchen} Sternchen`,
+      `${String(verworfen.length).padStart(2)} verworfen  ${doppelt} Dubletten  ${sternchen} Sternchen  ` +
+      `+${ergaenzteArten} Elternarten`,
     );
     for (const v of verworfen) console.log(`      ⚠ ${v.grund}: ${v.text.slice(0, 90)}`);
     for (const n of nichtSuchbar) console.log(`      🔴 Blattname NICHT im Index: ${n}`);

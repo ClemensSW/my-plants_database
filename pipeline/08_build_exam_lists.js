@@ -329,24 +329,18 @@ async function main() {
   console.log();
   schreibe('full.ndjson', zeilen);
   /*
-   * 🔴 Die Kurslisten gehören NICHT neben die AuGaLa-Liste.
+   * ═══════════════════════════════════════════════════════════════════════════════════════════
+   * 🔴 HIER SCHRIEB DIESER SCHRITT DIE DREI KURSLISTEN — UND ÜBERSCHRIEB DAMIT SCHRITT 13
+   * ═══════════════════════════════════════════════════════════════════════════════════════════
    *
-   * Die AuGaLa-Liste gilt bundesweit (`national`). Die überbetrieblichen Kurse 01/07/12 richtet
-   * die Landwirtschaftskammer NRW aus — es sind Lehrgänge EINES Bundeslandes, und ihre Nummern
-   * gibt es nur dort. Sie lagen unter `national/` und behaupteten damit eine Reichweite, die sie
-   * nicht haben.
+   * `course-01/07/12.ndjson` entstanden hier als Teilmengen der AuGaLa-Liste (`z.courses`).
+   * Seit Schritt 13 kommen sie aus IHREN EIGENEN PDFs und sind länger und an den Sorten anders.
+   * Der Block blieb trotzdem stehen: Wer `08 --write` laufen liess — aus jedem beliebigen Grund —
+   * warf die drei Dateien still auf den alten Stand zurück. Am 31.08.2026 genau so passiert.
+   *
+   * Er ist ersatzlos weg. Die Kurszugehörigkeit bleibt als Merkmal `courses` an den Einträgen
+   * dieser Liste; wer die Kurse selbst bauen will, ruft Schritt 13.
    */
-  const nrw = path.join(DIRS.examLists, 'gartenbau/garten-und-landschaftsbau/north-rhine-westphalia');
-  fs.mkdirSync(nrw, { recursive: true });
-  for (const kurs of ['01', '07', '12']) {
-    // Die Kurslisten sind ABLEITUNGEN der Gesamtliste, keine eigenen Quellen mehr — mit derselben
-    // Reihenfolge und denselben Schlüsseln. Bis die PDFs neu gezogen sind (Stufe A2), sind sie
-    // unvollständig; sie stehen deshalb nicht in `catalog.json` als auswählbare Listen.
-    const datei = path.join(nrw, `course-${kurs}.ndjson`);
-    const rows = zeilen.filter((z) => z.courses.includes(kurs));
-    fs.writeFileSync(datei, rows.map((r) => JSON.stringify(r)).join('\n') + '\n', 'utf8');
-    log(`  ${rel(datei)}: ${fmt(rows.length)}`);
-  }
 }
 
 if (require.main === module) {

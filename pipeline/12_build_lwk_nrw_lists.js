@@ -32,7 +32,7 @@ const { execFileSync } = require('child_process');
 
 const { DIRS, FILES, requireFiles, rel } = require('./lib/paths');
 const { stripAuthorship } = require('./lib/botanical-name');
-const { vergleichsname, sucheImKatalog, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
+const { vergleichsname, ergaenzeElternarten, sucheImKatalog, verschmelzeAufloesungen, sortiere } = require('./lib/exam-liste');
 const L = require('./lib/lwk-nrw-listen');
 
 const WRITE = process.argv.includes('--write');
@@ -125,7 +125,17 @@ async function main() {
         nachName.get(schluessel).zwischenpruefung = true;
       }
     }
-    const liste2 = [...nachName.values()];
+    /*
+     * 🔴 Zu jeder Sorte gehört ihre Art — dieselbe Regel wie in der AuGaLa-Liste.
+     *
+     * Sie stand in `zeileZuEintraegen` und damit nur auf dem Weg von Schritt 08. Diese sechs
+     * Listen lesen ihre PDFs selbst und kamen nie an ihr vorbei: 114 Sorten in der Baumschul-,
+     * 95 in der Friedhofsliste, 20 im Zierpflanzenbau — keine einzige mit ihrer Art.
+     * Gemeldet von Clemens am 31.08.2026, Begründung in `lib/exam-liste.js`.
+     */
+    const vorEltern = nachName.size;
+    const liste2 = ergaenzeElternarten([...nachName.values()]);
+    const ergaenzteArten = liste2.length - vorEltern;
 
     let synonym = 0;
     let ohneKreuz = 0;
@@ -137,7 +147,15 @@ async function main() {
       e.imagesCount = treffer?.imagesCount ?? 0;
       e.matchedVia = treffer?.via ?? null;
       e.matchedName = treffer && vergleichsname(treffer.canonicalName) !== e.schluessel ? treffer.canonicalName : null;
+      // Eine ergänzte Art steht auf keinem Prüfungsblatt und hat deshalb keinen deutschen Namen.
+      // Ihn gibt der Katalog — sonst stünde „Acer platanoides" ohne „Spitz-Ahorn" in der Liste.
+      if (!e.germanName && treffer?.germanName) e.germanName = treffer.germanName;
       if (treffer?.via === 'synonym') synonym++;
+    }
+
+    // Der Anker, an dem die App eine gesperrte Sorte trotzdem einordnen kann — wie in Schritt 08.
+    for (const e of liste2) {
+      e.parentPlantKey = e.parentBotanicalName ? (index.get(vergleichsname(e.parentBotanicalName))?.plantKey ?? null) : null;
     }
 
     const zeilen = sortiere(verschmelzeAufloesungen(liste2)).map((e) => ({
@@ -148,7 +166,7 @@ async function main() {
       rang: e.rang,
       parentBotanicalName: e.parentBotanicalName,
       plantKey: e.plantKey,
-      parentPlantKey: null,
+      parentPlantKey: e.parentPlantKey ?? null,
       matchedVia: e.matchedVia,
       matchedName: e.matchedName,
       alsoKnownAs: e.alsoKnownAs || [],
@@ -164,7 +182,7 @@ async function main() {
       `  ${liste.fachrichtung.padEnd(20)} ${String(zeilen.length).padStart(4)} Einträge  ` +
       `${String(aufgeloest).padStart(4)} aufgelöst = ${String(prozent).padStart(3)} %  ` +
       `(${String(synonym).padStart(3)} über Synonym, ${String(ohneKreuz).padStart(2)} ohne ×)  ` +
-      `${String(verworfen.length).padStart(3)} Zeilen verworfen`,
+      `${String(verworfen.length).padStart(3)} Zeilen verworfen  +${ergaenzteArten} Elternarten`,
     );
     bericht.push({ liste, zeilen, verworfen });
 
