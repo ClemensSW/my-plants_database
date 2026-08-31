@@ -80,10 +80,10 @@ es selbst:
 
 | Liste | markiert | von |
 |---|---|---|
-| Baumschule | 112 | 399 |
-| Zierpflanzenbau | 93 | 377 |
+| Baumschule | 112 | 394 |
+| Zierpflanzenbau | 95 | 371 |
 | Staudengärtnerei | 89 | 301 |
-| Friedhofsgärtnerei | 74 | 386 |
+| Friedhofsgärtnerei | 74 | 370 |
 | Gemüsebau · Obstbau | — | keine Marke |
 
 Das ist die **einzige Angabe im ganzen Dokument, die etwas über den Zeitpunkt sagt** — und der
@@ -96,6 +96,17 @@ Sorten nicht, bleiben sie trotzdem beieinander — sonst stünde der Kugel-Ahorn
 weg vom Spitz-Ahorn.
 
 Gemüsebau und Obstbau kennen die Marke nicht; dort sortiert weiterhin allein die Bekanntheit.
+
+⚠️ Die Zahlen oben sind am 31.08.2026 an den gebauten `full.ndjson` nachgezählt worden. Die
+ursprüngliche Tabelle nannte Zierpflanzenbau mit 93 von 377 und Friedhofsgärtnerei mit 386 — das
+war ein Stand VOR den letzten Parserkorrekturen und ist mitgewandert, ohne dass die Tabelle
+nachgezogen wurde.
+
+🔴 Und ein zweiter Befund, der die Marke fast wertlos gemacht hätte: Sie stand zwar in jeder
+`full.ndjson`, aber im **Schema der Datenbank fehlte das Feld**. Mongoose hat sie beim Import
+wortlos verworfen — in der Datenbank stand über alle zehn Listen hinweg NULL. Aufgefallen ist es
+nicht, weil die Sortierung trotzdem stimmte: Die steckt fertig im `sortIndex`, den diese Pipeline
+berechnet. Verloren war nur die Marke selbst. Behoben am 31.08.2026.
 
 ---
 
