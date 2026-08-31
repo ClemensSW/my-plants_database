@@ -190,6 +190,95 @@ Sonst entsteht `Rhododendron-Hybride ‘Beethoven’ ‘Vuyk’s Scarlet’` —
 
 ---
 
+## Die drei überbetrieblichen Pflichtkurse (01 · 07 · 12)
+
+Sie liegen unter `garten-und-landschaftsbau/north-rhine-westphalia/` und sind **keine bundesweiten
+Listen**: Die Lehrgänge richtet die Landwirtschaftskammer NRW aus, die Kursnummern gibt es nur dort.
+Ihre Vorlagen sind die drei PDFs in `sources/2026-02/`.
+
+Bis zum 31.08.2026 stammten die `course-*.ndjson` **nicht** aus diesen PDFs, sondern aus
+`data/reference/galabau_pflanzen.json` — einer selbst schon sortenbereinigten Datei. Was dabei
+herauskam, war zu kurz:
+
+| | vorher | aus dem PDF |
+|---|---|---|
+| Kurs 01 | 67 | **71** |
+| Kurs 07 | 59 | **63** |
+| Kurs 12 | 69 | **78** |
+
+### 🔴 Warum diese drei einen eigenen Leser brauchen
+
+Die sechs Fachrichtungslisten sind Fließtext mit Strichen. Diese drei sind echte Tabellen —
+`Nr. · Gattung · Art · Sorte · Deutscher Name · Hinweis` — und das ist die schwierigere Vorlage,
+nicht die leichtere. `pdftotext -layout` presst sie in Zeichenspalten und zerlegt dabei genau die
+Zeilen falsch, auf die es ankommt:
+
+```
+4.   Dianthus   gratianopolitanus 'Sorte'   Garten-Pfingst-Nelke
+7.   Sedum      floriferum   'Weihenstephaner Teppich-Sedum
+                             Gold'
+```
+
+Im ersten Fall trennt Art und Sorte **ein einziges Leerzeichen**; im zweiten ragt die Sorte in die
+Namensspalte und schiebt den deutschen Namen nach rechts. Gelesen wird deshalb mit
+`pdftotext -bbox-layout`: XHTML mit der **x-Koordinate jedes Wortes**. `gratianopolitanus` liegt bei
+x=147,6 und `'Sorte'` bei x=242,3 — im Flachtext ein Leerzeichen auseinander, in Wahrheit zwei
+Spalten.
+
+**Die Spalten gehören dem Tabellenblock, nicht der Seite.** Auf Seite 4 von Kurs 12 stehen fünf
+Tabellen untereinander, jede mit eigener Spaltenlage. Wer je Seite eine Lage nimmt, bekommt ab der
+zweiten Tabelle den deutschen Namen in die Sortenspalte.
+
+### Die Sonderfälle, benannt
+
+| Vorlage | Ergebnis | Regel |
+|---|---|---|
+| `'Sorte'` | fällt weg | Platzhalter für „irgendeine Sorte", kein Sortenname |
+| `Buxus sempervirens` + `var.` + `arborescens` über drei Zeilen | `Buxus sempervirens var. arborescens` | Fortsetzung wird spaltenweise angehängt |
+| `Hydrangea anomala` + Sorte `subsp. petiolaris` | `Hydrangea anomala subsp. petiolaris` | ein RANG in der Sortenspalte gehört an den Namen |
+| `Taraxacum` + Art `sect.` + Sorte `Ruderalia` | `Taraxacum sect. Ruderalia` | dito, über die Artspalte erkannt |
+| `Rosa` + Art `'Sorte'` + Sorte `Beetrosen` | `Rosa (Beetrosen)` | Rosenklasse, in Klammern wie in der bundesweiten Liste |
+| `Hänge-` / `Birke` über zwei Zeilen | `Hänge-Birke` | Silbentrennung: bei `-` ohne Leerzeichen verbinden |
+
+⚠️ Die Rosen waren zugleich die Falle beim Entdoppeln: `vergleichsname` wirft geklammerte Zusätze
+weg — für den Katalogabgleich richtig, hier fatal. Alle drei Klassen ergaben „rosa", und zwei
+Zeilen des Prüfungsblatts verschwanden. Entdoppelt wird deshalb über den Anzeigenamen, abgeglichen
+weiter über `vergleichsname`.
+
+### Der Beweis, dass nichts fehlt
+
+Die Vorlage nummeriert je Abschnitt von 1 an. Geparste Anzahl und höchste Nummer im PDF müssen
+deshalb übereinstimmen — in allen 18 Abschnitten der drei Kurse tun sie das:
+
+```
+Kurs 01  Laubgehölze 34/34 · Nadelgehölze 6/6 · Stauden 30/30 · Ziergräser 1/1
+Kurs 07  Laubgehölze 32/32 · Nadelgehölze 13/13 · Obstgehölze 8/8 · Stauden 8/8 · Ziergräser 2/2
+Kurs 12  Laubgehölze 45/45 · Nadelgehölze 3/3 · Innenraum 4/4 · Stauden 12/12 · Zwiebeln 1/1
+         Ziergräser 3/3 · Farne 3/3 · Beet/Balkon 1/1 · Unkräuter 6/6
+```
+
+**212 Einträge · 0 verworfen · 0 Dubletten · 165 aufgelöst (78 %).**
+
+### 🔴 Ein Befund über die Suche, nicht über die Listen
+
+Sechzehn Kursnamen weichen vom Katalognamen ab. Acht davon sind Hybriden — und die waren in der App
+**nicht auffindbar**, wenn man sie so tippt, wie sie auf dem Blatt stehen:
+
+```
+Katalog:  „Platanus ×hispanica"   → platanushispanica
+Eingabe:  „Platanus x hispanica"  → platanusxhispanica   ✗
+```
+
+Die Normalisierung wirft alles Nicht-Alphanumerische weg. Das **Malzeichen** `×` fällt darunter,
+der **Buchstabe** `x` nicht. Betroffen sind **274 Pflanzen des Katalogs (1,9 %)** — und die App
+zeigt das Malzeichen an, wer also abtippt, was er sieht, findet nichts.
+
+Behoben durch `dropHybridMarker` in `pipeline/lib/search-normalize.js` und der Zwillingsdatei der
+App. ⚠️ An den gebauten Suchbegriffen ändert die Regel **nichts** — an allen 133.263 Namen
+nachgerechnet, null Abweichungen. Ein Neuaufbau des Katalogs ist dafür nicht nötig.
+
+---
+
 ## Quellen
 
 - Landwirtschaftskammer NRW — [Pflanzenlisten, Arbeitsblätter](https://www.landwirtschaftskammer.de/bildung/gaertner/formulare/texte/index.htm)

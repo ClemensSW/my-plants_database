@@ -71,29 +71,47 @@
                   "icon": "garten-landschaftsbau"
                 },
                 {
-                  "_kommentar": "Die drei überbetrieblichen Kurse. Sie sind KEINE bundesweiten Listen: Die Lehrgänge werden von der Landwirtschaftskammer NRW ausgerichtet, und die Kursnummern 01/07/12 gibt es nur dort. Sie lagen zuerst unter 'national' — falsch. Noch nicht auswählbar: Ihre heutige Quelle (data/reference/galabau_pflanzen.json) ist selbst sortenbereinigt, die belastbare sind die drei PDFs unter north-rhine-westphalia/sources/.",
+                  "_kommentar": "Die drei überbetrieblichen Pflichtkurse. Sie sind KEINE bundesweiten Listen: Die Lehrgänge richtet die Landwirtschaftskammer NRW aus, und die Kursnummern 01/07/12 gibt es nur dort. Seit dem 31.08.2026 stammen sie aus den drei Original-PDFs unter north-rhine-westphalia/sources/2026-02/ (Pipeline-Schritt 13) statt aus der sortenbereinigten data/reference/galabau_pflanzen.json — dabei kamen 17 Einträge zurück, die vorher fehlten.",
                   "id": "galabau-course-01",
-                  "displayName": { "de": "ÜBK-Kurs 01", "en": "Course 01" },
+                  "displayName": { "de": "AuGaLa-Kurs 01", "en": "AuGaLa Course 01" },
+                  "description": {
+                    "de": "Die Pflanzen des überbetrieblichen GaLaBau-Pflichtkurses 01 der Landwirtschaftskammer NRW.",
+                    "en": "The plants of mandatory landscape-gardening course 01, North Rhine-Westphalia."
+                  },
                   "file": "gartenbau/garten-und-landschaftsbau/north-rhine-westphalia/course-01.ndjson",
                   "type": "course",
                   "scope": { "type": "state", "state": "north-rhine-westphalia" },
-                  "available": false
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "garten-landschaftsbau"
                 },
                 {
                   "id": "galabau-course-07",
-                  "displayName": { "de": "ÜBK-Kurs 07", "en": "Course 07" },
+                  "displayName": { "de": "AuGaLa-Kurs 07", "en": "AuGaLa Course 07" },
+                  "description": {
+                    "de": "Die Pflanzen des überbetrieblichen GaLaBau-Pflichtkurses 07 der Landwirtschaftskammer NRW.",
+                    "en": "The plants of mandatory landscape-gardening course 07, North Rhine-Westphalia."
+                  },
                   "file": "gartenbau/garten-und-landschaftsbau/north-rhine-westphalia/course-07.ndjson",
                   "type": "course",
                   "scope": { "type": "state", "state": "north-rhine-westphalia" },
-                  "available": false
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "garten-landschaftsbau"
                 },
                 {
                   "id": "galabau-course-12",
-                  "displayName": { "de": "ÜBK-Kurs 12", "en": "Course 12" },
+                  "displayName": { "de": "AuGaLa-Kurs 12", "en": "AuGaLa Course 12" },
+                  "description": {
+                    "de": "Die Pflanzen des überbetrieblichen GaLaBau-Pflichtkurses 12 der Landwirtschaftskammer NRW.",
+                    "en": "The plants of mandatory landscape-gardening course 12, North Rhine-Westphalia."
+                  },
                   "file": "gartenbau/garten-und-landschaftsbau/north-rhine-westphalia/course-12.ndjson",
                   "type": "course",
                   "scope": { "type": "state", "state": "north-rhine-westphalia" },
-                  "available": false
+                  "available": true,
+                  "autoSubscribe": true,
+                  "icon": "garten-landschaftsbau"
                 }
               ]
             },

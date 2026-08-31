@@ -47,9 +47,27 @@ function stripDiacritics(value) {
   return String(value).normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
 
+/**
+ * Das Hybridzeichen entfernen — ein alleinstehendes `x` oder `×` zwischen zwei Woertern.
+ *
+ * 🔴 Ohne diese Zeile sind 274 Pflanzen des Katalogs (1,9 %) nicht zu finden, wenn man sie so
+ * tippt, wie sie auf jedem Pruefungsblatt stehen. `squash` wirft alles Nicht-Alphanumerische weg:
+ * Das MALZEICHEN `×` faellt darunter, der BUCHSTABE `x` nicht.
+ *
+ *     Katalog:  „Platanus ×hispanica"   → platanushispanica
+ *     Eingabe:  „Platanus x hispanica"  → platanusxhispanica   ✗ kein Treffer
+ *
+ * ⚠️ An den gebauten Begriffen aendert die Regel NICHTS — an allen 133.263 Namen des Katalogs
+ * nachgerechnet, null Abweichungen. Sie steht hier trotzdem, damit sie nicht in der App allein
+ * lebt und beim naechsten Katalogbau still auseinanderlaeuft.
+ */
+function dropHybridMarker(value) {
+  return String(value).replace(/(^|\s)[x×](?=\s)/g, ' ');
+}
+
 /** Nur Buchstaben und Ziffern behalten. */
 function squash(value) {
-  return String(value).toLowerCase().replace(/[^a-z0-9]/g, '');
+  return dropHybridMarker(value).toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
 /**
@@ -78,7 +96,7 @@ function searchVariants(name) {
  *     „Alyssum minutulum Schleich." → „alyssum minutulum schleich"
  */
 function squashWords(value) {
-  return String(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  return dropHybridMarker(value).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
 /**
@@ -156,7 +174,7 @@ function normalizeQuery(query) {
 }
 
 module.exports = {
-  expandUmlauts, stripDiacritics, squash, squashWords,
+  expandUmlauts, stripDiacritics, squash, squashWords, dropHybridMarker,
   searchVariants, searchNameVariants,
   buildSearchTerms, buildSearchNames,
   normalizeQuery,
