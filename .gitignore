@@ -47,3 +47,5 @@ Thumbs.db
 # Temporary files
 *.tmp
 temp/
+data/build-prod/
+data/build/plantmedias.gedeckelt.ndjson
