@@ -1,0 +1,4824 @@
+{
+  "meta": {
+    "description": "The exam plants our database does NOT cover yet.",
+    "scope": "German vocational horticulture exams (Gartenbau), all seven specialisations. State of North Rhine-Westphalia, plus the nationwide landscape gardening list.",
+    "generatedAt": "2026-09-03",
+    "missing": 543,
+    "ofTotalExamPlants": 1422,
+    "shareMissingPercent": 38.2,
+    "byRank": {
+      "cultivar": 263,
+      "species": 219,
+      "genus": 25,
+      "variety": 26,
+      "subspecies": 10
+    },
+    "note": "Entries with rank \"genus\" are collective entries in the exam list (e.g. \"Rosa (Beetrosen)\"); they ask for any cultivar of that group, not for a single taxon."
+  },
+  "plants": [
+    {
+      "botanicalName": "Abies balsamea 'Nana'",
+      "germanName": "Kleine Balsam-Tanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Abies balsamea 'Nana'",
+      "examListGermanName": "Kleine Balsam-Tanne"
+    },
+    {
+      "botanicalName": "Abies lasiocarpa 'Compacta'",
+      "germanName": "Zwergform der Kork-Tanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Abies lasiocarpa 'Compacta'",
+      "examListGermanName": "Zwergform der Kork-Tanne"
+    },
+    {
+      "botanicalName": "Abies procera 'Glauca'",
+      "germanName": "Blaue Edel-Tanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Abies procera 'Glauca'",
+      "examListGermanName": "Blaue Edel-Tanne",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Abies procera 'Glauca'",
+          "germanName": "Blaue-Tanne bzw. Edel-Tanne"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Abutilon x hybridum",
+      "germanName": "Chinalaterne",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Abutilon x hybridum",
+      "examListGermanName": "Chinalaterne"
+    },
+    {
+      "botanicalName": "Acer negundo 'Aureovariegatum'",
+      "germanName": "Goldbunter Eschen-Ahorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Acer negundo 'Aureovariegatum'",
+      "examListGermanName": "Goldbunter Eschen-Ahorn"
+    },
+    {
+      "botanicalName": "Acer negundo 'Flamingo'",
+      "germanName": "Buntblättriger Eschen-Ahorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Acer negundo 'Flamingo'",
+      "examListGermanName": "Buntblättriger Eschen-Ahorn"
+    },
+    {
+      "botanicalName": "Acer palmatum 'Atropurpureum'",
+      "germanName": "Fächer-Ahorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Acer palmatum 'Atropurpureum'",
+      "examListGermanName": "Fächer-Ahorn",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Acer palmatum 'Atropurpureum'",
+          "germanName": "Rotblättriger Fächer-Ahorn"
+        },
+        {
+          "botanicalName": "Acer palmatum 'Atropurpureum'",
+          "germanName": "Roter Fächer-Ahorn"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Acer palmatum 'Dissectum'",
+      "germanName": "Geschlitztblättriger Fächer-Ahorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Acer palmatum 'Dissectum'",
+      "examListGermanName": "Geschlitztblättriger Fächer-Ahorn"
+    },
+    {
+      "botanicalName": "Acer platanoides 'Cleveland'",
+      "germanName": "Kegelförmiger Spitz-Ahorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Acer platanoides 'Cleveland'",
+      "examListGermanName": "Kegelförmiger Spitz-Ahorn"
+    },
+    {
+      "botanicalName": "Achillea",
+      "germanName": "Garten-Gold-Garbe, Garten-Schafgarbe",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Achillea",
+      "examListGermanName": "Garten-Gold-Garbe, Garten-Schafgarbe"
+    },
+    {
+      "botanicalName": "Achillea 'Coronation Gold'",
+      "germanName": "Garten-Gold-Garbe, Garten-Schafgarbe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Achillea 'Coronation Gold'",
+      "examListGermanName": "Garten-Gold-Garbe, Garten-Schafgarbe"
+    },
+    {
+      "botanicalName": "Achillea filipendulina 'Parker's Varietät'",
+      "germanName": "Hohe Schafgarbe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Achillea filipendulina 'Parker's Varietät'",
+      "examListGermanName": "Hohe Schafgarbe"
+    },
+    {
+      "botanicalName": "Achimenes Hybriden",
+      "germanName": "Schiefteller",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Achimenes Hybriden",
+      "examListGermanName": "Schiefteller"
+    },
+    {
+      "botanicalName": "Acker Calystegia sepium",
+      "germanName": "Convolvulaceae",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Calystegia sepium",
+      "examListGermanName": "Convolvulaceae"
+    },
+    {
+      "botanicalName": "Acker Cirisium arvense",
+      "germanName": "Asteraceae",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Cirisium arvense",
+      "examListGermanName": "Asteraceae"
+    },
+    {
+      "botanicalName": "Acker Elymus repens",
+      "germanName": "Winde / Gewöhnliche Zaunwinde",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Elymus repens",
+      "examListGermanName": "Winde / Gewöhnliche Zaunwinde"
+    },
+    {
+      "botanicalName": "Acker Equisetum arvense",
+      "germanName": "Equisetaceae Franzosenkraut / Knopfkraut",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Equisetum arvense",
+      "examListGermanName": "Equisetaceae Franzosenkraut / Knopfkraut"
+    },
+    {
+      "botanicalName": "Acker Galinsoga parviflora",
+      "germanName": "Asteraceae Gewöhnlicher Löwenzahn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Galinsoga parviflora",
+      "examListGermanName": "Asteraceae Gewöhnlicher Löwenzahn"
+    },
+    {
+      "botanicalName": "Acker Rumex acetosella",
+      "germanName": "Polygonaceae Quecke",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Rumex acetosella",
+      "examListGermanName": "Polygonaceae Quecke"
+    },
+    {
+      "botanicalName": "Acker Senecio vulgaris",
+      "germanName": "Asteraceae Gewöhnliche Vogelmiere",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Senecio vulgaris",
+      "examListGermanName": "Asteraceae Gewöhnliche Vogelmiere"
+    },
+    {
+      "botanicalName": "Acker Stellaria media",
+      "germanName": "Caryophyllaceae Große Brennessel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Stellaria media",
+      "examListGermanName": "Caryophyllaceae Große Brennessel"
+    },
+    {
+      "botanicalName": "Acker Taraxacum sect. Ruderale",
+      "germanName": "Asteraceae Gewöhnliches Kreuzkraut",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Taraxacum sect. Ruderale",
+      "examListGermanName": "Asteraceae Gewöhnliches Kreuzkraut"
+    },
+    {
+      "botanicalName": "Acker Urtica dioica",
+      "germanName": "Urticaceae Kleine Brennessel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Urtica dioica",
+      "examListGermanName": "Urticaceae Kleine Brennessel"
+    },
+    {
+      "botanicalName": "Acker Urtica urens",
+      "germanName": "Urticaceae Kleiner Ampfer",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Acker Urtica urens",
+      "examListGermanName": "Urticaceae Kleiner Ampfer"
+    },
+    {
+      "botanicalName": "Aconitum carmichaelii Arendsii-Gruppe",
+      "germanName": "Eisenhut",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aconitum carmichaelii Arendsii-Gruppe",
+      "examListGermanName": "Eisenhut"
+    },
+    {
+      "botanicalName": "Actinidia deliciosa",
+      "germanName": "Kiwi",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Actinidia deliciosa",
+      "examListGermanName": "Kiwi"
+    },
+    {
+      "botanicalName": "Agaricus bisporus",
+      "germanName": "Zuchtchampignon",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Agaricus bisporus",
+      "examListGermanName": "Zuchtchampignon"
+    },
+    {
+      "botanicalName": "Aglaonema arborescens",
+      "germanName": "Brandkraut",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aglaonema arborescens",
+      "examListGermanName": "Brandkraut"
+    },
+    {
+      "botanicalName": "Ajuga reptans 'Purpurea'",
+      "germanName": "Kriechender Günsel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ajuga reptans 'Purpurea'",
+      "examListGermanName": "Kriechender Günsel"
+    },
+    {
+      "botanicalName": "Aktualisiert nach",
+      "germanName": "„Zander“ 17. Auflage. Herausgeber: FGR Fördergesellschaft Gartenbau Rheinland mbH Haus des Rheinischen Gartenbaues Amsterdamer Str. 206, 50735 Köln Telefon: 0221/ 71 51 00 Telefax: 0221/ 71 51 031 Anregungen und Korrekturen werden gerne per E-Mail entgegengenommen. Postanschrift: Postfach 68 02 09",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aktualisiert nach",
+      "examListGermanName": "„Zander“ 17. Auflage. Herausgeber: FGR Fördergesellschaft Gartenbau Rheinland mbH Haus des Rheinischen Gartenbaues Amsterdamer Str. 206, 50735 Köln Telefon: 0221/ 71 51 00 Telefax: 0221/ 71 51 031 Anregungen und Korrekturen werden gerne per E-Mail entgegengenommen. Postanschrift: Postfach 68 02 09"
+    },
+    {
+      "botanicalName": "Allium christophii",
+      "germanName": "Sternkugel-Lauch",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Allium christophii",
+      "examListGermanName": "Sternkugel-Lauch"
+    },
+    {
+      "botanicalName": "Alstroemeria Hybriden",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Alstroemeria Hybriden"
+    },
+    {
+      "botanicalName": "Alstromeria Hybriden",
+      "germanName": "Inkalilie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Alstromeria Hybriden",
+      "examListGermanName": "Inkalilie"
+    },
+    {
+      "botanicalName": "Ananas comosus,Echte",
+      "germanName": "Ananas",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Ananas comosus,Echte",
+      "examListGermanName": "Ananas"
+    },
+    {
+      "botanicalName": "Anemone hupehensis var. japonica VIII-IX",
+      "germanName": "Japan-Anemone",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Anemone hupehensis var. japonica VIII-IX",
+      "examListGermanName": "Japan-Anemone"
+    },
+    {
+      "botanicalName": "Anemone x hybrida 'Honorine Jobert'",
+      "germanName": "Herbst-Anemone",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Anemone x hybrida 'Honorine Jobert'",
+      "examListGermanName": "Herbst-Anemone",
+      "synonyms": [
+        "Anemone hupehensis var. japonica 'Honorine Jobert'"
+      ]
+    },
+    {
+      "botanicalName": "Anthurium andreanum",
+      "germanName": "Flamingoblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Anthurium andreanum",
+      "examListGermanName": "Flamingoblume"
+    },
+    {
+      "botanicalName": "Aporocactus flagelliformis",
+      "germanName": "Peitschenkaktus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aporocactus flagelliformis",
+      "examListGermanName": "Peitschenkaktus"
+    },
+    {
+      "botanicalName": "Aquilegia caerulea",
+      "germanName": "Garten-Akelei, Langspornige Beet-Akelei",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aquilegia caerulea",
+      "examListGermanName": "Garten-Akelei, Langspornige Beet-Akelei"
+    },
+    {
+      "botanicalName": "Aquilegia Hybriden",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aquilegia Hybriden"
+    },
+    {
+      "botanicalName": "Aristolochia macrophylla",
+      "germanName": "Amerikanische Pfeifenwinde",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aristolochia macrophylla",
+      "examListGermanName": "Amerikanische Pfeifenwinde"
+    },
+    {
+      "botanicalName": "Armeria maritima 'Düsseldorfer Stolz'",
+      "germanName": "Grasnelke, Garten-Grasnelke",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Armeria maritima 'Düsseldorfer Stolz'",
+      "examListGermanName": "Grasnelke, Garten-Grasnelke"
+    },
+    {
+      "botanicalName": "Asparagus densiflorus 'Myersii'",
+      "germanName": "Zier-Spargel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Asparagus densiflorus 'Myersii'",
+      "examListGermanName": "Zier-Spargel"
+    },
+    {
+      "botanicalName": "Asparagus densiflorus 'Sprengeri'",
+      "germanName": "Zier-Spargel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Asparagus densiflorus 'Sprengeri'",
+      "examListGermanName": "Zier-Spargel"
+    },
+    {
+      "botanicalName": "Asparagus setaceus 'Plumosus'",
+      "germanName": "Zier-Spargel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Asparagus setaceus 'Plumosus'",
+      "examListGermanName": "Zier-Spargel",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Asparagus setaceus 'Plumosus'",
+          "germanName": "Farn-Spargel"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Asplenium scolopendrium 'Crispa'",
+      "germanName": "Gewellter Hirschzungenfarn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Asplenium scolopendrium 'Crispa'",
+      "examListGermanName": "Gewellter Hirschzungenfarn"
+    },
+    {
+      "botanicalName": "Aster 'Kassel' (Dumosus-Gruppe)",
+      "germanName": "Kissen-Aster",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Aster 'Kassel' (Dumosus-Gruppe)",
+      "examListGermanName": "Kissen-Aster",
+      "synonyms": [
+        "Aster dumosus 'Kassel'"
+      ]
+    },
+    {
+      "botanicalName": "Aster amellus 'Veilchenkönigin'",
+      "germanName": "Sommer-Aster, Berg-Aster, Kalk-Aster",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Aster amellus 'Veilchenkönigin'",
+      "examListGermanName": "Sommer-Aster, Berg-Aster, Kalk-Aster"
+    },
+    {
+      "botanicalName": "Aster Dumosus-Hybriden",
+      "germanName": "Kissen-Aster",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aster Dumosus-Hybriden",
+      "examListGermanName": "Kissen-Aster"
+    },
+    {
+      "botanicalName": "Aster novae-angliae 'Andenken an Alma Pötschke'",
+      "germanName": "Raublatt-Aster, Garten-Raublatt-Aster",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Aster novae-angliae 'Andenken an Alma Pötschke'",
+      "examListGermanName": "Raublatt-Aster, Garten-Raublatt-Aster"
+    },
+    {
+      "botanicalName": "Astilbe 'Bressingham Beauty' (Arendsii-Gruppe)",
+      "germanName": "Garten-Astilbe, Garten-Prachtspiere",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Astilbe 'Bressingham Beauty' (Arendsii-Gruppe)",
+      "examListGermanName": "Garten-Astilbe, Garten-Prachtspiere",
+      "synonyms": [
+        "Astilbe x arendsii 'Bressingham Beauty'"
+      ]
+    },
+    {
+      "botanicalName": "Astilbe chinensis 'Pumila'",
+      "germanName": "Zwerg-Prachtspiere, Zwerg-Astilbe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Astilbe chinensis 'Pumila'",
+      "examListGermanName": "Zwerg-Prachtspiere, Zwerg-Astilbe"
+    },
+    {
+      "botanicalName": "Astilbe chinensis var. pumila",
+      "germanName": "Zwerg-Astilbe",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Astilbe chinensis var. pumila",
+      "examListGermanName": "Zwerg-Astilbe",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Astilbe chinensis var. pumila",
+          "germanName": "Zwerg -Astilbe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Astilbe x arendsii",
+      "germanName": "Prachtspiere",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Astilbe x arendsii",
+      "examListGermanName": "Prachtspiere",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Astilbe x arendsii",
+          "germanName": "Garten-Astilbe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Aubrieta",
+      "germanName": "Blaukissen",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Aubrieta",
+      "examListGermanName": "Blaukissen"
+    },
+    {
+      "botanicalName": "Aubrieta 'Blaumeise'",
+      "germanName": "Blaukissen",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Aubrieta 'Blaumeise'",
+      "examListGermanName": "Blaukissen",
+      "synonyms": [
+        "Aubrieta x cultorum 'Blaumeise'"
+      ]
+    },
+    {
+      "botanicalName": "Aubrieta Hybriden i.S.",
+      "germanName": "Blaukissen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Aubrieta Hybriden i.S.",
+      "examListGermanName": "Blaukissen"
+    },
+    {
+      "botanicalName": "Baumschulkatalogen benannt sind",
+      "germanName": "soll hier auf eine Auflistung verzichtet werden. Im",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Baumschulkatalogen benannt sind",
+      "examListGermanName": "soll hier auf eine Auflistung verzichtet werden. Im"
+    },
+    {
+      "botanicalName": "Begonia Elatior - Hybriden",
+      "germanName": "Schiefblatt",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Elatior - Hybriden",
+      "examListGermanName": "Schiefblatt"
+    },
+    {
+      "botanicalName": "Begonia Elatior-Gruppe",
+      "germanName": "Begonie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Elatior-Gruppe",
+      "examListGermanName": "Begonie"
+    },
+    {
+      "botanicalName": "Begonia Knollenbegonien-Hybriden",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Knollenbegonien-Hybriden"
+    },
+    {
+      "botanicalName": "Begonia Lorraine-Gruppe",
+      "germanName": "Lorrainebegonie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Lorraine-Gruppe",
+      "examListGermanName": "Lorrainebegonie"
+    },
+    {
+      "botanicalName": "Begonia Rex-Cultorum-Gruppe",
+      "germanName": "blattbegonie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Rex-Cultorum-Gruppe",
+      "examListGermanName": "blattbegonie"
+    },
+    {
+      "botanicalName": "Begonia semperflorens",
+      "germanName": "Eis-Begonie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia semperflorens",
+      "examListGermanName": "Eis-Begonie"
+    },
+    {
+      "botanicalName": "Begonia Semperflorens-Gruppe",
+      "germanName": "Begonie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Semperflorens-Gruppe",
+      "examListGermanName": "Begonie"
+    },
+    {
+      "botanicalName": "Begonia Semperflorens-Hybriden",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Semperflorens-Hybriden"
+    },
+    {
+      "botanicalName": "Begonia Tuberhybrida-Gruppe",
+      "germanName": "Knollenbegonien",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia Tuberhybrida-Gruppe",
+      "examListGermanName": "Knollenbegonien",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Begonia Tuberhybrida-Gruppe",
+          "germanName": "Knollenbegonie"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Begonia-Semperflorens-Grp.",
+      "germanName": "Begonie, Schiefblatt",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Begonia-Semperflorens-Grp.",
+      "examListGermanName": "Begonie, Schiefblatt"
+    },
+    {
+      "botanicalName": "Berberis buxifolia 'Nana'",
+      "germanName": "Form der Buchsblatt - Berberitze",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Berberis buxifolia 'Nana'",
+      "examListGermanName": "Form der Buchsblatt - Berberitze",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Berberis buxifolia 'Nana'",
+          "germanName": "Buchsblatt-Berberitze"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Berberis x stenophylla",
+      "germanName": "Schmalblatt - Berberitze",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Berberis x stenophylla",
+      "examListGermanName": "Schmalblatt - Berberitze",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Berberis x stenophylla",
+          "germanName": "Schmalblatt-Berberitze"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Bergenia",
+      "germanName": "Bergenie, Riesensteinbrech",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Bergenia",
+      "examListGermanName": "Bergenie, Riesensteinbrech"
+    },
+    {
+      "botanicalName": "Bergenia 'Silberlicht'",
+      "germanName": "Bergenie, Riesensteinbrech",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Bergenia 'Silberlicht'",
+      "examListGermanName": "Bergenie, Riesensteinbrech",
+      "synonyms": [
+        "Bergenia cordifolia 'Silberlicht'"
+      ]
+    },
+    {
+      "botanicalName": "Bergenia cordifolia",
+      "germanName": "Bergenie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Bergenia cordifolia",
+      "examListGermanName": "Bergenie",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Bergenia cordifolia",
+          "germanName": "Altai-Bergenie"
+        },
+        {
+          "botanicalName": "Bergenia cordifolia",
+          "germanName": "Altai Bergenie"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Beta vulgaris var. flavescens",
+      "germanName": "Mangold",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Beta vulgaris var. flavescens",
+      "examListGermanName": "Mangold"
+    },
+    {
+      "botanicalName": "Betrieb vorhandene Sorten sollten selbst eingetragen werden.",
+      "germanName": "Einteilung der Rosen nach den Verwendungsmöglichkeiten : a) Beetrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ b) Edelrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ c) Strauchrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ d) Kletterrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ e) Bodendeckende Rosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Betrieb vorhandene Sorten sollten selbst eingetragen werden.",
+      "examListGermanName": "Einteilung der Rosen nach den Verwendungsmöglichkeiten : a) Beetrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ b) Edelrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ c) Strauchrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ d) Kletterrosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________ e) Bodendeckende Rosen ___________________________________________________________________ ___________________________________________________________________ ___________________________________________________________________"
+    },
+    {
+      "botanicalName": "Brassica napus subsp. rapifera",
+      "germanName": "Steckrübe",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Brassica napus subsp. rapifera",
+      "examListGermanName": "Steckrübe"
+    },
+    {
+      "botanicalName": "Brassica oleracea var. capitata f. alba",
+      "germanName": "Weißkohl",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Brassica oleracea var. capitata f. alba",
+      "examListGermanName": "Weißkohl"
+    },
+    {
+      "botanicalName": "Brassica oleracea var. capitata f. rubra",
+      "germanName": "Rotkohl",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Brassica oleracea var. capitata f. rubra",
+      "examListGermanName": "Rotkohl"
+    },
+    {
+      "botanicalName": "Brassica rapa subsp. rapa",
+      "germanName": "Stielmus, Mairübe",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Brassica rapa subsp. rapa",
+      "examListGermanName": "Stielmus, Mairübe"
+    },
+    {
+      "botanicalName": "Buddleja davidii 'Empire Blue'",
+      "germanName": "Sommerflieder, Schmetterlingsstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Buddleja davidii 'Empire Blue'",
+      "examListGermanName": "Sommerflieder, Schmetterlingsstrauch"
+    },
+    {
+      "botanicalName": "Buxus sempervirens 'Blauer Heinz'",
+      "germanName": "Zwergform",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Buxus sempervirens 'Blauer Heinz'",
+      "examListGermanName": "Zwergform"
+    },
+    {
+      "botanicalName": "Buxus sempervirens 'Herrenhausen'",
+      "germanName": "Zwergform",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Buxus sempervirens 'Herrenhausen'",
+      "examListGermanName": "Zwergform"
+    },
+    {
+      "botanicalName": "Buxus sempervirens 'Rotundifolia'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Buxus sempervirens 'Rotundifolia'"
+    },
+    {
+      "botanicalName": "Buxus sempervirens 'Suffruticosa'",
+      "germanName": "Zwerg-Buchs",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Buxus sempervirens 'Suffruticosa'",
+      "examListGermanName": "Zwerg-Buchs"
+    },
+    {
+      "botanicalName": "Buxus sempervirens var. arborescens",
+      "germanName": "Gewöhnl. Buchsbaum",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Buxus sempervirens var. arborescens",
+      "examListGermanName": "Gewöhnl. Buchsbaum",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Buxus sempervirens var. arborescens",
+          "germanName": "Gewöhnlicher Buchsbaum, Hoher Buchsbaum"
+        }
+      ],
+      "synonyms": [
+        "Buxus sempervirens"
+      ]
+    },
+    {
+      "botanicalName": "Calamagrostis x acutiflora 'Karl Foerster'",
+      "germanName": "Garten-Sandrohr, Moor-Reitgras",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Calamagrostis x acutiflora 'Karl Foerster'",
+      "examListGermanName": "Garten-Sandrohr, Moor-Reitgras"
+    },
+    {
+      "botanicalName": "Calamintha nepeta 'Triumphator'",
+      "germanName": "Bergminze, Garten-Bergminze",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Calamintha nepeta 'Triumphator'",
+      "examListGermanName": "Bergminze, Garten-Bergminze"
+    },
+    {
+      "botanicalName": "Calceolaria Herbeophybrida-Gruppe",
+      "germanName": "Pantoffelblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Calceolaria Herbeophybrida-Gruppe",
+      "examListGermanName": "Pantoffelblume"
+    },
+    {
+      "botanicalName": "Callicarpa bodinieri var. giraldii",
+      "germanName": "Liebesperlenstrauch",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Callicarpa bodinieri var. giraldii",
+      "examListGermanName": "Liebesperlenstrauch"
+    },
+    {
+      "botanicalName": "Callicarpa bodinieri var. giraldii 'Profusion'",
+      "germanName": "Schönfrucht",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Callicarpa bodinieri var. giraldii 'Profusion'",
+      "examListGermanName": "Schönfrucht"
+    },
+    {
+      "botanicalName": "Calluna vulgaris in vielen Sorten",
+      "germanName": "Sommerheide",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Calluna vulgaris in vielen Sorten",
+      "examListGermanName": "Sommerheide"
+    },
+    {
+      "botanicalName": "Calluna vulgaris in vielen Sorten,Heidekraut/Sommerheide",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Calluna vulgaris in vielen Sorten,Heidekraut/Sommerheide"
+    },
+    {
+      "botanicalName": "Canna",
+      "germanName": "Canna, Blumenrohr",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Canna",
+      "examListGermanName": "Canna, Blumenrohr"
+    },
+    {
+      "botanicalName": "Carpinus betulus 'Fastigiata'",
+      "germanName": "Pyramiden-Hainbuche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Carpinus betulus 'Fastigiata'",
+      "examListGermanName": "Pyramiden-Hainbuche"
+    },
+    {
+      "botanicalName": "Caryopteris x clandonensis 'Heavenly Blue'",
+      "germanName": "Bartblume",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Caryopteris x clandonensis 'Heavenly Blue'",
+      "examListGermanName": "Bartblume"
+    },
+    {
+      "botanicalName": "Cattleya labiata",
+      "germanName": "Cattleye",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cattleya labiata",
+      "examListGermanName": "Cattleye"
+    },
+    {
+      "botanicalName": "Cedrus atlantica 'Glauca'",
+      "germanName": "Blaue Atlas-Zeder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cedrus atlantica 'Glauca'",
+      "examListGermanName": "Blaue Atlas-Zeder",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Cedrus atlantica 'Glauca'",
+          "germanName": "Blau-Zeder, Blaue Atlas-Zeder"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Cedrus libani 'Atlantica Glauca'",
+      "germanName": "Blaue-Atlas-Zeder, Blau-Zeder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cedrus libani 'Atlantica Glauca'",
+      "examListGermanName": "Blaue-Atlas-Zeder, Blau-Zeder"
+    },
+    {
+      "botanicalName": "Celosia Cristata-Gruppe",
+      "germanName": "Hahnenkamm-Celosie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Celosia Cristata-Gruppe",
+      "examListGermanName": "Hahnenkamm-Celosie"
+    },
+    {
+      "botanicalName": "Celosia Plumosa-Gruppe",
+      "germanName": "Federbusch-Celosie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Celosia Plumosa-Gruppe",
+      "examListGermanName": "Federbusch-Celosie"
+    },
+    {
+      "botanicalName": "Ceropegia linearis",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Ceropegia linearis"
+    },
+    {
+      "botanicalName": "Ceropegia linearis ssp. Woodii",
+      "germanName": "hängende Leuchterblume",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Ceropegia linearis ssp. Woodii",
+      "examListGermanName": "hängende Leuchterblume"
+    },
+    {
+      "botanicalName": "Cetraria islandica",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cetraria islandica"
+    },
+    {
+      "botanicalName": "Chaenomeles x superba 'Elly Mossel'",
+      "germanName": "Zierquitte, Scheinquitte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chaenomeles x superba 'Elly Mossel'",
+      "examListGermanName": "Zierquitte, Scheinquitte"
+    },
+    {
+      "botanicalName": "Chamaecyparis lawsoniana 'Alumii'",
+      "germanName": "Lawsons Scheinzypresse, Cupressaceae",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis lawsoniana 'Alumii'",
+      "examListGermanName": "Lawsons Scheinzypresse, Cupressaceae",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Chamaecyparis lawsoniana 'Alumii'",
+          "germanName": "Blaue Hecken-Scheinzypresse"
+        },
+        {
+          "botanicalName": "Chamaecyparis lawsoniana 'Alumii'",
+          "germanName": "Lawsons Scheinzypresse"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Chamaecyparis lawsoniana 'Columnaris'",
+      "germanName": "Lawsons Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis lawsoniana 'Columnaris'",
+      "examListGermanName": "Lawsons Scheinzypresse",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Chamaecyparis lawsoniana 'Columnaris'",
+          "germanName": "Lawsons-Scheinzypresse"
+        },
+        {
+          "botanicalName": "Chamaecyparis lawsoniana 'Columnaris'",
+          "germanName": "Blaue Säulen-Scheinzypresse"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Chamaecyparis lawsoniana 'Ellwoodii'",
+      "germanName": "Blaue Kegel-Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis lawsoniana 'Ellwoodii'",
+      "examListGermanName": "Blaue Kegel-Scheinzypresse"
+    },
+    {
+      "botanicalName": "Chamaecyparis lawsoniana 'Golden Wonder'",
+      "germanName": "Lawsons Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis lawsoniana 'Golden Wonder'",
+      "examListGermanName": "Lawsons Scheinzypresse",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Chamaecyparis lawsoniana 'Golden Wonder'",
+          "germanName": "Gelbe Scheinzypresse"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Chamaecyparis lawsoniana 'Ivonne'",
+      "germanName": "Goldgelbe Garten-Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis lawsoniana 'Ivonne'",
+      "examListGermanName": "Goldgelbe Garten-Scheinzypresse"
+    },
+    {
+      "botanicalName": "Chamaecyparis lawsoniana 'Minima Glauca'",
+      "germanName": "Blaue Kissen-Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis lawsoniana 'Minima Glauca'",
+      "examListGermanName": "Blaue Kissen-Scheinzypresse"
+    },
+    {
+      "botanicalName": "Chamaecyparis nootkatensis",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis nootkatensis"
+    },
+    {
+      "botanicalName": "Chamaecyparis nootkatensis 'Pendula'",
+      "germanName": "Mähnen-Nutka-Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis nootkatensis 'Pendula'",
+      "examListGermanName": "Mähnen-Nutka-Scheinzypresse",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Chamaecyparis nootkatensis 'Pendula'",
+          "germanName": "Nutka-Scheinzypresse"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Chamaecyparis obtusa 'Nana Gracilis'",
+      "germanName": "Form der Feuer- Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis obtusa 'Nana Gracilis'",
+      "examListGermanName": "Form der Feuer- Scheinzypresse",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Chamaecyparis obtusa 'Nana Gracilis'",
+          "germanName": "Kleine Muschel- Scheinzypresse"
+        },
+        {
+          "botanicalName": "Chamaecyparis obtusa 'Nana Gracilis'",
+          "germanName": "Kleine Muschel-Scheinzypresse"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Chamaecyparis pisifera 'Filifera Nana'",
+      "germanName": "Sawara- Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis pisifera 'Filifera Nana'",
+      "examListGermanName": "Sawara- Scheinzypresse"
+    },
+    {
+      "botanicalName": "Chamaecyparis pisifera 'Plumosa Aurea'",
+      "germanName": "Form der Sawara-Scheinzyp.",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis pisifera 'Plumosa Aurea'",
+      "examListGermanName": "Form der Sawara-Scheinzyp."
+    },
+    {
+      "botanicalName": "Chamaecyparis pisifera 'Plumosa'",
+      "germanName": "Form der Sawara-Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis pisifera 'Plumosa'",
+      "examListGermanName": "Form der Sawara-Scheinzypresse"
+    },
+    {
+      "botanicalName": "Chamaecyparis pisifera 'Squarrosa'",
+      "germanName": "Form der Sawara-Scheinzypresse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chamaecyparis pisifera 'Squarrosa'",
+      "examListGermanName": "Form der Sawara-Scheinzypresse"
+    },
+    {
+      "botanicalName": "Cheiranthus cheiri",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cheiranthus cheiri"
+    },
+    {
+      "botanicalName": "Chrysanthemum 'Julia' (Indicum-Gruppe)",
+      "germanName": "Garten-Chrysantheme, Herbst-Chrysantheme, Winteraster",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Chrysanthemum 'Julia' (Indicum-Gruppe)",
+      "examListGermanName": "Garten-Chrysantheme, Herbst-Chrysantheme, Winteraster",
+      "synonyms": [
+        "Chrysanthemum x grandiflorum 'Goldmarianne'",
+        "Chrysanthemum x hortorum 'Goldmarianne'"
+      ]
+    },
+    {
+      "botanicalName": "Chrysanthemum carinatum",
+      "germanName": "Bunte Wucherblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Chrysanthemum carinatum",
+      "examListGermanName": "Bunte Wucherblume"
+    },
+    {
+      "botanicalName": "Chrysanthemum Chrysathemum x grandiflorum",
+      "germanName": "Gärtner- Chrysantheme",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Chrysanthemum Chrysathemum x grandiflorum",
+      "examListGermanName": "Gärtner- Chrysantheme"
+    },
+    {
+      "botanicalName": "Chrysanthemum x grandiflorum",
+      "germanName": "Gärtner-Chrysanthemen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Chrysanthemum x grandiflorum",
+      "examListGermanName": "Gärtner-Chrysanthemen",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Chrysanthemum x grandiflorum",
+          "germanName": "Chrysantheme"
+        },
+        {
+          "botanicalName": "Chrysanthemum x grandiflorum",
+          "germanName": "Gärtner-Chrysantheme"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Chrysanthemum x grandiflorum i.S.",
+      "germanName": "Gärtner-Chrysantheme",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Chrysanthemum x grandiflorum i.S.",
+      "examListGermanName": "Gärtner-Chrysantheme"
+    },
+    {
+      "botanicalName": "Cichorium endivia var. endivia",
+      "germanName": "Endivie (glatte)",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Cichorium endivia var. endivia",
+      "examListGermanName": "Endivie (glatte)"
+    },
+    {
+      "botanicalName": "Cichorrium intybus",
+      "germanName": "Wegwarte",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cichorrium intybus",
+      "examListGermanName": "Wegwarte"
+    },
+    {
+      "botanicalName": "Cimicifuga racemosa var. racemosa",
+      "germanName": "Juli-Silberkerze",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Cimicifuga racemosa var. racemosa",
+      "examListGermanName": "Juli-Silberkerze"
+    },
+    {
+      "botanicalName": "Cirsium arvensis",
+      "germanName": "Ackerkratzdistel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cirsium arvensis",
+      "examListGermanName": "Ackerkratzdistel"
+    },
+    {
+      "botanicalName": "Cissus antarctica",
+      "germanName": "Känguru-Klimme",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cissus antarctica",
+      "examListGermanName": "Känguru-Klimme"
+    },
+    {
+      "botanicalName": "Citrofortunella microcarpa",
+      "germanName": "Zierorange",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Citrofortunella microcarpa",
+      "examListGermanName": "Zierorange"
+    },
+    {
+      "botanicalName": "Cladonia rangiferina und",
+      "germanName": "Cladonia alpestris",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cladonia rangiferina und",
+      "examListGermanName": "Cladonia alpestris"
+    },
+    {
+      "botanicalName": "Clematis 'Nelly Moser'",
+      "germanName": "Edel-Clematis, Großblumige Clematis",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Clematis 'Nelly Moser'",
+      "examListGermanName": "Edel-Clematis, Großblumige Clematis"
+    },
+    {
+      "botanicalName": "Clematis Hybriden",
+      "germanName": "Garten-Waldrebe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Clematis Hybriden",
+      "examListGermanName": "Garten-Waldrebe",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Clematis Hybriden",
+          "germanName": "Großblumige Waldrebe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Coleus Blumei-Hybriden",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Coleus Blumei-Hybriden"
+    },
+    {
+      "botanicalName": "Columnea microphylla",
+      "germanName": "Klumnee",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Columnea microphylla",
+      "examListGermanName": "Klumnee"
+    },
+    {
+      "botanicalName": "Cordyline terminalis",
+      "germanName": "Keulenlilie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cordyline terminalis",
+      "examListGermanName": "Keulenlilie"
+    },
+    {
+      "botanicalName": "Coreopsis verticillata",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Coreopsis verticillata",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Coreopsis verticillata",
+          "germanName": "Netzblattstern, quirlblättriges Mädchenauge"
+        },
+        {
+          "botanicalName": "Coreopsis verticillata",
+          "germanName": "Mädchenauge"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Coreopsis verticillata 'Grandiflora'",
+      "germanName": "Quirlblättriges Mädchenauge, Netzblattstern",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Coreopsis verticillata 'Grandiflora'",
+      "examListGermanName": "Quirlblättriges Mädchenauge, Netzblattstern"
+    },
+    {
+      "botanicalName": "Cornus alba 'Sibirica'",
+      "germanName": "Rotrindiger Hartriegel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cornus alba 'Sibirica'",
+      "examListGermanName": "Rotrindiger Hartriegel",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Cornus alba 'Sibirica'",
+          "germanName": "Sibirischer Hartriegel, Purpur-Hartriegel"
+        },
+        {
+          "botanicalName": "Cornus alba 'Sibirica'",
+          "germanName": "Weißer Hartriegel, Tatarischer Hartriegel"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Cornus stolonifera 'Flaviramea'",
+      "germanName": "Gelber Hartriegel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cornus stolonifera 'Flaviramea'",
+      "examListGermanName": "Gelber Hartriegel"
+    },
+    {
+      "botanicalName": "Corylus maxima 'Purpurea'",
+      "germanName": "Blut-Lambertsnuß",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Corylus maxima 'Purpurea'",
+      "examListGermanName": "Blut-Lambertsnuß"
+    },
+    {
+      "botanicalName": "Cotinus coggygria 'Royal Purple'",
+      "germanName": "Roter Perückenstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cotinus coggygria 'Royal Purple'",
+      "examListGermanName": "Roter Perückenstrauch"
+    },
+    {
+      "botanicalName": "Cotoneaster dammeri 'Coral Beauty'",
+      "germanName": "Teppich-Zwergmispel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cotoneaster dammeri 'Coral Beauty'",
+      "examListGermanName": "Teppich-Zwergmispel",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Cotoneaster dammeri 'Coral Beauty'",
+          "germanName": "Kriech-Zwergmispel"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Cotoneaster dammeri 'Frieders Evergreen'",
+      "germanName": "Kriech-Zwergmispel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cotoneaster dammeri 'Frieders Evergreen'",
+      "examListGermanName": "Kriech-Zwergmispel"
+    },
+    {
+      "botanicalName": "Cotoneaster dammeri 'Streib's Findling'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cotoneaster dammeri 'Streib's Findling'"
+    },
+    {
+      "botanicalName": "Cotoneaster dammeri 'Streibs Findling'",
+      "germanName": "Teppich-Zwergmispel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cotoneaster dammeri 'Streibs Findling'",
+      "examListGermanName": "Teppich-Zwergmispel"
+    },
+    {
+      "botanicalName": "Cotoneaster dammeri var. radicans",
+      "germanName": "Kriech-Zwergmispel",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Cotoneaster dammeri var. radicans",
+      "examListGermanName": "Kriech-Zwergmispel"
+    },
+    {
+      "botanicalName": "Cotoneaster x suecicus 'Coral Beauty'",
+      "germanName": "Immergrüne Böschungsmispel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cotoneaster x suecicus 'Coral Beauty'",
+      "examListGermanName": "Immergrüne Böschungsmispel"
+    },
+    {
+      "botanicalName": "Crataegus laevigata 'Pauls Scarlet'",
+      "germanName": "Rotdorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Crataegus laevigata 'Pauls Scarlet'",
+      "examListGermanName": "Rotdorn"
+    },
+    {
+      "botanicalName": "Crataegus lavallei 'Carrierei'",
+      "germanName": "Apfeldorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Crataegus lavallei 'Carrierei'",
+      "examListGermanName": "Apfeldorn"
+    },
+    {
+      "botanicalName": "Crataegus monogyna sp.",
+      "germanName": "Weißdorn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Crataegus monogyna sp.",
+      "examListGermanName": "Weißdorn"
+    },
+    {
+      "botanicalName": "Crataegus x lavalleei 'Carrierei'",
+      "germanName": "Apfel-Dorn, Lederblättriger Weißdorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Crataegus x lavalleei 'Carrierei'",
+      "examListGermanName": "Apfel-Dorn, Lederblättriger Weißdorn"
+    },
+    {
+      "botanicalName": "Crocus chrysanthus i.S.",
+      "germanName": "Kleiner Krokus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Crocus chrysanthus i.S.",
+      "examListGermanName": "Kleiner Krokus"
+    },
+    {
+      "botanicalName": "Cryptanthus fosterianus",
+      "germanName": "Cryptanthus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cryptanthus fosterianus",
+      "examListGermanName": "Cryptanthus"
+    },
+    {
+      "botanicalName": "Cryptomeria japonica 'Cristata'",
+      "germanName": "Form der Jap. Sicheltanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cryptomeria japonica 'Cristata'",
+      "examListGermanName": "Form der Jap. Sicheltanne"
+    },
+    {
+      "botanicalName": "Cryptomeria japonica 'Vilmoriniana'",
+      "germanName": "Zwergkugelform der Sicheltanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cryptomeria japonica 'Vilmoriniana'",
+      "examListGermanName": "Zwergkugelform der Sicheltanne"
+    },
+    {
+      "botanicalName": "Cupressocyparis leylandii",
+      "germanName": "Bastardzypresse",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cupressocyparis leylandii",
+      "examListGermanName": "Bastardzypresse"
+    },
+    {
+      "botanicalName": "Cymbidium Cultivars",
+      "germanName": "Cymbidie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cymbidium Cultivars",
+      "examListGermanName": "Cymbidie"
+    },
+    {
+      "botanicalName": "Cymbidium Hybriden",
+      "germanName": "Cymbidie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cymbidium Hybriden",
+      "examListGermanName": "Cymbidie"
+    },
+    {
+      "botanicalName": "Cynara cardunculus subsp. scolymus",
+      "germanName": "Artischocke",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Cynara cardunculus subsp. scolymus",
+      "examListGermanName": "Artischocke"
+    },
+    {
+      "botanicalName": "Cyperus involucratus",
+      "germanName": "Zypergras",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cyperus involucratus",
+      "examListGermanName": "Zypergras"
+    },
+    {
+      "botanicalName": "Cytisus 'Andreanus Splendens' (Scoparius-Gruppe)",
+      "germanName": "Edel-Ginster, Schmuck-Ginster",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Cytisus 'Andreanus Splendens' (Scoparius-Gruppe)",
+      "examListGermanName": "Edel-Ginster, Schmuck-Ginster"
+    },
+    {
+      "botanicalName": "Cytisus x praecox",
+      "germanName": "Elfenbeinginster",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Cytisus x praecox",
+      "examListGermanName": "Elfenbeinginster"
+    },
+    {
+      "botanicalName": "Dahlia",
+      "germanName": "Dahlie",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Dahlia",
+      "examListGermanName": "Dahlie"
+    },
+    {
+      "botanicalName": "Dahlia x hortensis",
+      "germanName": "Dahlie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Dahlia x hortensis",
+      "examListGermanName": "Dahlie"
+    },
+    {
+      "botanicalName": "Delphinium 'Finsteraarhorn' (E = Elatum-Gruppe)",
+      "germanName": "Garten-Rittersporn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Delphinium 'Finsteraarhorn' (E = Elatum-Gruppe)",
+      "examListGermanName": "Garten-Rittersporn"
+    },
+    {
+      "botanicalName": "Delphinium Cultivars i.S.",
+      "germanName": "Garten-Rittersporn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Delphinium Cultivars i.S.",
+      "examListGermanName": "Garten-Rittersporn"
+    },
+    {
+      "botanicalName": "Delphinum Cultivars",
+      "germanName": "Garten-Rittersporn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Delphinum Cultivars",
+      "examListGermanName": "Garten-Rittersporn",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Delphinum Cultivars",
+          "germanName": "Garten-Rittersporn Dendrobium, Orchidaceae"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Delphinum nobile",
+      "germanName": "Dendrobie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Delphinum nobile",
+      "examListGermanName": "Dendrobie"
+    },
+    {
+      "botanicalName": "Dendranthema arcticum",
+      "germanName": "Herbstmargerite",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Dendranthema arcticum",
+      "examListGermanName": "Herbstmargerite"
+    },
+    {
+      "botanicalName": "Deutzia Hybride 'Mont Rose'",
+      "germanName": "Garten-Deutzie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Deutzia Hybride 'Mont Rose'",
+      "examListGermanName": "Garten-Deutzie"
+    },
+    {
+      "botanicalName": "Deutzia x magnifica",
+      "germanName": "Hohe Deutzie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Deutzia x magnifica",
+      "examListGermanName": "Hohe Deutzie"
+    },
+    {
+      "botanicalName": "Dianthus gratianopolitanus 'Eydangeri'",
+      "germanName": "Garten-Pfingst-Nelke",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Dianthus gratianopolitanus 'Eydangeri'",
+      "examListGermanName": "Garten-Pfingst-Nelke"
+    },
+    {
+      "botanicalName": "Doronicum orientale",
+      "germanName": "Kaukasus-Gämswurz",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Doronicum orientale",
+      "examListGermanName": "Kaukasus-Gämswurz",
+      "synonyms": [
+        "Doronicum caucasicum"
+      ]
+    },
+    {
+      "botanicalName": "Dracaena deremensis 'Warneckii'",
+      "germanName": "Dracaene",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Dracaena deremensis 'Warneckii'",
+      "examListGermanName": "Dracaene"
+    },
+    {
+      "botanicalName": "Echeveria walleriana",
+      "germanName": "Fleißiges Lieschen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Echeveria walleriana",
+      "examListGermanName": "Fleißiges Lieschen"
+    },
+    {
+      "botanicalName": "Echinacea purpurea 'Magnus'",
+      "germanName": "Roter Scheinsonnenhut, Garten-Purpursonnenhut",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Echinacea purpurea 'Magnus'",
+      "examListGermanName": "Roter Scheinsonnenhut, Garten-Purpursonnenhut",
+      "synonyms": [
+        "Rudbeckia purpurea 'Magnus'"
+      ]
+    },
+    {
+      "botanicalName": "Elaeagnus pungens 'Maculata'",
+      "germanName": "Gelbbunte Ölweide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Elaeagnus pungens 'Maculata'",
+      "examListGermanName": "Gelbbunte Ölweide"
+    },
+    {
+      "botanicalName": "Epimedium x perralchicum",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Epimedium x perralchicum"
+    },
+    {
+      "botanicalName": "Epimedium x perralchicum 'Frohnleiten'",
+      "germanName": "Garten-Elfenblume",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Epimedium x perralchicum 'Frohnleiten'",
+      "examListGermanName": "Garten-Elfenblume"
+    },
+    {
+      "botanicalName": "Epimedium x versicolor",
+      "germanName": "Verschiedenfarbige Elfenblume, Verschiedenfarbige Sockenblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Epimedium x versicolor",
+      "examListGermanName": "Verschiedenfarbige Elfenblume, Verschiedenfarbige Sockenblume",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Epimedium x versicolor",
+          "germanName": "Elfenblume"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Epipremnum pinnatum 'Aureum'",
+      "germanName": "Gefleckte Efeutute",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Epipremnum pinnatum 'Aureum'",
+      "examListGermanName": "Gefleckte Efeutute"
+    },
+    {
+      "botanicalName": "Erica carnea 'Vivellii'",
+      "germanName": "Schnee-Heide, Winter-Heide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Erica carnea 'Vivellii'",
+      "examListGermanName": "Schnee-Heide, Winter-Heide"
+    },
+    {
+      "botanicalName": "Erica x hiemalis",
+      "germanName": "Erika",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Erica x hiemalis",
+      "examListGermanName": "Erika"
+    },
+    {
+      "botanicalName": "Erigeron 'Dunkelste Aller'",
+      "germanName": "Feinstrahl, Garten-Berufkraut",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Erigeron 'Dunkelste Aller'",
+      "examListGermanName": "Feinstrahl, Garten-Berufkraut",
+      "synonyms": [
+        "Erigeron x cultorum 'Dunkelste Aller'"
+      ]
+    },
+    {
+      "botanicalName": "Euonymus fortunei 'Coloratus'",
+      "germanName": "Purpur-Spindelstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Euonymus fortunei 'Coloratus'",
+      "examListGermanName": "Purpur-Spindelstrauch"
+    },
+    {
+      "botanicalName": "Euonymus fortunei 'Emerald Gold'",
+      "germanName": "Gelbbunter Kletter- Spindelstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Euonymus fortunei 'Emerald Gold'",
+      "examListGermanName": "Gelbbunter Kletter- Spindelstrauch"
+    },
+    {
+      "botanicalName": "Euonymus fortunei 'Emerald'n Gold'",
+      "germanName": "Goldbunte Kriechspindel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Euonymus fortunei 'Emerald'n Gold'",
+      "examListGermanName": "Goldbunte Kriechspindel"
+    },
+    {
+      "botanicalName": "Euonymus fortunei 'Minimus'",
+      "germanName": "Kletter-Spindelstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Euonymus fortunei 'Minimus'",
+      "examListGermanName": "Kletter-Spindelstrauch"
+    },
+    {
+      "botanicalName": "Euonymus fortunei 'Vegetus'",
+      "germanName": "Spindelstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Euonymus fortunei 'Vegetus'",
+      "examListGermanName": "Spindelstrauch"
+    },
+    {
+      "botanicalName": "Euonymus fortunei var. radicans",
+      "germanName": "Kletter-Spindelstrauch",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Euonymus fortunei var. radicans",
+      "examListGermanName": "Kletter-Spindelstrauch",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Euonymus fortunei var. radicans",
+          "germanName": "Immergrüne Kriechspindel"
+        },
+        {
+          "botanicalName": "Euonymus fortunei var. radicans",
+          "germanName": "Spindelstrauch"
+        }
+      ],
+      "synonyms": [
+        "Euonymus fortunei radicans",
+        "Euonymus fortunei 'Radicans'"
+      ]
+    },
+    {
+      "botanicalName": "Euphorbia grandiflorum",
+      "germanName": "Großblumiger Prärieenzian",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Euphorbia grandiflorum",
+      "examListGermanName": "Großblumiger Prärieenzian"
+    },
+    {
+      "botanicalName": "Euphorbia hypericifolia 'Inneuphe' (Syn.: Euphorbia hypericifolia DIAMOND FROST)",
+      "germanName": "Zauberschnee",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Euphorbia hypericifolia 'Inneuphe' (Syn.: Euphorbia hypericifolia DIAMOND FROST)",
+      "examListGermanName": "Zauberschnee"
+    },
+    {
+      "botanicalName": "Fagopyrom esculentum",
+      "germanName": "Buchweizen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Fagopyrom esculentum",
+      "examListGermanName": "Buchweizen"
+    },
+    {
+      "botanicalName": "Fagus sylvatica 'Dawyck'",
+      "germanName": "Säulen-Buche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Fagus sylvatica 'Dawyck'",
+      "examListGermanName": "Säulen-Buche"
+    },
+    {
+      "botanicalName": "Fagus sylvatica 'Pendula'",
+      "germanName": "Grüne Hänge-Buche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Fagus sylvatica 'Pendula'",
+      "examListGermanName": "Grüne Hänge-Buche",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Fagus sylvatica 'Pendula'",
+          "germanName": "Hänge-Buche"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Fagus sylvatica 'Purpurea Latifolia'",
+      "germanName": "Blut-Buche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Fagus sylvatica 'Purpurea Latifolia'",
+      "examListGermanName": "Blut-Buche",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Fagus sylvatica 'Purpurea Latifolia'",
+          "germanName": "Veredelte Blut-Buche"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Fagus sylvatica 'Purpurea Pendula'",
+      "germanName": "Blut-Buche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Fagus sylvatica 'Purpurea Pendula'",
+      "examListGermanName": "Blut-Buche"
+    },
+    {
+      "botanicalName": "Fargesia",
+      "germanName": "Winterharter Schirmbambus",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Fargesia",
+      "examListGermanName": "Winterharter Schirmbambus"
+    },
+    {
+      "botanicalName": "Fargesia 'Jiuzhaigou Nr. 1'",
+      "germanName": "Jade Bambus",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Fargesia 'Jiuzhaigou Nr. 1'",
+      "examListGermanName": "Jade Bambus"
+    },
+    {
+      "botanicalName": "Fargesia murielae i.",
+      "germanName": "Schirm-Bambus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Fargesia murielae i.",
+      "examListGermanName": "Schirm-Bambus"
+    },
+    {
+      "botanicalName": "Ficus elastica 'Decora'",
+      "germanName": "Gummibaum",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ficus elastica 'Decora'",
+      "examListGermanName": "Gummibaum"
+    },
+    {
+      "botanicalName": "Flechten verschiedener",
+      "germanName": "Gattungen bezeichnet z.B.",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Flechten verschiedener",
+      "examListGermanName": "Gattungen bezeichnet z.B."
+    },
+    {
+      "botanicalName": "Forsythia x intermedia 'Lynwood'",
+      "germanName": "Goldglöckchen, Forsythie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Forsythia x intermedia 'Lynwood'",
+      "examListGermanName": "Goldglöckchen, Forsythie"
+    },
+    {
+      "botanicalName": "Freesia Hybriden",
+      "germanName": "Freesie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Freesia Hybriden",
+      "examListGermanName": "Freesie"
+    },
+    {
+      "botanicalName": "Fritillaria imperialis 'Lutea Maxima'",
+      "germanName": "Kaiserkrone",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Fritillaria imperialis 'Lutea Maxima'",
+      "examListGermanName": "Kaiserkrone"
+    },
+    {
+      "botanicalName": "Fuchsia",
+      "germanName": "Fuchsie",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Fuchsia",
+      "examListGermanName": "Fuchsie"
+    },
+    {
+      "botanicalName": "Fuchsia Hybriden",
+      "germanName": "Garten-Fuchsie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Fuchsia Hybriden",
+      "examListGermanName": "Garten-Fuchsie",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Fuchsia Hybriden",
+          "germanName": "Fuchsie"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Geranium x oxonianum 'Claridge Druce'",
+      "germanName": "Oxford-Storchschnabel, Garten-Storchschnabel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Geranium x oxonianum 'Claridge Druce'",
+      "examListGermanName": "Oxford-Storchschnabel, Garten-Storchschnabel"
+    },
+    {
+      "botanicalName": "Gerbera Hybriden",
+      "germanName": "Gerberea",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Gerbera Hybriden",
+      "examListGermanName": "Gerberea",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Gerbera Hybriden",
+          "germanName": "Gerbera"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Geum 'Prinses Juliana'",
+      "germanName": "Garten-Nelkenwurz",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Geum 'Prinses Juliana'",
+      "examListGermanName": "Garten-Nelkenwurz"
+    },
+    {
+      "botanicalName": "Gladiolus Hybriden",
+      "germanName": "Gladiole.",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Gladiolus Hybriden",
+      "examListGermanName": "Gladiole.",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Gladiolus Hybriden",
+          "germanName": "Gladiole"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Guzmania lingulata var. Minor",
+      "germanName": "Guzmanie",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Guzmania lingulata var. Minor",
+      "examListGermanName": "Guzmanie"
+    },
+    {
+      "botanicalName": "Gypsophila repens 'Rosa Schönheit'",
+      "germanName": "Teppich-Schleierkraut, Kriechendes Gipskraut",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Gypsophila repens 'Rosa Schönheit'",
+      "examListGermanName": "Teppich-Schleierkraut, Kriechendes Gipskraut"
+    },
+    {
+      "botanicalName": "Hamamelis x intermedia",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hamamelis x intermedia",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Hamamelis x intermedia",
+          "germanName": "Hybrid-Zaubernuss, Großblütige Zaubernuss"
+        },
+        {
+          "botanicalName": "Hamamelis x intermedia",
+          "germanName": "Hybrid-Zaubernuss"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Hamamelis x intermedia 'Pallida'",
+      "germanName": "Hybrid-Zaubernuss, Großblütige Zaubernuss",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hamamelis x intermedia 'Pallida'",
+      "examListGermanName": "Hybrid-Zaubernuss, Großblütige Zaubernuss"
+    },
+    {
+      "botanicalName": "Haus des",
+      "germanName": "Rheinischen Gartenbaues Amsterdamer Str. 206, 50735 Köln Telefon: 0221/ 71 51 00 Telefax: 0221/ 71 51 031 Anregungen und Korrekturen werden gerne per E-Mail entgegengenommen. Postanschrift: Postfach 68 02 09",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Haus des",
+      "examListGermanName": "Rheinischen Gartenbaues Amsterdamer Str. 206, 50735 Köln Telefon: 0221/ 71 51 00 Telefax: 0221/ 71 51 031 Anregungen und Korrekturen werden gerne per E-Mail entgegengenommen. Postanschrift: Postfach 68 02 09"
+    },
+    {
+      "botanicalName": "Hebe x andersonii",
+      "germanName": "Strauchveronika",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hebe x andersonii",
+      "examListGermanName": "Strauchveronika"
+    },
+    {
+      "botanicalName": "Hedera canariensis 'Gloire de Marengo'",
+      "germanName": "Kanarischer Efeu",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hedera canariensis 'Gloire de Marengo'",
+      "examListGermanName": "Kanarischer Efeu"
+    },
+    {
+      "botanicalName": "Hedera canariensis 'Glorie de Marengo'",
+      "germanName": "Kanarischer Efeu",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hedera canariensis 'Glorie de Marengo'",
+      "examListGermanName": "Kanarischer Efeu"
+    },
+    {
+      "botanicalName": "Hedera helix 'Arborescens'",
+      "germanName": "Strauch-Efeu",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hedera helix 'Arborescens'",
+      "examListGermanName": "Strauch-Efeu"
+    },
+    {
+      "botanicalName": "Helenium",
+      "germanName": "Sonnenbraut",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Helenium",
+      "examListGermanName": "Sonnenbraut"
+    },
+    {
+      "botanicalName": "Helenium 'Kanaria'",
+      "germanName": "Sonnenbraut",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Helenium 'Kanaria'",
+      "examListGermanName": "Sonnenbraut",
+      "synonyms": [
+        "Helenium x cultorum 'Kanaria'"
+      ]
+    },
+    {
+      "botanicalName": "Helianthemum",
+      "germanName": "Sonnenröschen",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Helianthemum",
+      "examListGermanName": "Sonnenröschen"
+    },
+    {
+      "botanicalName": "Helianthemum 'Lawrenson's Pink'",
+      "germanName": "Sonnenröschen",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Helianthemum 'Lawrenson's Pink'",
+      "examListGermanName": "Sonnenröschen",
+      "synonyms": [
+        "Helianthemum x cultorum 'Lawrenson's Pink'"
+      ]
+    },
+    {
+      "botanicalName": "Helianthus decapetalus 'Capenoch Star'",
+      "germanName": "Stauden-Sonnenblume",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Helianthus decapetalus 'Capenoch Star'",
+      "examListGermanName": "Stauden-Sonnenblume",
+      "synonyms": [
+        "Helianthus x multiflorus 'Capenoch Star'"
+      ]
+    },
+    {
+      "botanicalName": "Hemerocallis",
+      "germanName": "Taglilie, Garten-Taglilie",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Hemerocallis",
+      "examListGermanName": "Taglilie, Garten-Taglilie"
+    },
+    {
+      "botanicalName": "Hemerocallis 'Corky'",
+      "germanName": "Taglilie, Garten-Taglilie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hemerocallis 'Corky'",
+      "examListGermanName": "Taglilie, Garten-Taglilie",
+      "synonyms": [
+        "Hemerocallis x cultorum 'Corky'",
+        "Hemerocallis Hybride 'Corky'"
+      ]
+    },
+    {
+      "botanicalName": "Hemerocallis Cultivars",
+      "germanName": "Taglilie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hemerocallis Cultivars",
+      "examListGermanName": "Taglilie"
+    },
+    {
+      "botanicalName": "Heuchera 'Obsidian'",
+      "germanName": "Garten-Purpurglöckchen, Garten-Silberglöckchen",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Heuchera 'Obsidian'",
+      "examListGermanName": "Garten-Purpurglöckchen, Garten-Silberglöckchen"
+    },
+    {
+      "botanicalName": "Hibiscus rhamnoides",
+      "germanName": "Sanddorn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hibiscus rhamnoides",
+      "examListGermanName": "Sanddorn"
+    },
+    {
+      "botanicalName": "Hippeastrum Hybriden",
+      "germanName": "Amaryllis",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hippeastrum Hybriden",
+      "examListGermanName": "Amaryllis"
+    },
+    {
+      "botanicalName": "Hosta",
+      "germanName": "Garten-Funkie",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Hosta",
+      "examListGermanName": "Garten-Funkie"
+    },
+    {
+      "botanicalName": "Hosta 'Krossa Regal'",
+      "germanName": "Garten-Funkie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hosta 'Krossa Regal'",
+      "examListGermanName": "Garten-Funkie"
+    },
+    {
+      "botanicalName": "Hosta Hybriden 'Undulata'",
+      "germanName": "Schneefeder-Funkie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hosta Hybriden 'Undulata'",
+      "examListGermanName": "Schneefeder-Funkie"
+    },
+    {
+      "botanicalName": "Hoya bella",
+      "germanName": "Zwerg-Porzellanblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hoya bella",
+      "examListGermanName": "Zwerg-Porzellanblume"
+    },
+    {
+      "botanicalName": "Hyazinthus orientalis",
+      "germanName": "Hyazinthe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hyazinthus orientalis",
+      "examListGermanName": "Hyazinthe"
+    },
+    {
+      "botanicalName": "Hydrangea anomala",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hydrangea anomala"
+    },
+    {
+      "botanicalName": "Hydrangea anomala subsp. petiolaris",
+      "germanName": "Kletter-Hortensie",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Hydrangea anomala subsp. petiolaris",
+      "examListGermanName": "Kletter-Hortensie"
+    },
+    {
+      "botanicalName": "Hydrangea macrophylla 'Mariesii Perfecta' (Lacecap-Gruppe)",
+      "germanName": "Bauern-Hortensie, Garten-Hortensie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hydrangea macrophylla 'Mariesii Perfecta' (Lacecap-Gruppe)",
+      "examListGermanName": "Bauern-Hortensie, Garten-Hortensie"
+    },
+    {
+      "botanicalName": "Hydrangea macrophylla i.S.",
+      "germanName": "Bauern- oder Garten-Hortensie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hydrangea macrophylla i.S.",
+      "examListGermanName": "Bauern- oder Garten-Hortensie"
+    },
+    {
+      "botanicalName": "Hypericum 'Hidcote'",
+      "germanName": "Großblumiges Johanniskraut, Großblumiger Johannisstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Hypericum 'Hidcote'",
+      "examListGermanName": "Großblumiges Johanniskraut, Großblumiger Johannisstrauch"
+    },
+    {
+      "botanicalName": "Hypericum polyphyllum",
+      "germanName": "Vielblättriges Johanniskraut",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Hypericum polyphyllum",
+      "examListGermanName": "Vielblättriges Johanniskraut"
+    },
+    {
+      "botanicalName": "Iberis sempervirens 'Zwergschneeflocke'",
+      "germanName": "Immergrüne Schleifenblume, Immergrünes Schneekissen",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Iberis sempervirens 'Zwergschneeflocke'",
+      "examListGermanName": "Immergrüne Schleifenblume, Immergrünes Schneekissen"
+    },
+    {
+      "botanicalName": "Ilex aquifolium 'Alaska'",
+      "germanName": "Form der Hülse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ilex aquifolium 'Alaska'",
+      "examListGermanName": "Form der Hülse",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Ilex aquifolium 'Alaska'",
+          "germanName": "Alaska-Hülse, Alaska-Stechpalme"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Ilex aquifolium 'J.C. van Tol'",
+      "germanName": "Fruchtende Garten-Hülse, Fruchtende Stechpalme",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ilex aquifolium 'J.C. van Tol'",
+      "examListGermanName": "Fruchtende Garten-Hülse, Fruchtende Stechpalme",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Ilex aquifolium 'J.C. van Tol'",
+          "germanName": "Stechpalme"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Ilex crenata 'Convexa'",
+      "germanName": "Japanische Stechpalme",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ilex crenata 'Convexa'",
+      "examListGermanName": "Japanische Stechpalme",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Ilex crenata 'Convexa'",
+          "germanName": "Japanische Stechplame"
+        },
+        {
+          "botanicalName": "Ilex crenata 'Convexa'",
+          "germanName": "Löffel-Ilex, Japanische Stechpalme"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Ilex crenata 'Golden Gem'",
+      "germanName": "Gelbe Stechpalme",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ilex crenata 'Golden Gem'",
+      "examListGermanName": "Gelbe Stechpalme",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Ilex crenata 'Golden Gem'",
+          "germanName": "Gelbe Japanische Stechpalme"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Ilex x meserveae",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Ilex x meserveae"
+    },
+    {
+      "botanicalName": "Ilex x meserveae 'Blue Prince'",
+      "germanName": "Stechpalme Blue Prince",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ilex x meserveae 'Blue Prince'",
+      "examListGermanName": "Stechpalme Blue Prince"
+    },
+    {
+      "botanicalName": "Impatiens Neu-Guinea-Gruppe",
+      "germanName": "Edel-Lieschen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Impatiens Neu-Guinea-Gruppe",
+      "examListGermanName": "Edel-Lieschen",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Impatiens Neu-Guinea-Gruppe",
+          "germanName": "Fleißiges Lieschen"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Iresine lindenii",
+      "germanName": "Iresine",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Iresine lindenii",
+      "examListGermanName": "Iresine"
+    },
+    {
+      "botanicalName": "Iris",
+      "germanName": "Hohe Garten-Schwertlilie, Hohe Bart-Iris",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Iris",
+      "examListGermanName": "Hohe Garten-Schwertlilie, Hohe Bart-Iris"
+    },
+    {
+      "botanicalName": "Iris barbata-elatior",
+      "germanName": "Hohe Garten-Schwertlilie, Hohe Bart-Iris",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Iris barbata-elatior",
+      "examListGermanName": "Hohe Garten-Schwertlilie, Hohe Bart-Iris"
+    },
+    {
+      "botanicalName": "Iris Cultivaris",
+      "germanName": "Schwertlilie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Iris Cultivaris",
+      "examListGermanName": "Schwertlilie"
+    },
+    {
+      "botanicalName": "Iris Cultivars",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Iris Cultivars"
+    },
+    {
+      "botanicalName": "Jasminum nitidum",
+      "germanName": "Engelsflügel-Jasmin",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Jasminum nitidum",
+      "examListGermanName": "Engelsflügel-Jasmin"
+    },
+    {
+      "botanicalName": "Juniperus chinensis 'Blaauw'",
+      "germanName": "Blauer Chin. Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis 'Blaauw'",
+      "examListGermanName": "Blauer Chin. Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus chinensis 'Old Gold'",
+      "germanName": "Form des Chin. Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis 'Old Gold'",
+      "examListGermanName": "Form des Chin. Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus chinensis 'Plumosa Aurea'",
+      "germanName": "Form des Chinesischen Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis 'Plumosa Aurea'",
+      "examListGermanName": "Form des Chinesischen Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus chinensis x pfitzeriana",
+      "germanName": "Pfitzers Wacholder",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis x pfitzeriana",
+      "examListGermanName": "Pfitzers Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus chinensis x pfitzeriana 'Aurea'",
+      "germanName": "Form des Pfitzer´s Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis x pfitzeriana 'Aurea'",
+      "examListGermanName": "Form des Pfitzer´s Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus chinensis x pfitzeriana 'Plumosa Aurea'",
+      "germanName": "Form des P. W.",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis x pfitzeriana 'Plumosa Aurea'",
+      "examListGermanName": "Form des P. W."
+    },
+    {
+      "botanicalName": "Juniperus chinensis x pfitzriana",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis x pfitzriana"
+    },
+    {
+      "botanicalName": "Juniperus chinensis x pfitzriana 'Old Gold'",
+      "germanName": "Form des Pfitzers W.",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus chinensis x pfitzriana 'Old Gold'",
+      "examListGermanName": "Form des Pfitzers W."
+    },
+    {
+      "botanicalName": "Juniperus communis 'Hibernica'",
+      "germanName": "Irischer Säulen-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus communis 'Hibernica'",
+      "examListGermanName": "Irischer Säulen-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus communis 'Repanda'",
+      "germanName": "Gemeiner Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus communis 'Repanda'",
+      "examListGermanName": "Gemeiner Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus communis'Repanda'",
+      "germanName": "Kriech-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus communis'Repanda'",
+      "examListGermanName": "Kriech-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus horizontalis 'Glauca'",
+      "germanName": "Blauer Kriech-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus horizontalis 'Glauca'",
+      "examListGermanName": "Blauer Kriech-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus horizontalis 'Wiltonii'",
+      "germanName": "Blauer Teppich-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus horizontalis 'Wiltonii'",
+      "examListGermanName": "Blauer Teppich-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus procumbens 'Nana'",
+      "germanName": "Jap. Zwerg- Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus procumbens 'Nana'",
+      "examListGermanName": "Jap. Zwerg- Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus sabina 'Tamariscifolia'",
+      "germanName": "Tamarisken-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus sabina 'Tamariscifolia'",
+      "examListGermanName": "Tamarisken-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus scopulorum 'Skyrocket'",
+      "germanName": "Raketen-Wacholder oder Säulen-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus scopulorum 'Skyrocket'",
+      "examListGermanName": "Raketen-Wacholder oder Säulen-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus squamata 'Blue Carpet'",
+      "germanName": "Zwerg-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus squamata 'Blue Carpet'",
+      "examListGermanName": "Zwerg-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus squamata 'Blue Star'",
+      "germanName": "Blaukissen-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus squamata 'Blue Star'",
+      "examListGermanName": "Blaukissen-Wacholder",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Juniperus squamata 'Blue Star'",
+          "germanName": "Blauer Zwerg-Wacholder"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Juniperus squamata 'Meyeri'",
+      "germanName": "Blauzeder-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus squamata 'Meyeri'",
+      "examListGermanName": "Blauzeder-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus viginiana",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Juniperus viginiana"
+    },
+    {
+      "botanicalName": "Juniperus viginiana 'Glauca'",
+      "germanName": "Blauer Zypressen-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus viginiana 'Glauca'",
+      "examListGermanName": "Blauer Zypressen-Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus x media 'Hetzii'",
+      "germanName": "Wacholder Hetzii",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus x media 'Hetzii'",
+      "examListGermanName": "Wacholder Hetzii"
+    },
+    {
+      "botanicalName": "Juniperus x media 'Pfitzeriana'",
+      "germanName": "Chin. Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus x media 'Pfitzeriana'",
+      "examListGermanName": "Chin. Wacholder"
+    },
+    {
+      "botanicalName": "Juniperus x pfitzeriana 'Hetzii'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus x pfitzeriana 'Hetzii'"
+    },
+    {
+      "botanicalName": "Juniperus x pfitzeriana 'Mint Julep'",
+      "germanName": "Grüner Strauch-Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus x pfitzeriana 'Mint Julep'",
+      "examListGermanName": "Grüner Strauch-Wacholder",
+      "synonyms": [
+        "Juniperus x media 'Mint Julep'"
+      ]
+    },
+    {
+      "botanicalName": "Juniperus x pfitzeriana 'Wilhelm Pfitzer'",
+      "germanName": "Pfitzers Wacholder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Juniperus x pfitzeriana 'Wilhelm Pfitzer'",
+      "examListGermanName": "Pfitzers Wacholder"
+    },
+    {
+      "botanicalName": "Justicia brandegeana",
+      "germanName": "Beloperone",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Justicia brandegeana",
+      "examListGermanName": "Beloperone"
+    },
+    {
+      "botanicalName": "Kalimeris incisa 'Madiva'",
+      "germanName": "Schönaster, Garten-Schönaster",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Kalimeris incisa 'Madiva'",
+      "examListGermanName": "Schönaster, Garten-Schönaster"
+    },
+    {
+      "botanicalName": "Kniphofia Cultivaris",
+      "germanName": "Fackellilie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Kniphofia Cultivaris",
+      "examListGermanName": "Fackellilie"
+    },
+    {
+      "botanicalName": "Laburnum x watereri 'Vossii'",
+      "germanName": "Garten-Goldregen",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Laburnum x watereri 'Vossii'",
+      "examListGermanName": "Garten-Goldregen",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Laburnum x watereri 'Vossii'",
+          "germanName": "Edel-Goldregen"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Lamium maculatum 'Argenteum'",
+      "germanName": "Gefleckte Taubnessel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Lamium maculatum 'Argenteum'",
+      "examListGermanName": "Gefleckte Taubnessel"
+    },
+    {
+      "botanicalName": "Lamium maculatum 'Chequers'",
+      "germanName": "Gefleckte Garten-Taubnessel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Lamium maculatum 'Chequers'",
+      "examListGermanName": "Gefleckte Garten-Taubnessel"
+    },
+    {
+      "botanicalName": "Lantana Camara-Hybriden",
+      "germanName": "Wandelröschen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Lantana Camara-Hybriden",
+      "examListGermanName": "Wandelröschen"
+    },
+    {
+      "botanicalName": "Leontopodium alpinum",
+      "germanName": "Echtes Edelweiß",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Leontopodium alpinum",
+      "examListGermanName": "Echtes Edelweiß",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Leontopodium alpinum",
+          "germanName": "Alpen Edelweiß"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Leptinella x superbum",
+      "germanName": "Garten-Margerite",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Leptinella x superbum",
+      "examListGermanName": "Garten-Margerite"
+    },
+    {
+      "botanicalName": "Leucanthemum 'Beethoven' (Superbum-Gruppe)",
+      "germanName": "Garten-Margerite, Sommer-Margerite",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Leucanthemum 'Beethoven' (Superbum-Gruppe)",
+      "examListGermanName": "Garten-Margerite, Sommer-Margerite",
+      "synonyms": [
+        "Chrysanthemum maximum 'Beethoven'",
+        "Dendranthema x grandiflorum 'Beethoven'",
+        "Leucanthemum x superbum 'Beethoven'",
+        "Leucanthemum Maximum-Hybride 'Beethoven'"
+      ]
+    },
+    {
+      "botanicalName": "Leucanthemum sp.",
+      "germanName": "Margerite",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Leucanthemum sp.",
+      "examListGermanName": "Margerite"
+    },
+    {
+      "botanicalName": "Ligustrum vulgare 'Atrovirens'",
+      "germanName": "Schwarzgrüne Rainweide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ligustrum vulgare 'Atrovirens'",
+      "examListGermanName": "Schwarzgrüne Rainweide",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Ligustrum vulgare 'Atrovirens'",
+          "germanName": "Schwarzgrüner Liguster"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Lilium",
+      "germanName": "Garten-Lilie, Großblütige Lilie",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Lilium",
+      "examListGermanName": "Garten-Lilie, Großblütige Lilie"
+    },
+    {
+      "botanicalName": "Lilium Tigrinum-Hybriden",
+      "germanName": "Tiger-Lilie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Lilium Tigrinum-Hybriden",
+      "examListGermanName": "Tiger-Lilie"
+    },
+    {
+      "botanicalName": "Limonium latifolium",
+      "germanName": "Meerlavendel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Limonium latifolium",
+      "examListGermanName": "Meerlavendel"
+    },
+    {
+      "botanicalName": "Linum utatissimum",
+      "germanName": "Lein / Flachs",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Linum utatissimum",
+      "examListGermanName": "Lein / Flachs"
+    },
+    {
+      "botanicalName": "Lonicera nitida",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Lonicera nitida"
+    },
+    {
+      "botanicalName": "Lonicera nitida 'Fertilis'",
+      "germanName": "Immergrüne Strauch-Heckenkirsche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Lonicera nitida 'Fertilis'",
+      "examListGermanName": "Immergrüne Strauch-Heckenkirsche"
+    },
+    {
+      "botanicalName": "Lonicera nitida 'Maigrün'",
+      "germanName": "Immergrüne Flache Heckenmyrte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Lonicera nitida 'Maigrün'",
+      "examListGermanName": "Immergrüne Flache Heckenmyrte"
+    },
+    {
+      "botanicalName": "Lonicera pileata",
+      "germanName": "Immergrüne Kriech-Heckenkirsche",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Lonicera pileata",
+      "examListGermanName": "Immergrüne Kriech-Heckenkirsche"
+    },
+    {
+      "botanicalName": "Lonicera x heckrottii",
+      "germanName": "Schlingendes Geißblatt",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Lonicera x heckrottii",
+      "examListGermanName": "Schlingendes Geißblatt"
+    },
+    {
+      "botanicalName": "Lupinus",
+      "germanName": "Stauden-Lupine, Garten-Lupine",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Lupinus",
+      "examListGermanName": "Stauden-Lupine, Garten-Lupine"
+    },
+    {
+      "botanicalName": "Lupinus 'My Castle'",
+      "germanName": "Stauden-Lupine, Garten-Lupine",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Lupinus 'My Castle'",
+      "examListGermanName": "Stauden-Lupine, Garten-Lupine",
+      "synonyms": [
+        "Lupinus 'Mein Schloss'",
+        "Lupinus Polyphyllus-Hybride 'Mein Schloss'"
+      ]
+    },
+    {
+      "botanicalName": "Lupinus polyphyllus i.S.",
+      "germanName": "Garten-Lupine",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Lupinus polyphyllus i.S.",
+      "examListGermanName": "Garten-Lupine"
+    },
+    {
+      "botanicalName": "Lycopersicon esculentum var. cerasiforme",
+      "germanName": "Cocktail-Tomate",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Lycopersicon esculentum var. cerasiforme",
+      "examListGermanName": "Cocktail-Tomate"
+    },
+    {
+      "botanicalName": "Magnolia liliiflora 'Nigra'",
+      "germanName": "Purpur-Magnolie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Magnolia liliiflora 'Nigra'",
+      "examListGermanName": "Purpur-Magnolie"
+    },
+    {
+      "botanicalName": "Malus 'Evereste'Ⓢ",
+      "germanName": "Zier-Apfel, Kirsch-Apfel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Malus 'Evereste'Ⓢ",
+      "examListGermanName": "Zier-Apfel, Kirsch-Apfel"
+    },
+    {
+      "botanicalName": "Malus 'Rudolph'",
+      "germanName": "Zier-Apfel, Kirsch-Apfel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Malus 'Rudolph'",
+      "examListGermanName": "Zier-Apfel, Kirsch-Apfel"
+    },
+    {
+      "botanicalName": "Malus domestica in vielen Sorten",
+      "germanName": "Kultur-Apfel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Malus domestica in vielen Sorten",
+      "examListGermanName": "Kultur-Apfel"
+    },
+    {
+      "botanicalName": "Malus RED JEWEL",
+      "germanName": "Zier-Apfel, Kirsch-Apfel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Malus RED JEWEL",
+      "examListGermanName": "Zier-Apfel, Kirsch-Apfel"
+    },
+    {
+      "botanicalName": "Mammillaria bocasana",
+      "germanName": "Warzenkaktus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Mammillaria bocasana",
+      "examListGermanName": "Warzenkaktus"
+    },
+    {
+      "botanicalName": "Maßangaben für die",
+      "germanName": "die Breite und den Stammumfang durch Angabe der zulässigen Größen in cm und für den Durchmesser in mm, getrennt durch Bundestrich . Bei Trieben, Grundtrieben und Grundstämmen Angabe der Zahl , getrennt durch Schrägstrich . Bei Trieben von Sträuchern Angabe der Mindesttriebzahl. Impressum",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Maßangaben für die",
+      "examListGermanName": "die Breite und den Stammumfang durch Angabe der zulässigen Größen in cm und für den Durchmesser in mm, getrennt durch Bundestrich . Bei Trieben, Grundtrieben und Grundstämmen Angabe der Zahl , getrennt durch Schrägstrich . Bei Trieben von Sträuchern Angabe der Mindesttriebzahl. Impressum"
+    },
+    {
+      "botanicalName": "Miscanthus sinensis 'Dread Locks'",
+      "germanName": "Garten-Chinaschilf, Silber-Chinaschilf",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Miscanthus sinensis 'Dread Locks'",
+      "examListGermanName": "Garten-Chinaschilf, Silber-Chinaschilf"
+    },
+    {
+      "botanicalName": "Miscanthus sinensis 'Ghana'",
+      "germanName": "Garten-Chinaschilf, Silber-Chinaschilf",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Miscanthus sinensis 'Ghana'",
+      "examListGermanName": "Garten-Chinaschilf, Silber-Chinaschilf"
+    },
+    {
+      "botanicalName": "Miscanthus sinensis 'Zebrinus-Strictus'",
+      "germanName": "Chinaschilf",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Miscanthus sinensis 'Zebrinus-Strictus'",
+      "examListGermanName": "Chinaschilf"
+    },
+    {
+      "botanicalName": "Molinia arundinacea 'Karl Foerster'",
+      "germanName": "Garten-Pfeifengras, Rohr-Pfeifengras",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Molinia arundinacea 'Karl Foerster'",
+      "examListGermanName": "Garten-Pfeifengras, Rohr-Pfeifengras"
+    },
+    {
+      "botanicalName": "Monstera deliciosa 'Borsigiana'",
+      "germanName": "Fensterblatt",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Monstera deliciosa 'Borsigiana'",
+      "examListGermanName": "Fensterblatt"
+    },
+    {
+      "botanicalName": "Muehlenbeckia axillaris",
+      "germanName": "Schwarzfrüchtiger Drahtstrauch",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Muehlenbeckia axillaris",
+      "examListGermanName": "Schwarzfrüchtiger Drahtstrauch"
+    },
+    {
+      "botanicalName": "Myosotis palustris",
+      "germanName": "Sumpf-Vergissmeinnicht",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Myosotis palustris",
+      "examListGermanName": "Sumpf-Vergissmeinnicht"
+    },
+    {
+      "botanicalName": "Narcissus",
+      "germanName": "Alpenveilchen-Narzisse",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Narcissus",
+      "examListGermanName": "Alpenveilchen-Narzisse"
+    },
+    {
+      "botanicalName": "Narcissus pseudonarcissus i.S.",
+      "germanName": "Trompeten-Narzisse",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Narcissus pseudonarcissus i.S.",
+      "examListGermanName": "Trompeten-Narzisse"
+    },
+    {
+      "botanicalName": "Nasturtiom offincinale",
+      "germanName": "Brunnenkresse",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Nasturtiom offincinale",
+      "examListGermanName": "Brunnenkresse"
+    },
+    {
+      "botanicalName": "Neoregelia carolinae 'Tricolor'",
+      "germanName": "Neoregelie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Neoregelia carolinae 'Tricolor'",
+      "examListGermanName": "Neoregelie"
+    },
+    {
+      "botanicalName": "Nicotiana x sanderae",
+      "germanName": "Zier-Tabak",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Nicotiana x sanderae",
+      "examListGermanName": "Zier-Tabak"
+    },
+    {
+      "botanicalName": "Nymphaea 'Marliacea Chromatella'",
+      "germanName": "Garten-Seerose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Nymphaea 'Marliacea Chromatella'",
+      "examListGermanName": "Garten-Seerose"
+    },
+    {
+      "botanicalName": "Paeonia",
+      "germanName": "Garten-Pfingstrose, Edel-Pfingstrose",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Paeonia",
+      "examListGermanName": "Garten-Pfingstrose, Edel-Pfingstrose"
+    },
+    {
+      "botanicalName": "Paeonia Cultivaris",
+      "germanName": "Garten-Pfingstrose",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Paeonia Cultivaris",
+      "examListGermanName": "Garten-Pfingstrose"
+    },
+    {
+      "botanicalName": "Paeonia Cultivars",
+      "germanName": "Garten-Pfingstrose",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Paeonia Cultivars",
+      "examListGermanName": "Garten-Pfingstrose"
+    },
+    {
+      "botanicalName": "Pandanus veitchii",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Pandanus veitchii"
+    },
+    {
+      "botanicalName": "Panicum virgatum 'Shenandoah'",
+      "germanName": "Garten-Rutenhirse",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Panicum virgatum 'Shenandoah'",
+      "examListGermanName": "Garten-Rutenhirse"
+    },
+    {
+      "botanicalName": "Papaver nudicaule",
+      "germanName": "Island-Mohn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Papaver nudicaule",
+      "examListGermanName": "Island-Mohn"
+    },
+    {
+      "botanicalName": "Papaver orientale 'Catharina'",
+      "germanName": "Orientalischer Mohn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Papaver orientale 'Catharina'",
+      "examListGermanName": "Orientalischer Mohn"
+    },
+    {
+      "botanicalName": "Papaver orientale 'Feuerriese'",
+      "germanName": "Türkischer Mohn, Stauden-Mohn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Papaver orientale 'Feuerriese'",
+      "examListGermanName": "Türkischer Mohn, Stauden-Mohn"
+    },
+    {
+      "botanicalName": "Parthenocissus quinquefolia var. engelmannii",
+      "germanName": "Selbstkletternde Wilder Wein",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Parthenocissus quinquefolia var. engelmannii",
+      "examListGermanName": "Selbstkletternde Wilder Wein"
+    },
+    {
+      "botanicalName": "Parthenocissus tricuspidata 'Veitchii'",
+      "germanName": "Dreispitz-Jungfernrebe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Parthenocissus tricuspidata 'Veitchii'",
+      "examListGermanName": "Dreispitz-Jungfernrebe",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Parthenocissus tricuspidata 'Veitchii'",
+          "germanName": "Selbstklimmender Wilder Wein, Dreispitz-Jungfernrebe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Pelargonium",
+      "germanName": "Hängende Geranie, Efeublättrige Pelargonie",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Pelargonium",
+      "examListGermanName": "Hängende Geranie, Efeublättrige Pelargonie"
+    },
+    {
+      "botanicalName": "Pelargonium Hybride",
+      "germanName": "Zonalgeranie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Pelargonium Hybride",
+      "examListGermanName": "Zonalgeranie"
+    },
+    {
+      "botanicalName": "Pellaea rotundifolia",
+      "germanName": "Pelläe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Pellaea rotundifolia",
+      "examListGermanName": "Pelläe"
+    },
+    {
+      "botanicalName": "Pennisetum alopecuroides 'Hameln'",
+      "germanName": "Lampenputzergras, Federborstengras",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pennisetum alopecuroides 'Hameln'",
+      "examListGermanName": "Lampenputzergras, Federborstengras",
+      "synonyms": [
+        "Pennisetum compressum 'Hameln'"
+      ]
+    },
+    {
+      "botanicalName": "Persicaria amplexicaulis 'Speciosa'",
+      "germanName": "Kerzen-Knöterich",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Persicaria amplexicaulis 'Speciosa'",
+      "examListGermanName": "Kerzen-Knöterich"
+    },
+    {
+      "botanicalName": "Petroselinum crispum var. crispum",
+      "germanName": "Petersilie (krause und glatte)",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Petroselinum crispum var. crispum",
+      "examListGermanName": "Petersilie (krause und glatte)"
+    },
+    {
+      "botanicalName": "Petroselinum crispum var. tuberosum",
+      "germanName": "Wurzelpetersilie",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Petroselinum crispum var. tuberosum",
+      "examListGermanName": "Wurzelpetersilie"
+    },
+    {
+      "botanicalName": "Petunia x aktinsiana",
+      "germanName": "Garten-Petunie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Petunia x aktinsiana",
+      "examListGermanName": "Garten-Petunie"
+    },
+    {
+      "botanicalName": "Petunia x x aktinsiana",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Petunia x x aktinsiana"
+    },
+    {
+      "botanicalName": "Petunia x x aktinsiana 'Surfinia'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Petunia x x aktinsiana 'Surfinia'"
+    },
+    {
+      "botanicalName": "Phalaenopsis Hybriden",
+      "germanName": "Malayenblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Phalaenopsis Hybriden",
+      "examListGermanName": "Malayenblume"
+    },
+    {
+      "botanicalName": "Phaseolus vulgaris var. vulgaris",
+      "germanName": "Stangen-Bohne",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Phaseolus vulgaris var. vulgaris",
+      "examListGermanName": "Stangen-Bohne"
+    },
+    {
+      "botanicalName": "Philodendron scandens",
+      "germanName": "Kletternder Philodendron",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Philodendron scandens",
+      "examListGermanName": "Kletternder Philodendron"
+    },
+    {
+      "botanicalName": "Phlox 'Aida' (Paniculata-Gruppe)",
+      "germanName": "Garten-Phlox, Großer Stauden-Phlox",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Phlox 'Aida' (Paniculata-Gruppe)",
+      "examListGermanName": "Garten-Phlox, Großer Stauden-Phlox",
+      "synonyms": [
+        "Phlox paniculata 'Aida'"
+      ]
+    },
+    {
+      "botanicalName": "Phlox 'Scarlet Flame' (Subulata-Gruppe)",
+      "germanName": "Polster-Phlox, Moos-Phlox",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Phlox 'Scarlet Flame' (Subulata-Gruppe)",
+      "examListGermanName": "Polster-Phlox, Moos-Phlox",
+      "synonyms": [
+        "Phlox subulata 'Scarlet Flame'"
+      ]
+    },
+    {
+      "botanicalName": "Photinia x fraseri 'Red Robin'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Photinia x fraseri 'Red Robin'"
+    },
+    {
+      "botanicalName": "Physalis alkekengi var. franchetii VI-VII",
+      "germanName": "Lampionpflanze, Judenkirsche",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Physalis alkekengi var. franchetii VI-VII",
+      "examListGermanName": "Lampionpflanze, Judenkirsche"
+    },
+    {
+      "botanicalName": "Picea abies 'Echiniformis'",
+      "germanName": "Igel-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea abies 'Echiniformis'",
+      "examListGermanName": "Igel-Fichte"
+    },
+    {
+      "botanicalName": "Picea abies 'Nidiformie'",
+      "germanName": "Nest-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea abies 'Nidiformie'",
+      "examListGermanName": "Nest-Fichte"
+    },
+    {
+      "botanicalName": "Picea abies 'Pumila Glauca'",
+      "germanName": "Blaue Pummel-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea abies 'Pumila Glauca'",
+      "examListGermanName": "Blaue Pummel-Fichte"
+    },
+    {
+      "botanicalName": "Picea glauca 'Conica'",
+      "germanName": "Zuckerhut-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea glauca 'Conica'",
+      "examListGermanName": "Zuckerhut-Fichte"
+    },
+    {
+      "botanicalName": "Picea omorika 'Nana'",
+      "germanName": "Serbische Kegel-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea omorika 'Nana'",
+      "examListGermanName": "Serbische Kegel-Fichte"
+    },
+    {
+      "botanicalName": "Picea pungens 'Glauca Globosa'",
+      "germanName": "Blaue Stech-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea pungens 'Glauca Globosa'",
+      "examListGermanName": "Blaue Stech-Fichte"
+    },
+    {
+      "botanicalName": "Picea pungens 'Glauca Koster'",
+      "germanName": "Blaue Stech-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea pungens 'Glauca Koster'",
+      "examListGermanName": "Blaue Stech-Fichte"
+    },
+    {
+      "botanicalName": "Picea pungens 'Glauca'",
+      "germanName": "Blaue Stech-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea pungens 'Glauca'",
+      "examListGermanName": "Blaue Stech-Fichte",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Picea pungens 'Glauca'",
+          "germanName": "Blau Stech-Fichte"
+        },
+        {
+          "botanicalName": "Picea pungens 'Glauca'",
+          "germanName": "Blaue-bzw. Stechfichte"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Picea pungens 'Koster'",
+      "germanName": "Blaue Stech-Fichte",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Picea pungens 'Koster'",
+      "examListGermanName": "Blaue Stech-Fichte"
+    },
+    {
+      "botanicalName": "Pieris japonica 'Variegata'",
+      "germanName": "Buntblättrige Lavendelheide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pieris japonica 'Variegata'",
+      "examListGermanName": "Buntblättrige Lavendelheide"
+    },
+    {
+      "botanicalName": "Pieris japonica'Variegata'",
+      "germanName": "Weißbunte Lavendelheide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pieris japonica'Variegata'",
+      "examListGermanName": "Weißbunte Lavendelheide"
+    },
+    {
+      "botanicalName": "Pinus mugo 'Mops',Zwerg-Berg-Kiefer",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pinus mugo 'Mops',Zwerg-Berg-Kiefer"
+    },
+    {
+      "botanicalName": "Pinus mugo ssp. pumilio",
+      "germanName": "Kriech-Kiefer",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Pinus mugo ssp. pumilio",
+      "examListGermanName": "Kriech-Kiefer"
+    },
+    {
+      "botanicalName": "Pinus parviflora 'Glauca'",
+      "germanName": "Mädchen-Kiefer",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pinus parviflora 'Glauca'",
+      "examListGermanName": "Mädchen-Kiefer",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Pinus parviflora 'Glauca'",
+          "germanName": "Blaue Mädchen-Kiefer"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Pinus strobus 'Radiata'",
+      "germanName": "Kleine Weymouths-Kiefer",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pinus strobus 'Radiata'",
+      "examListGermanName": "Kleine Weymouths-Kiefer"
+    },
+    {
+      "botanicalName": "Pinus sylvestris 'Watereri'",
+      "germanName": "Strauchwald-Kiefer / Föhre",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pinus sylvestris 'Watereri'",
+      "examListGermanName": "Strauchwald-Kiefer / Föhre",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Pinus sylvestris 'Watereri'",
+          "germanName": "Gemeine-Kiefer"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Pisum sativum Macrocarpon-Grp.",
+      "germanName": "Zuckererbse",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Pisum sativum Macrocarpon-Grp.",
+      "examListGermanName": "Zuckererbse"
+    },
+    {
+      "botanicalName": "Pleioblastus pumilus",
+      "germanName": "Zwergbambus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Pleioblastus pumilus",
+      "examListGermanName": "Zwergbambus"
+    },
+    {
+      "botanicalName": "Polygonum amphibium",
+      "germanName": "Landwasserknöterich",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Polygonum amphibium",
+      "examListGermanName": "Landwasserknöterich"
+    },
+    {
+      "botanicalName": "Populus alba 'Nivea'",
+      "germanName": "Silber-Pappel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Populus alba 'Nivea'",
+      "examListGermanName": "Silber-Pappel"
+    },
+    {
+      "botanicalName": "Populus nigra 'Italica'",
+      "germanName": "Säulen- oder Pyramiden-Pappel",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Populus nigra 'Italica'",
+      "examListGermanName": "Säulen- oder Pyramiden-Pappel",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Populus nigra 'Italica'",
+          "germanName": "Säulen-Pappel, Pyramiden-Pappel"
+        },
+        {
+          "botanicalName": "Populus nigra 'Italica'",
+          "germanName": "Säulen-Pappel oder Pyramiden-Pappel"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Potentilla fruticosa 'Goldfinger'",
+      "germanName": "Fingerstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Potentilla fruticosa 'Goldfinger'",
+      "examListGermanName": "Fingerstrauch"
+    },
+    {
+      "botanicalName": "Prunus 'Accolade'",
+      "germanName": "Frühe Zier-Kirsche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus 'Accolade'",
+      "examListGermanName": "Frühe Zier-Kirsche"
+    },
+    {
+      "botanicalName": "Prunus alle nachgenannten",
+      "germanName": "Rosaceae",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Prunus alle nachgenannten",
+      "examListGermanName": "Rosaceae"
+    },
+    {
+      "botanicalName": "Prunus domestica subsp. italica",
+      "germanName": "Reneklode",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Prunus domestica subsp. italica",
+      "examListGermanName": "Reneklode"
+    },
+    {
+      "botanicalName": "Prunus domestica subsp. syriaca",
+      "germanName": "Mirabelle",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Prunus domestica subsp. syriaca",
+      "examListGermanName": "Mirabelle"
+    },
+    {
+      "botanicalName": "Prunus dulcis rosea",
+      "germanName": "Süßmandel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Prunus dulcis rosea",
+      "examListGermanName": "Süßmandel"
+    },
+    {
+      "botanicalName": "Prunus laurocerasus 'Herbergii'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus laurocerasus 'Herbergii'",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Prunus laurocerasus 'Herbergii'",
+          "germanName": "Aufrechte Lorbeerkirsche, Aufrechter Kirschlorbeer"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Prunus laurocerasus 'Otto Luyken'",
+      "germanName": "Kirschlorbeer",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus laurocerasus 'Otto Luyken'",
+      "examListGermanName": "Kirschlorbeer"
+    },
+    {
+      "botanicalName": "Prunus laurocerasus 'Rotundifolia'",
+      "germanName": "Rundblättriger Kirschlorbeer",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus laurocerasus 'Rotundifolia'",
+      "examListGermanName": "Rundblättriger Kirschlorbeer",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Prunus laurocerasus 'Rotundifolia'",
+          "germanName": "Rundblättrige Lorbeerkirsche, Rundblättriger Kirschlorbeer"
+        },
+        {
+          "botanicalName": "Prunus laurocerasus 'Rotundifolia'",
+          "germanName": "Lorbeerkirsche Rotundifolia"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Prunus lusitanica 'Angustifolia'",
+      "germanName": "Portugiesische Lorbeerkirsche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus lusitanica 'Angustifolia'",
+      "examListGermanName": "Portugiesische Lorbeerkirsche"
+    },
+    {
+      "botanicalName": "Prunus persica var. nucipersica",
+      "germanName": "Nektarine",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Prunus persica var. nucipersica",
+      "examListGermanName": "Nektarine"
+    },
+    {
+      "botanicalName": "Prunus persica var. persica",
+      "germanName": "Pfirsich",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Prunus persica var. persica",
+      "examListGermanName": "Pfirsich"
+    },
+    {
+      "botanicalName": "Prunus serrulata 'Kanzan'",
+      "germanName": "Nelken-Kirsche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus serrulata 'Kanzan'",
+      "examListGermanName": "Nelken-Kirsche",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Prunus serrulata 'Kanzan'",
+          "germanName": "Japanische Nelken-Kirsche"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Prunus serrulata 'Kiku-Shidare-Zakura'",
+      "germanName": "Hängende Zierkirsche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Prunus serrulata 'Kiku-Shidare-Zakura'",
+      "examListGermanName": "Hängende Zierkirsche"
+    },
+    {
+      "botanicalName": "Pseudolysimachion spicatum ssp. incanum",
+      "germanName": "Blauweiderich",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Pseudolysimachion spicatum ssp. incanum",
+      "examListGermanName": "Blauweiderich"
+    },
+    {
+      "botanicalName": "Pseudotsuga menziesii 'Fletcheri'",
+      "germanName": "Zwerg-Douglasie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pseudotsuga menziesii 'Fletcheri'",
+      "examListGermanName": "Zwerg-Douglasie"
+    },
+    {
+      "botanicalName": "Pseudotsuga menziesii var. glauca",
+      "germanName": "Blaue Douglasie",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Pseudotsuga menziesii var. glauca",
+      "examListGermanName": "Blaue Douglasie",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Pseudotsuga menziesii var. glauca",
+          "germanName": "Blaue Douglasie, ZP Pinaceae"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Pteris cretica 'Albo-Lineata'",
+      "germanName": "Kretischer Saumfarn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pteris cretica 'Albo-Lineata'",
+      "examListGermanName": "Kretischer Saumfarn"
+    },
+    {
+      "botanicalName": "Pyracantha",
+      "germanName": "Feuerdorn",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Pyracantha",
+      "examListGermanName": "Feuerdorn"
+    },
+    {
+      "botanicalName": "Pyracantha 'Orange Glow'",
+      "germanName": "Feuerdorn",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pyracantha 'Orange Glow'",
+      "examListGermanName": "Feuerdorn"
+    },
+    {
+      "botanicalName": "Pyrus calleryana 'Chanticleer'",
+      "germanName": "Chinesische Wild-Birne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Pyrus calleryana 'Chanticleer'",
+      "examListGermanName": "Chinesische Wild-Birne"
+    },
+    {
+      "botanicalName": "Pyrus communis in vielen Sorten",
+      "germanName": "Kultur-Birne",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Pyrus communis in vielen Sorten",
+      "examListGermanName": "Kultur-Birne"
+    },
+    {
+      "botanicalName": "Pyrus pyrifolia var. culta",
+      "germanName": "Nashi, Asienbirne",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Pyrus pyrifolia var. culta",
+      "examListGermanName": "Nashi, Asienbirne"
+    },
+    {
+      "botanicalName": "Quercus robur 'Fastigiata Koster'",
+      "germanName": "Säulen-Eiche",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Quercus robur 'Fastigiata Koster'",
+      "examListGermanName": "Säulen-Eiche"
+    },
+    {
+      "botanicalName": "Raphanus sativus",
+      "germanName": "Ölrettich",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Raphanus sativus",
+      "examListGermanName": "Ölrettich"
+    },
+    {
+      "botanicalName": "Raphanus sativus var. niger",
+      "germanName": "Rettich",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Raphanus sativus var. niger",
+      "examListGermanName": "Rettich"
+    },
+    {
+      "botanicalName": "Rhipsalidopsis x graeseri",
+      "germanName": "Osterkaktus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhipsalidopsis x graeseri",
+      "examListGermanName": "Osterkaktus"
+    },
+    {
+      "botanicalName": "Rhododendron 'Baden-Baden' (Forrestii-Gruppe)",
+      "germanName": "Flacher Rhododendron",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron 'Baden-Baden' (Forrestii-Gruppe)",
+      "examListGermanName": "Flacher Rhododendron",
+      "synonyms": [
+        "Rhododendron forrestii 'Baden-Baden'"
+      ]
+    },
+    {
+      "botanicalName": "Rhododendron 'Canzonetta' (Japanische Azaleen)",
+      "germanName": "Japanische Azalee",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron 'Canzonetta' (Japanische Azaleen)",
+      "examListGermanName": "Japanische Azalee",
+      "synonyms": [
+        "Rhododendron x obtusum 'Canzonetta'"
+      ]
+    },
+    {
+      "botanicalName": "Rhododendron 'Catawbiense Grandiflorum' (Catawbiense-Gruppe)",
+      "germanName": "Großblumiger Rhododendron",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron 'Catawbiense Grandiflorum' (Catawbiense-Gruppe)",
+      "examListGermanName": "Großblumiger Rhododendron"
+    },
+    {
+      "botanicalName": "Rhododendron 'Elite' (Syn.: Rhododendron 'P.J.M. Elite') (Dauricum-Gruppe)",
+      "germanName": "Rhododendron, Alpenrose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron 'Elite' (Syn.: Rhododendron 'P.J.M. Elite') (Dauricum-Gruppe)",
+      "examListGermanName": "Rhododendron, Alpenrose"
+    },
+    {
+      "botanicalName": "Rhododendron catawbiense- Hybride",
+      "germanName": "Catawba-Alpenrose",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron catawbiense- Hybride",
+      "examListGermanName": "Catawba-Alpenrose",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Rhododendron catawbiense- Hybride",
+          "germanName": "Alpenrose"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Rhododendron dauricum",
+      "germanName": "Rhododendron, Alpenrose",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron dauricum",
+      "examListGermanName": "Rhododendron, Alpenrose"
+    },
+    {
+      "botanicalName": "Rhododendron forrestii",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron forrestii",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Rhododendron forrestii",
+          "germanName": "Flacher Rhododendron"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Rhododendron forrestii Repens-Gruppe 'Baden-Baden'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron forrestii Repens-Gruppe 'Baden-Baden'"
+    },
+    {
+      "botanicalName": "Rhododendron forrestii Repens-Gruppe 'Scarlet Wonder'",
+      "germanName": "Flacher Rhododendron",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron forrestii Repens-Gruppe 'Scarlet Wonder'",
+      "examListGermanName": "Flacher Rhododendron"
+    },
+    {
+      "botanicalName": "Rhododendron molle ssp. molle",
+      "germanName": "Chines. Azalee",
+      "rank": "subspecies",
+      "inDatabase": false,
+      "examListName": "Rhododendron molle ssp. molle",
+      "examListGermanName": "Chines. Azalee"
+    },
+    {
+      "botanicalName": "Rhododendron obtusum",
+      "germanName": "Japanische Azalee",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron obtusum",
+      "examListGermanName": "Japanische Azalee"
+    },
+    {
+      "botanicalName": "Rhododendron Repens-Gruppe i.S.",
+      "germanName": "Flache Rhododendron",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron Repens-Gruppe i.S.",
+      "examListGermanName": "Flache Rhododendron"
+    },
+    {
+      "botanicalName": "Rhododendron x praecox",
+      "germanName": "Vorfrühlings-Alpenrose",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron x praecox",
+      "examListGermanName": "Vorfrühlings-Alpenrose"
+    },
+    {
+      "botanicalName": "Rhododendron yakushimanum- Hybriden",
+      "germanName": "Farben",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron yakushimanum- Hybriden",
+      "examListGermanName": "Farben"
+    },
+    {
+      "botanicalName": "Rhododendron Yakushimanum-Hybriden",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rhododendron Yakushimanum-Hybriden"
+    },
+    {
+      "botanicalName": "Rhododendron-Hybride 'Beethoven'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron-Hybride 'Beethoven'"
+    },
+    {
+      "botanicalName": "Rhododendron-Hybride 'Muttertag'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron-Hybride 'Muttertag'"
+    },
+    {
+      "botanicalName": "Rhododendron-Hybride 'Vuyk's Scarlet'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron-Hybride 'Vuyk's Scarlet'"
+    },
+    {
+      "botanicalName": "Rhododendron-Hybride Kurume-Hybride 'Amoena'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron-Hybride Kurume-Hybride 'Amoena'"
+    },
+    {
+      "botanicalName": "Rhododendron-Hybride Kurume-Hybride 'Hatsugiri'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rhododendron-Hybride Kurume-Hybride 'Hatsugiri'"
+    },
+    {
+      "botanicalName": "Ribes nigrum x uva-crispa",
+      "germanName": "Jostabeere",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Ribes nigrum x uva-crispa",
+      "examListGermanName": "Jostabeere"
+    },
+    {
+      "botanicalName": "Ribes sanguineum 'Atrorubens'",
+      "germanName": "Blut-Johannisbeere",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ribes sanguineum 'Atrorubens'",
+      "examListGermanName": "Blut-Johannisbeere"
+    },
+    {
+      "botanicalName": "Robinia pseudoacacia 'Bessoniana'",
+      "germanName": "Kegel-Robinie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Robinia pseudoacacia 'Bessoniana'",
+      "examListGermanName": "Kegel-Robinie"
+    },
+    {
+      "botanicalName": "Robinia pseudoacacia 'Frisia'",
+      "germanName": "Gold- Scheinakazie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Robinia pseudoacacia 'Frisia'",
+      "examListGermanName": "Gold- Scheinakazie"
+    },
+    {
+      "botanicalName": "Robinia pseudoacacia 'Tortuosa'",
+      "germanName": "Korkenzieher-Robinie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Robinia pseudoacacia 'Tortuosa'",
+      "examListGermanName": "Korkenzieher-Robinie"
+    },
+    {
+      "botanicalName": "Robinia pseudoacacia 'Umbraculifera'",
+      "germanName": "Kugel- Scheinakazie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Robinia pseudoacacia 'Umbraculifera'",
+      "examListGermanName": "Kugel- Scheinakazie",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Robinia pseudoacacia 'Umbraculifera'",
+          "germanName": "Kugel-Robinie"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Robinia pseudoacacia 'Unifoliola'",
+      "germanName": "Einblättrige Robinie, Straßen-Robinie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Robinia pseudoacacia 'Unifoliola'",
+      "examListGermanName": "Einblättrige Robinie, Straßen-Robinie",
+      "synonyms": [
+        "Robinia pseudoacacia 'Monophylla'"
+      ]
+    },
+    {
+      "botanicalName": "Robinia pseudocacia",
+      "germanName": "Scheinakazie oder Robinie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Robinia pseudocacia",
+      "examListGermanName": "Scheinakazie oder Robinie"
+    },
+    {
+      "botanicalName": "Rosa 'Alexander von Humboldt' (Kleinstrauch-Rosen)",
+      "germanName": "Kleinstrauch-Rose, Bodendecker-Rose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rosa 'Alexander von Humboldt' (Kleinstrauch-Rosen)",
+      "examListGermanName": "Kleinstrauch-Rose, Bodendecker-Rose"
+    },
+    {
+      "botanicalName": "Rosa 'Anastasia' (Edel-Rosen)",
+      "germanName": "Edel-Rose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rosa 'Anastasia' (Edel-Rosen)",
+      "examListGermanName": "Edel-Rose"
+    },
+    {
+      "botanicalName": "Rosa 'Château de Cheverny'® (Strauch-Rosen)",
+      "germanName": "Strauch-Rose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rosa 'Château de Cheverny'® (Strauch-Rosen)",
+      "examListGermanName": "Strauch-Rose"
+    },
+    {
+      "botanicalName": "Rosa 'Moscalbo'® (Kletter-Rosen)",
+      "germanName": "Kletter-Rose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rosa 'Moscalbo'® (Kletter-Rosen)",
+      "examListGermanName": "Kletter-Rose"
+    },
+    {
+      "botanicalName": "Rosa 'SEE YOU'® in pink (Beet-Rosen)",
+      "germanName": "Beet-Rose",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rosa 'SEE YOU'® in pink (Beet-Rosen)",
+      "examListGermanName": "Beet-Rose"
+    },
+    {
+      "botanicalName": "Rosa (Beetrosen)",
+      "germanName": "Beet-Rose",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Rosa (Beetrosen)",
+      "examListGermanName": "Beet-Rose"
+    },
+    {
+      "botanicalName": "Rosa (Edelrosen)",
+      "germanName": "Edel-Rose",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Rosa (Edelrosen)",
+      "examListGermanName": "Edel-Rose"
+    },
+    {
+      "botanicalName": "Rosa (Kletterrosen)",
+      "germanName": "Kletter-Rose",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Rosa (Kletterrosen)",
+      "examListGermanName": "Kletter-Rose"
+    },
+    {
+      "botanicalName": "Rosa Beetrosen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Beetrosen"
+    },
+    {
+      "botanicalName": "Rosa Edelrosen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Edelrosen"
+    },
+    {
+      "botanicalName": "Rosa Floribunda-Grandiflora-Gruppe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Floribunda-Grandiflora-Gruppe"
+    },
+    {
+      "botanicalName": "Rosa Floribunda-Hybriden",
+      "germanName": "Edelrose (bzw. Garten-)",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Floribunda-Hybriden",
+      "examListGermanName": "Edelrose (bzw. Garten-)"
+    },
+    {
+      "botanicalName": "Rosa Polyantha-Gruppe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Polyantha-Gruppe"
+    },
+    {
+      "botanicalName": "Rosa Strauchrosen und",
+      "germanName": "Wildrosen in Sorten",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Strauchrosen und",
+      "examListGermanName": "Wildrosen in Sorten"
+    },
+    {
+      "botanicalName": "Rosa Teehybriden",
+      "germanName": "Edelrosen In Sorten",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rosa Teehybriden",
+      "examListGermanName": "Edelrosen In Sorten"
+    },
+    {
+      "botanicalName": "Rubus sect. Rubus",
+      "germanName": "Brombeere",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rubus sect. Rubus",
+      "examListGermanName": "Brombeere"
+    },
+    {
+      "botanicalName": "Rudbeckia fulgida 'Goldsturm'",
+      "germanName": "Sonnenhut",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Rudbeckia fulgida 'Goldsturm'",
+      "examListGermanName": "Sonnenhut",
+      "synonyms": [
+        "Rudbeckia fulgida var. sullivantii 'Goldsturm'",
+        "Rudbeckia sullivantii 'Goldsturm'"
+      ]
+    },
+    {
+      "botanicalName": "Rudbeckia fulgida var. sullivantii",
+      "germanName": "Sonnenhut",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Rudbeckia fulgida var. sullivantii",
+      "examListGermanName": "Sonnenhut",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Rudbeckia fulgida var. Sullivantii",
+          "germanName": "Sonnenhut"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Rudbeckia fulgida var. sullivantii VIII-X",
+      "germanName": "Sonnenhut",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Rudbeckia fulgida var. sullivantii VIII-X",
+      "examListGermanName": "Sonnenhut"
+    },
+    {
+      "botanicalName": "Rumohra adianthiformis",
+      "germanName": "Lederfarn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Rumohra adianthiformis",
+      "examListGermanName": "Lederfarn"
+    },
+    {
+      "botanicalName": "Sagina subulata",
+      "germanName": "Sternmoos",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Sagina subulata",
+      "examListGermanName": "Sternmoos"
+    },
+    {
+      "botanicalName": "Saintpaulia Ionantha-Hybriden",
+      "germanName": "Usambaraveilchen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Saintpaulia Ionantha-Hybriden",
+      "examListGermanName": "Usambaraveilchen"
+    },
+    {
+      "botanicalName": "Salix caprea 'Atlas'",
+      "germanName": "Kätzchen-Weide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Salix caprea 'Atlas'",
+      "examListGermanName": "Kätzchen-Weide",
+      "synonyms": [
+        "Salix caprea 'Mas'"
+      ]
+    },
+    {
+      "botanicalName": "Salix caprea 'Mas'",
+      "germanName": "Sal-Weide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Salix caprea 'Mas'",
+      "examListGermanName": "Sal-Weide",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Salix caprea 'Mas'",
+          "germanName": "Echte veredelte Sal-Weide"
+        },
+        {
+          "botanicalName": "Salix caprea 'mas'",
+          "germanName": "Sal-Weide"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Salix caprea 'Pendula'",
+      "germanName": "Hänge Sal-Weide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Salix caprea 'Pendula'",
+      "examListGermanName": "Hänge Sal-Weide",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Salix caprea 'Pendula'",
+          "germanName": "Sal-Weide"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Salix matsudana",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Salix matsudana"
+    },
+    {
+      "botanicalName": "Salix matsudana 'Tortuosa'",
+      "germanName": "Korkenzieher-Weide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Salix matsudana 'Tortuosa'",
+      "examListGermanName": "Korkenzieher-Weide"
+    },
+    {
+      "botanicalName": "Salix x sepulcralis",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Salix x sepulcralis"
+    },
+    {
+      "botanicalName": "Salix x sepulcralis 'Chrysocoma'",
+      "germanName": "Hänge-Weide, Trauer-Weide",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Salix x sepulcralis 'Chrysocoma'",
+      "examListGermanName": "Hänge-Weide, Trauer-Weide",
+      "synonyms": [
+        "Salix alba 'Tristis'"
+      ]
+    },
+    {
+      "botanicalName": "Salvia nemorosa 'Mainacht'",
+      "germanName": "Steppen-Salbei",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Salvia nemorosa 'Mainacht'",
+      "examListGermanName": "Steppen-Salbei"
+    },
+    {
+      "botanicalName": "Sansevieria trifasciata 'Laurentii'",
+      "germanName": "Schwiegermutterzunge",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Sansevieria trifasciata 'Laurentii'",
+      "examListGermanName": "Schwiegermutterzunge"
+    },
+    {
+      "botanicalName": "Scaevola saligna",
+      "germanName": "Spaltglocke",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Scaevola saligna",
+      "examListGermanName": "Spaltglocke"
+    },
+    {
+      "botanicalName": "Schlumbergera x buckleyi",
+      "germanName": "Weihnachtskaktus",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Schlumbergera x buckleyi",
+      "examListGermanName": "Weihnachtskaktus"
+    },
+    {
+      "botanicalName": "Scilla sibirica",
+      "germanName": "Sibirischer Blaustern",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Scilla sibirica",
+      "examListGermanName": "Sibirischer Blaustern"
+    },
+    {
+      "botanicalName": "Sedum 'Herbstfreude'",
+      "germanName": "Hohe Garten-Fetthenne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Sedum 'Herbstfreude'",
+      "examListGermanName": "Hohe Garten-Fetthenne",
+      "synonyms": [
+        "Sedum telephium 'Herbstfreude'"
+      ]
+    },
+    {
+      "botanicalName": "Sedum cauticola",
+      "germanName": "Fetthenne",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Sedum cauticola",
+      "examListGermanName": "Fetthenne"
+    },
+    {
+      "botanicalName": "Sedum floriferum 'Weihenstephaner Gold'",
+      "germanName": "Fetthenne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Sedum floriferum 'Weihenstephaner Gold'",
+      "examListGermanName": "Fetthenne",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Sedum floriferum 'Weihenstephaner Gold'",
+          "germanName": "Teppich-Sedum"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Sedum hybridum 'Immergrünchen'",
+      "germanName": "Mongolen-Mauerpf.",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Sedum hybridum 'Immergrünchen'",
+      "examListGermanName": "Mongolen-Mauerpf."
+    },
+    {
+      "botanicalName": "Sempervivum",
+      "germanName": "Dachwurz, Hauswurz",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Sempervivum",
+      "examListGermanName": "Dachwurz, Hauswurz"
+    },
+    {
+      "botanicalName": "Sempervivum Cultivars",
+      "germanName": "Dach- oder Hauswurz",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Sempervivum Cultivars",
+      "examListGermanName": "Dach- oder Hauswurz"
+    },
+    {
+      "botanicalName": "Sempervivum Hybriden",
+      "germanName": "Dachwurz",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Sempervivum Hybriden",
+      "examListGermanName": "Dachwurz"
+    },
+    {
+      "botanicalName": "Senecio Cruentus-Hybride",
+      "germanName": "Cinerarie",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Senecio Cruentus-Hybride",
+      "examListGermanName": "Cinerarie"
+    },
+    {
+      "botanicalName": "Skimmia japonica 'Rubella'",
+      "germanName": "Skimmie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Skimmia japonica 'Rubella'",
+      "examListGermanName": "Skimmie"
+    },
+    {
+      "botanicalName": "Solenostemon scuttelarioides",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Solenostemon scuttelarioides"
+    },
+    {
+      "botanicalName": "Solidago 'Strahlenkrone'",
+      "germanName": "Garten-Goldrute",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Solidago 'Strahlenkrone'",
+      "examListGermanName": "Garten-Goldrute",
+      "synonyms": [
+        "Solidago Hybride 'Strahlenkrone'"
+      ]
+    },
+    {
+      "botanicalName": "Sorbus intermedia 'Brouwers'",
+      "germanName": "Schwedische Mehlbeere, Oxelbeere",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Sorbus intermedia 'Brouwers'",
+      "examListGermanName": "Schwedische Mehlbeere, Oxelbeere"
+    },
+    {
+      "botanicalName": "Spiraea japonica 'Anthony Waterer'",
+      "germanName": "Niedriger Spierstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Spiraea japonica 'Anthony Waterer'",
+      "examListGermanName": "Niedriger Spierstrauch",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Spiraea japonica 'Anthony Waterer'",
+          "germanName": "Rote Sommer-Spiere"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Spiraea japonica 'Little Princess'",
+      "germanName": "Japan-Spierstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Spiraea japonica 'Little Princess'",
+      "examListGermanName": "Japan-Spierstrauch",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Spiraea japonica 'Little Princess'",
+          "germanName": "Rosa Zwerg-Spiere"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Stamm von",
+      "germanName": "Sträuchern Sta. Halbstamm ha. Hochstamm H. Alleebaum Al. Solitärgehölz Sol. leichte Heckenpflanze l.He. Heckenpflanze He. Forstgehölz F.",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Stamm von",
+      "examListGermanName": "Sträuchern Sta. Halbstamm ha. Hochstamm H. Alleebaum Al. Solitärgehölz Sol. leichte Heckenpflanze l.He. Heckenpflanze He. Forstgehölz F."
+    },
+    {
+      "botanicalName": "Stephanandra incisa 'Crispa'",
+      "germanName": "Niedere Kranzspiere",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Stephanandra incisa 'Crispa'",
+      "examListGermanName": "Niedere Kranzspiere"
+    },
+    {
+      "botanicalName": "Stiel rubra",
+      "germanName": "Amerikanische Rot-Eiche",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Stiel rubra",
+      "examListGermanName": "Amerikanische Rot-Eiche"
+    },
+    {
+      "botanicalName": "Streptocarpus x hybridus",
+      "germanName": "Drehfrucht",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Streptocarpus x hybridus",
+      "examListGermanName": "Drehfrucht"
+    },
+    {
+      "botanicalName": "Symphoricarpos albus var. laevigatus",
+      "germanName": "Schneebeere, Knallerbsenstrauch",
+      "rank": "variety",
+      "inDatabase": false,
+      "examListName": "Symphoricarpos albus var. laevigatus",
+      "examListGermanName": "Schneebeere, Knallerbsenstrauch"
+    },
+    {
+      "botanicalName": "Syn. Alyssum saxatile",
+      "germanName": "Steinkraut",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Alyssum saxatile",
+      "examListGermanName": "Steinkraut"
+    },
+    {
+      "botanicalName": "Syn. Corydalis lutea",
+      "germanName": "Gelber Lerchensporn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Corydalis lutea",
+      "examListGermanName": "Gelber Lerchensporn"
+    },
+    {
+      "botanicalName": "Syn. Cotula squalida",
+      "germanName": "Fiederpolster",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Cotula squalida",
+      "examListGermanName": "Fiederpolster"
+    },
+    {
+      "botanicalName": "Syn. Elymus arenarius",
+      "germanName": "Gewöhnlicher Strandroggen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Elymus arenarius",
+      "examListGermanName": "Gewöhnlicher Strandroggen"
+    },
+    {
+      "botanicalName": "Syn. Lychnis chalcedonica",
+      "germanName": "Brennende Liebe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Lychnis chalcedonica",
+      "examListGermanName": "Brennende Liebe"
+    },
+    {
+      "botanicalName": "Syn. Oenothera missouriensis",
+      "germanName": "Missouri-Nachtkerze",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Oenothera missouriensis",
+      "examListGermanName": "Missouri-Nachtkerze"
+    },
+    {
+      "botanicalName": "Syn. Polygonum affine",
+      "germanName": "Teppich-Wiesenknöterich",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syn. Polygonum affine",
+      "examListGermanName": "Teppich-Wiesenknöterich"
+    },
+    {
+      "botanicalName": "Syringa microphylla",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syringa microphylla"
+    },
+    {
+      "botanicalName": "Syringa microphylla 'Superba'",
+      "germanName": "Kleinblättriger Flieder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Syringa microphylla 'Superba'",
+      "examListGermanName": "Kleinblättriger Flieder"
+    },
+    {
+      "botanicalName": "Syringa vulgaris 'Charles Joly'",
+      "germanName": "Edel-Flieder",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Syringa vulgaris 'Charles Joly'",
+      "examListGermanName": "Edel-Flieder"
+    },
+    {
+      "botanicalName": "Syringa x chinensis",
+      "germanName": "`Saugeana`, Königs-Flieder",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Syringa x chinensis",
+      "examListGermanName": "`Saugeana`, Königs-Flieder"
+    },
+    {
+      "botanicalName": "Taraxacum sect. Ruderale",
+      "germanName": "Gewöhnlicher Löwenzahn",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Taraxacum sect. Ruderale",
+      "examListGermanName": "Gewöhnlicher Löwenzahn"
+    },
+    {
+      "botanicalName": "Taraxacum sect. Ruderalia",
+      "germanName": "Wiesen-Kuhblumen, Wiesen-Löwenzähne",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Taraxacum sect. Ruderalia",
+      "examListGermanName": "Wiesen-Kuhblumen, Wiesen-Löwenzähne",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Taraxacum sect. Ruderalia",
+          "germanName": "Wiesen-Löwenzahn, Wiesen-Kuhblume"
+        }
+      ],
+      "synonyms": [
+        "Taraxacum officinale agg."
+      ]
+    },
+    {
+      "botanicalName": "Taxus baccata 'Aureomarginata'",
+      "germanName": "Goldgelbe Säulen-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Aureomarginata'",
+      "examListGermanName": "Goldgelbe Säulen-Eibe"
+    },
+    {
+      "botanicalName": "Taxus baccata 'Dovastoniana'",
+      "germanName": "Adlerschwingen-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Dovastoniana'",
+      "examListGermanName": "Adlerschwingen-Eibe"
+    },
+    {
+      "botanicalName": "Taxus baccata 'Dovastonii Aurea'",
+      "germanName": "Gelbe Adlerschwingen-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Dovastonii Aurea'",
+      "examListGermanName": "Gelbe Adlerschwingen-Eibe"
+    },
+    {
+      "botanicalName": "Taxus baccata 'Fastiagata'",
+      "germanName": "Säulen-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Fastiagata'",
+      "examListGermanName": "Säulen-Eibe"
+    },
+    {
+      "botanicalName": "Taxus baccata 'Fastigiata Aureomarginata'",
+      "germanName": "Gelbbunte Säulen-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Fastigiata Aureomarginata'",
+      "examListGermanName": "Gelbbunte Säulen-Eibe"
+    },
+    {
+      "botanicalName": "Taxus baccata 'Repandens'",
+      "germanName": "Tafel-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Repandens'",
+      "examListGermanName": "Tafel-Eibe",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Taxus baccata 'Repandens'",
+          "germanName": "Kissen-Eibe, Tafel-Eibe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Taxus baccata 'Semperaurea'",
+      "germanName": "Gold-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus baccata 'Semperaurea'",
+      "examListGermanName": "Gold-Eibe"
+    },
+    {
+      "botanicalName": "Taxus cuspidata 'Nana'",
+      "germanName": "Japanische Zwerg-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus cuspidata 'Nana'",
+      "examListGermanName": "Japanische Zwerg-Eibe"
+    },
+    {
+      "botanicalName": "Taxus media",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Taxus media"
+    },
+    {
+      "botanicalName": "Taxus media 'Hicksii'",
+      "germanName": "Hecken-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus media 'Hicksii'",
+      "examListGermanName": "Hecken-Eibe"
+    },
+    {
+      "botanicalName": "Taxus x media",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Taxus x media",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Taxus x media",
+          "germanName": "Hybrid-Eibe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Taxus x media 'Hicksii'",
+      "germanName": "Becher-Eibe",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Taxus x media 'Hicksii'",
+      "examListGermanName": "Becher-Eibe",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Taxus x media 'Hicksii'",
+          "germanName": "Fruchtende Becher-Eibe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Thalictrum aquilegifolium",
+      "germanName": "Akeleiblättrige Wiesenraute",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Thalictrum aquilegifolium",
+      "examListGermanName": "Akeleiblättrige Wiesenraute"
+    },
+    {
+      "botanicalName": "Thuja canadensis 'Nana'",
+      "germanName": "Zwerg-Hemlockstanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Thuja canadensis 'Nana'",
+      "examListGermanName": "Zwerg-Hemlockstanne"
+    },
+    {
+      "botanicalName": "Thuja occidentalis 'Ellwangeriana'",
+      "germanName": "Gelber Lebensbaum",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Thuja occidentalis 'Ellwangeriana'",
+      "examListGermanName": "Gelber Lebensbaum"
+    },
+    {
+      "botanicalName": "Thuja occidentalis 'Recurva Nana'",
+      "germanName": "Kugel-Lebensbaum Tsuga Hemlockstanne, Pinaceae",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Thuja occidentalis 'Recurva Nana'",
+      "examListGermanName": "Kugel-Lebensbaum Tsuga Hemlockstanne, Pinaceae"
+    },
+    {
+      "botanicalName": "Thuja occidentalis 'Sunkist'",
+      "germanName": "Form des Lebensbaum",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Thuja occidentalis 'Sunkist'",
+      "examListGermanName": "Form des Lebensbaum"
+    },
+    {
+      "botanicalName": "Thuja plicata 'Atrovirens'",
+      "germanName": "Riesen-Lebensbaum",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Thuja plicata 'Atrovirens'",
+      "examListGermanName": "Riesen-Lebensbaum"
+    },
+    {
+      "botanicalName": "Thuja plicata 'Aurescens'",
+      "germanName": "Riesenlebensbaum",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Thuja plicata 'Aurescens'",
+      "examListGermanName": "Riesenlebensbaum"
+    },
+    {
+      "botanicalName": "Thymus serphyllum",
+      "germanName": "Sand-Thymian",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Thymus serphyllum",
+      "examListGermanName": "Sand-Thymian",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Thymus serphyllum",
+          "germanName": "Sand-Thymian, Feld-Thymian"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Tilia x europaea 'Pallida'",
+      "germanName": "Kaiser-Linde",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Tilia x europaea 'Pallida'",
+      "examListGermanName": "Kaiser-Linde"
+    },
+    {
+      "botanicalName": "Tillandsia lindenii",
+      "germanName": "Luftnelke",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Tillandsia lindenii",
+      "examListGermanName": "Luftnelke"
+    },
+    {
+      "botanicalName": "Tradescantia x andersoniana",
+      "germanName": "Dreimasterblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Tradescantia x andersoniana",
+      "examListGermanName": "Dreimasterblume"
+    },
+    {
+      "botanicalName": "Trollius 'Goldquelle'",
+      "germanName": "Garten-Trollblume",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Trollius 'Goldquelle'",
+      "examListGermanName": "Garten-Trollblume",
+      "synonyms": [
+        "Trollius x cultorum 'Goldquelle'"
+      ]
+    },
+    {
+      "botanicalName": "Tsuga canadensis 'Nana'",
+      "germanName": "Zwerg-Hemlockstanne",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Tsuga canadensis 'Nana'",
+      "examListGermanName": "Zwerg-Hemlockstanne"
+    },
+    {
+      "botanicalName": "Tulipa",
+      "germanName": "Garten-Tulpe",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Tulipa",
+      "examListGermanName": "Garten-Tulpe"
+    },
+    {
+      "botanicalName": "Tulipa Cultivars",
+      "germanName": "Garten-Tulpe",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Tulipa Cultivars",
+      "examListGermanName": "Garten-Tulpe",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Tulipa Cultivars",
+          "germanName": "Tulpe"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Ulmus 'Lobel'",
+      "germanName": "Schmalkronige Stadt-Ulme",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ulmus 'Lobel'",
+      "examListGermanName": "Schmalkronige Stadt-Ulme"
+    },
+    {
+      "botanicalName": "Ulmus 'New Horizon'Ⓢ (RESISTA®)",
+      "germanName": "Resista®-Ulme 'New Horizon'",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ulmus 'New Horizon'Ⓢ (RESISTA®)",
+      "examListGermanName": "Resista®-Ulme 'New Horizon'"
+    },
+    {
+      "botanicalName": "Ulmus carpinifolia",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Ulmus carpinifolia"
+    },
+    {
+      "botanicalName": "Ulmus carpinifolia 'Wredei'",
+      "germanName": "Gold-Ulme",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Ulmus carpinifolia 'Wredei'",
+      "examListGermanName": "Gold-Ulme"
+    },
+    {
+      "botanicalName": "Valerianella locusta",
+      "germanName": "Feldsalat, Rapunzel",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Valerianella locusta",
+      "examListGermanName": "Feldsalat, Rapunzel"
+    },
+    {
+      "botanicalName": "Verbena Hybriden",
+      "germanName": "Garten-Verbene",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Verbena Hybriden",
+      "examListGermanName": "Garten-Verbene",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Verbena Hybriden",
+          "germanName": "Garten-Verbenen"
+        }
+      ]
+    },
+    {
+      "botanicalName": "Veronica austriaca 'Knallblau'",
+      "germanName": "Großer Garten-Ehrenpreis",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Veronica austriaca 'Knallblau'",
+      "examListGermanName": "Großer Garten-Ehrenpreis"
+    },
+    {
+      "botanicalName": "Veronicastrum virginicum 'Diana'",
+      "germanName": "Kandelaberehrenpreis, Virginischer Arzneiehrenpreis",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Veronicastrum virginicum 'Diana'",
+      "examListGermanName": "Kandelaberehrenpreis, Virginischer Arzneiehrenpreis"
+    },
+    {
+      "botanicalName": "Viburnum x burkwoodii",
+      "germanName": "Hybrid-Schneeball",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Viburnum x burkwoodii",
+      "examListGermanName": "Hybrid-Schneeball"
+    },
+    {
+      "botanicalName": "Vitis",
+      "germanName": "Weinrebe, Tafeltraube, Weintraube",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Vitis",
+      "examListGermanName": "Weinrebe, Tafeltraube, Weintraube"
+    },
+    {
+      "botanicalName": "Vitis vinifera supsp. vinifera",
+      "germanName": "Tafeltrauben",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Vitis vinifera supsp. vinifera",
+      "examListGermanName": "Tafeltrauben"
+    },
+    {
+      "botanicalName": "Wegen der",
+      "germanName": "Vielzahl guter und bewährter Rosensorten, die in den einschlägigen",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Wegen der",
+      "examListGermanName": "Vielzahl guter und bewährter Rosensorten, die in den einschlägigen"
+    },
+    {
+      "botanicalName": "Weigela",
+      "germanName": "Weigelie, Glockenstrauch",
+      "rank": "genus",
+      "inDatabase": false,
+      "examListName": "Weigela",
+      "examListGermanName": "Weigelie, Glockenstrauch"
+    },
+    {
+      "botanicalName": "Weigela 'Bristol Ruby'",
+      "germanName": "Weigelie, Glockenstrauch",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Weigela 'Bristol Ruby'",
+      "examListGermanName": "Weigelie, Glockenstrauch"
+    },
+    {
+      "botanicalName": "Weigela florida 'Purpurea'",
+      "germanName": "Liebliche Weigelie",
+      "rank": "cultivar",
+      "inDatabase": false,
+      "examListName": "Weigela florida 'Purpurea'",
+      "examListGermanName": "Liebliche Weigelie"
+    },
+    {
+      "botanicalName": "Weigela Hybriden i.S.",
+      "germanName": "Weigelien",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Weigela Hybriden i.S.",
+      "examListGermanName": "Weigelien"
+    },
+    {
+      "botanicalName": "x Cupressocyparis leylandii",
+      "germanName": "Leylandzypresse, Grüne Baumzypresse",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "x Cupressocyparis leylandii",
+      "examListGermanName": "Leylandzypresse, Grüne Baumzypresse",
+      "synonyms": [
+        "x Cuprocyparis leylandii"
+      ]
+    },
+    {
+      "botanicalName": "Xanthophthalmum segetum",
+      "germanName": "Saat- Wucherblume",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Xanthophthalmum segetum",
+      "examListGermanName": "Saat- Wucherblume"
+    },
+    {
+      "botanicalName": "Zantedesschia aethiopica",
+      "germanName": "Zimmer-Kalla",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Zantedesschia aethiopica",
+      "examListGermanName": "Zimmer-Kalla"
+    },
+    {
+      "botanicalName": "Zusammenstellung der",
+      "germanName": "Listen: Fachverband Rheinischer Friedhofsgärtner im Landesverband Gartenbau Rheinland e.V. in Zusammenarbeit mit der Landwirtschaftskammer NRW Redaktion: Landesverband Gartenbau Rheinland e.V., Martin Walser Nomenklatur: Die Überprüfung der Listen hinsichtlich der Nomenklatur erfolgte durch Eugen Moll, Leiter des Botanischen Gartens der Stadt Köln i. R.",
+      "rank": "species",
+      "inDatabase": false,
+      "examListName": "Zusammenstellung der",
+      "examListGermanName": "Listen: Fachverband Rheinischer Friedhofsgärtner im Landesverband Gartenbau Rheinland e.V. in Zusammenarbeit mit der Landwirtschaftskammer NRW Redaktion: Landesverband Gartenbau Rheinland e.V., Martin Walser Nomenklatur: Die Überprüfung der Listen hinsichtlich der Nomenklatur erfolgte durch Eugen Moll, Leiter des Botanischen Gartens der Stadt Köln i. R.",
+      "examListNameVariants": [
+        {
+          "botanicalName": "Zusammenstellung der",
+          "germanName": "Listen: Fachverband Zierpflanzen im Landesverband Gartenbau Rheinland e.V. in Zusammenarbeit mit der Landwirtschaftskammer NRW Redaktion: Landesverband Gartenbau Rheinland e.V. Martin Walser Lutz Fischer Nomenklatur: Die Überprüfung der Listen hinsichtlich der Nomenklatur erfolgte durch Eugen Moll, Leiter des Botanischen Gartens der Stadt Köln i.R.. Grundlage ist der „Zander“"
+        }
+      ]
+    }
+  ]
+}
